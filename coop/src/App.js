@@ -1,19 +1,18 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-import Home from './Components/Home';
+import Home from './Pages/Home';
+
+import GlobalStyle from './styles/global';
 
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <GlobalStyle />
           <Switch >
             <Route path="/" component={Home} exact />
           </Switch>
-        <Footer />
       </BrowserRouter>
     </div>
   );
