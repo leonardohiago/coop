@@ -46,7 +46,7 @@ export const Container = styled.main`
       width: 354px;
 
       p {
-        color: #var(--preto);
+        color: var(--preto);
         font-size: 3em;
         font-weight: 700;
         line-height: 35px;
@@ -107,6 +107,5 @@ export const Container = styled.main`
         margin-left: 2px;
       }
     }
-  }
-  
+  } 
 `;
