@@ -8,7 +8,7 @@ import MenuDashboard from "../../Components/MenuDashboard";
 
 const DashboardHome = () => (
   <>
-    <Header />
+    <Header logado={true} />
 
     <Container>
       <MenuDashboard />
