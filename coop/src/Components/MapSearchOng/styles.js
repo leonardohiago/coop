@@ -9,9 +9,22 @@ export const Container = styled.div`
 
 export const Filtro = styled.div`
   margin-bottom: 16px;
+  display: flex;
 
-  select + select {
-    margin-left: 8px;
+  select {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--roxo);
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    background: var(--cinza);
+
+    &:last-child {
+      margin-left: 8px;
+      flex-grow: 1;
+    }
   }
 `;
 
@@ -26,7 +39,7 @@ export const Mapa = styled.div`
   justify-content: center;
   
   img {
-    height: 400px;
+    height: 390px;
   }
 `;
 

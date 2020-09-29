@@ -1,5 +1,6 @@
 import React from 'react'
-import { AiOutlineInfoCircle, AiOutlineWhatsApp, AiOutlineInstagram, AiFillFacebook} from 'react-icons/ai';
+import { AiOutlineInfoCircle, AiOutlineInstagram, AiFillFacebook} from 'react-icons/ai';
+import { FaWhatsapp } from 'react-icons/fa'
 import { MdMail, MdPhoneInTalk} from 'react-icons/md';
 
 import { Container, InfoOng, Contato, LabelNecessidade } from './styles';
@@ -16,7 +17,7 @@ const BoxOngResumo = () => (
       <Contato>
         <MdMail />
         <MdPhoneInTalk />
-        <AiOutlineWhatsApp />
+        <FaWhatsapp />
         <AiOutlineInstagram />
         <AiFillFacebook />
       </Contato>
