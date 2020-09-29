@@ -8,7 +8,7 @@ const coresNiveisNecessidades = {
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 448px;
+  min-width: 480px;
   border: solid 2px var(--roxo);
   border-radius: 10px;
 
@@ -75,6 +75,10 @@ export const LabelNecessidade = styled.div`
   border-radius: 16px;
   display: flex;
   align-items: center;
+
+  & + & {
+    margin-left: 8px;
+  }
 
   span {
     margin-left: 2px;
