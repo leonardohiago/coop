@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/coop-logo.png';
-import Button from '../../Components/Button';
+import Button from '../Button';
 import { Container, Content, Login } from './styles';
 
 const Header = () => {
