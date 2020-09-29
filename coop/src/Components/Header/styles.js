@@ -35,6 +35,9 @@ export const Content = styled.div`
 `;
 
 export const Login = styled.div`
+  display: flex;
+  align-items: center;
+  
   a {
     margin-right: 24px;
     font-weight: 700;

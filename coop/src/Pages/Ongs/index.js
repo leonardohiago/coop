@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Container } from "./styles";
+import { Container, ListLastOngs } from "./styles";
 
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
+import BoxOngResumo from '../../Components/BoxOngResumo';
 
 const Home = () => {
   return (
@@ -11,9 +12,16 @@ const Home = () => {
       <Header />
 
       <Container>
+        <ListLastOngs>
+          <h2>Últimas ONGs cadastradas</h2>
 
-      Principal
+          <BoxOngResumo />
+          <BoxOngResumo />
+          <BoxOngResumo />
+          <BoxOngResumo />
+        </ListLastOngs>
 
+        
       </Container>
 
       <Footer />

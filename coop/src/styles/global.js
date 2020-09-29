@@ -9,6 +9,7 @@ export default createGlobalStyle`
     --vermelho: #FD6060;
     --cinza: #ECECEC;
     --cinza-claro: #F9F9F9;
+    --cinza-escuro: #858585;
     --preto: #1C1C1C;
   }
 
