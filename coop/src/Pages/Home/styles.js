@@ -14,7 +14,7 @@ export const Container = styled.div`
   .botao_lado_esquerdo{
     margin-left: auto;
   }
-  
+
   section {
     display: flex;
     align-items: center;
