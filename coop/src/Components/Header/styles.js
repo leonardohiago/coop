@@ -8,9 +8,10 @@ export const Container = styled.header`
 
 export const Content = styled.div`
   width: 100%;
-  max-width: 1024px;
+  /* max-width: 1024px; */
+  max-width: ${props => props.logado === true ? '100%' : '1024px'};
   margin: 0 auto;
-
+  padding: ${props => props.logado === true ? '0 80px ' : '0 0 0 0'};
   display: flex;
   align-items: center;
   justify-content: space-between;

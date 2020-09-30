@@ -12,7 +12,7 @@ import Button from "../../Components/Button";
 const Home = () => {
   return (
     <>
-      <Header />
+      <Header logado={false} />
 
       <Container>
         <section>

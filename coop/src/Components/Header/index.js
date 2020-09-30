@@ -2,13 +2,14 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/coop-logo.png';
-import Button from '../../Components/Button';
+import Button from '../Button';
 import { Container, Content, Login } from './styles';
 
-const Header = () => {
+const Header = ({logado}) => {
+    console.log(logado);
     return (
         <Container>
-            <Content>
+            <Content logado={logado}>
                 <img src={logo} alt="Coop."/>
 
                 <nav>
@@ -27,13 +28,21 @@ const Header = () => {
                 </nav>
 
                 <Login>
-                    <NavLink to="/login" activeClassName="nav__link--active">
-                        Login
-                    </NavLink>
+                    {logado ? (
+                        <NavLink to="/login" activeClassName="nav__link--active">
+                            Sair
+                        </NavLink>    
+                    ) : (
+                        <>
+                            <NavLink to="/login" activeClassName="nav__link--active">
+                                Login
+                            </NavLink>
 
-                    <Button background="var(--roxo)" backgroundHover="var(--verde)">
-                        Cadastre sua ONG
-                    </Button>
+                            <Button background="var(--roxo)" backgroundHover="var(--verde)">
+                                Cadastre sua ONG
+                            </Button>
+                        </>
+                    )}
                 </Login>
             </Content>
         </Container>
