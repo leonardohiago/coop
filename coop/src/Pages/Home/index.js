@@ -2,11 +2,12 @@ import React from "react";
 
 import { Container } from "./styles";
 import imagem1 from "../../assets/imagem1.jpg";
-import imagem2 from "../../assets/imagem2.jpg";
+import imagem2 from "../../assets/imagem2.png";
 import imagem3 from "../../assets/imagem3.jpg";
+import imagem4 from "../../assets/imagem4.png";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
-import Button from '../../Components/Button';
+import Button from "../../Components/Button";
 
 const Home = () => {
   return (
@@ -23,8 +24,8 @@ const Home = () => {
               milhares de pessoas.
             </p>
 
-            <Button  background="var(--roxo)" backgroundHover="var(--verde)">
-                    Quero Colaborar
+            <Button className="botao_lado_esquerdo" background="var(--roxo)" backgroundHover="var(--verde)">
+              Quero Colaborar
             </Button>
           </div>
 
@@ -32,9 +33,7 @@ const Home = () => {
             <img src={imagem1} />
           </div>
         </section>
-      </Container>
 
-      <Container>
         <section>
           <div>
             <img src={imagem2} />
@@ -47,18 +46,13 @@ const Home = () => {
               de um só lugar. Ajudando diversas ONGs a continuarem com seus
               trabalhos sociais, através da doação dos nossos usuários.
             </p>
-          <div class= "teste">
+            <Button background="var(--roxo)" backgroundHover="var(--verde)">
               Quero Colaborar
+            </Button>
           </div>
-
-          </div>
-
         </section>
-      </Container>
 
-      <Container>
         <section>
-
           <div>
             <p class="titulo_lado_esquerdo">Como funciona</p>
             <p class="texto_lado_esquerdo">
@@ -69,77 +63,34 @@ const Home = () => {
               concretizar sua doação, seja ela qual for.
             </p>
 
-            <a class="botao_lado_esquerdo" href="#">
+            <Button className="botao_lado_esquerdo" background="var(--roxo)" backgroundHover="var(--verde)">
               Quero Colaborar
-            </a>
+            </Button>
           </div>
 
-          <div>
-            <img src={imagem2} />
-          </div>
-        
-        
-    
-        </section>
-
-
-      </Container>
-
-      
-
-      <Container>
-
-      <section>
           <div>
             <img src={imagem3} />
+          </div>
+        </section>
+
+        <section>
+          <div>
+            <img src={imagem4} />
           </div>
 
           <div>
             <p class="titulo_lado_direito">Responsáveis</p>
             <p class="texto_lado_direito">
-            Essa é a equipe responsável pela criação e desenvolvimento dessa
-            plataforma maravilhosa, que visa juntamente com sua ajuda, poder
-            melhorar a vida de milhares de pessoas..
+              Essa é a equipe responsável pela criação e desenvolvimento dessa
+              plataforma maravilhosa, que visa juntamente com sua ajuda, poder
+              melhorar a vida de milhares de pessoas.
             </p>
 
-            <a class="botao_lado_direito" href="#">
+            <Button background="var(--roxo)" backgroundHover="var(--verde)">
               Quero Colaborar
-            </a>
+            </Button>
           </div>
-        
-    
         </section>
-
-
-
-        {/* <div class="quadro4">
-          <div class="foto2_quadro4">
-            <div class="circuloG1"></div>
-            <div class="circuloG2"></div>
-            <div class="circuloG3"></div>
-            <div class="circuloG4"></div>
-            <div class="circuloP1"></div>
-            <div class="circuloP2"></div>
-            <div class="circuloP3"></div>
-            <div class="circuloP4"></div>
-            <div class="circuloP5"></div>
-
-            <div class="foto1_quadro4">
-              <div class="texto1_quadro4">Responsáveis</div>
-              <div class="texto2_quadro4">
-                Essa é a equipe responsável pela criação e desenvolvimento dessa
-                plataforma maravilhosa, que visa juntamente com sua ajuda, poder
-                melhorar a vida de milhares de pessoas..
-              </div>
-              <div class="botao1_quadro4">
-                <a href="#" class="texto3_quadro4">
-                  Quero Colaborar
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="fim_quadro4"></div>
-        </div> */}
       </Container>
 
       <Footer />
