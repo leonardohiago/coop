@@ -1,68 +1,79 @@
-import React from 'react';
-import { Container } from './styles';
+import React, { Component } from "react";
+import { Styled } from "./styles";
 
-const GroupCheckbox = () =>{
-    return (
-        <Container>
-            <div class="column-checkbox">
-                <label class="label-checkbox">
-                  <input class="checkbox-style" type="checkbox" name="money"/>
-                  Dinheiro
-                </label>
-                <label class="label-checkbox">
-                  <input class="checkbox-style" type="checkbox" name="food"/>
-                  Alimento
-                </label>
-                <label class="label-checkbox">
-                  <input class="checkbox-style" type="checkbox" name="ration"/>
-                  Ração
-                </label>
-                <label class="label-checkbox">
-                  <input class="checkbox-style" type="checkbox" name="electronics"/>
-                  Eletrônicos
-                </label>
-              </div>
+const Checkbox = () => {
+  return (
+    <Styled>
+      <div class="column-checkbox">
+        <label class="container item-position">
+          Dinheiro
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container item-position">
+          Alimento
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container item-position">
+          Ração
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container item-position">
+          Eletrônicos
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+      </div>
 
-              <div class="column-checkbox">
-                    <label class="label-checkbox">
-                      <input class="checkbox-style" type="checkbox" name="clothes"/>
-                      Roupa
-                    </label>
-                    <label class="label-checkbox">
-                      <input class="checkbox-style" type="checkbox" name="furniture"/>
-                      Móveis
-                    </label>
-                    <label class="label-checkbox">
-                      <input class="checkbox-style" type="checkbox" name="manpower"/>
-                      Mão de obra
-                    </label>
-                    <label class="label-checkbox">
-                      <input class="checkbox-style" type="checkbox" name="schoolsupplies"/>
-                      Material escolar
-                    </label>
-                  </div>
+      <div class="column-checkbox">
+        <label class="container item-position">
+          Roupa
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container item-position">
+          Móveis
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container item-position">
+          Mão de obra
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">
+          Material escolar
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+      </div>
 
-                  <div>
-                            <label class="label-checkbox">
-                              <input class="checkbox-style" type="checkbox" name="cleaningmaterial"/>
-                              Material limpeza
-                            </label>
-                            <label class="label-checkbox">
-                              <input class="checkbox-style" type="checkbox" name="constructionmaterial"/>
-                              Material construção
-                            </label>
-                            <label class="label-checkbox">
-                              <input class="checkbox-style" type="checkbox" name="hygienematerial"/>
-                              Material higiene
-                            </label>
-                            <label class="label-checkbox">
-                              <input class="checkbox-style" type="checkbox" name="others"/>
-                              Outros
-                            </label>
-                          </div>
-        </Container>
-
-    );
+      <div class="column-checkbox">
+        <label class="container">
+          Material limpeza
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">
+          Material construção
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">
+          Material higiene
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container item-position">
+          Outros
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </Styled>
+  );
 };
 
-export default GroupCheckbox;
+export default Checkbox;

@@ -1,60 +1,67 @@
-import React from 'react';
-import { Container } from './styles';
-import GroupCheckbox from '../../Components/Checkbox';
-import logo from '../../assets/coop-logo.png';
+import React from "react";
+import { Container } from "./styles";
+import Checkbox from "../../Components/Checkbox";
+import Button from "../../Components/Button";
+import logo from "../../assets/coop-logo.png";
 
-const Doacao = () =>{
- 
-    return(
-      <Container>
-        <section>
-          <img src={logo} alt=""/>
-          
-          <p className="row-paragraph-one">Confirme sua Doação</p>
-         
-          <form>
-          
+const Doacao = () => {
+  return (
+    <Container>
+      <section>
+        <img src={logo} alt="" />
+
+        <p className="row-paragraph-one">Confirme sua Doação</p>
+
+        <form>
           <div>
-          <label className="label-first-line" >Nome completo
-            <input className="input-style" type="text" name="fullname"/>
+            <label className="label-style">
+              Nome completo
+              <input className="input-style" type="text" />
             </label>
-            <label className="label-first-line">Whatsapp
-            <input className="input-style" type="text" name="contact"/>
-          </label>
+
+            <label className="label-style">
+              Whatsapp
+              <input className="input-style" type="text" />
+            </label>
           </div>
 
           <div>
             <p className="row-paragraph-two">O que deseja doar?</p>
           </div>
-         
-          <GroupCheckbox></GroupCheckbox>
-         
 
-          <div>
-          <label className="label-first-line">
+          <Checkbox></Checkbox>
+
+          <div className="row-date">
+            <label className="label-style">
               Data de Entrega da Doação
-          <input className="input-style" type="text" name="deliverydate" />
-          </label>
+              <input className="input-style" type="text" />
+            </label>
           </div>
 
           <div className="row">
-          <input class="buttom-style-confirm button" type="submit" value="Confirmar" />
-          <input class="buttom-style-cancel button" type="submit" value="Cancelar" />
+            <Button
+              className="button-size-font button-size button-font"
+              background="var(--verde)"
+              backgroundHover="var(--roxo)"
+            >
+              Confirmar
+            </Button>
+            <Button
+              className="button-size-font button-size button-font button-color-cancel"
+              background="var(--cinza)"
+              backgroundHover="var(--cinza-claro)"
+            >
+              Cancelar
+            </Button>
           </div>
+        </form>
+      </section>
 
-
-          </form>
-        
-
-        </section>
-
-        <aside>
-          <img  alt=""/>
-        </aside>
-      </Container>
-      
-       
-    );
+      <aside>
+        <img src="" alt="" />
+      </aside>
+    </Container>
+  );
 };
 
 export default Doacao;
