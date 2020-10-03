@@ -10,6 +10,9 @@ export const Container = styled.button`
   color: #fff;
   background: ${props => props.background};
   transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background: ${props => props.backgroundHover};
