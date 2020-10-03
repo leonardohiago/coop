@@ -6,7 +6,7 @@ import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
 import MenuDashboard from "../../Components/MenuDashboard";
 
-const DashboardHome = () => (
+const DashboardInicio = () => (
   <>
     <Header logado={true} />
 
@@ -22,4 +22,4 @@ const DashboardHome = () => (
   </>
 );
 
-export default DashboardHome;
+export default DashboardInicio;
