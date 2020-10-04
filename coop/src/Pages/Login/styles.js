@@ -12,7 +12,7 @@ export const Container = styled.main`
     display: flex;
     height: 100vh;
     justify-content: center;
-    width: 57vw;
+    width: 55vw;
 
     p {
       color: #FFF;
