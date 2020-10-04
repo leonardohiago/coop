@@ -6,6 +6,7 @@ import Ongs from './Pages/Ongs';
 import Login from './Pages/Login';
 import Doacao from './Pages/Doacao';
 import DashboardInicio from './Pages/DashboardIncio';
+import DashboardItem from './Pages/DashboardItens';
 import CadastroOng from './Pages/CadastroOng';import GlobalStyle from './styles/global';
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/ongs" component={Ongs} />
             <Route path="/doacao" component={Doacao} />
-            <Route path="/dashboard" component={DashboardInicio} exact />
+            <Route path="/dashboard/" component={DashboardInicio} exact />
+            <Route path="/dashboard/dados-da-ong" component={DashboardItem} exact />
 			      <Route path="/cadastrar-ong" component={CadastroOng} exact />          
           </Switch>
       </BrowserRouter>

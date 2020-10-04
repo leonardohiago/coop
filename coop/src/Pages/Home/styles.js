@@ -5,10 +5,13 @@ export const Container = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  
 
   img {
-    width: 400px;
-    height: 400px;
+    width:400px;
+    height:360px;
+    display: block;
+    margin:20px;
   }
 
   .botao_lado_esquerdo{
@@ -22,6 +25,7 @@ export const Container = styled.div`
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 30px;
+    
   }
 
   .titulo_lado_esquerdo {
@@ -67,4 +71,6 @@ export const Container = styled.div`
     color: #888888;
     margin-bottom: 30px;
   }
+
+
 `;

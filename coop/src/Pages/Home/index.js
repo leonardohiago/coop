@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Container } from "./styles";
-import imagem1 from "../../assets/imagem1.jpg";
-import imagem2 from "../../assets/imagem2.png";
-import imagem3 from "../../assets/imagem3.jpg";
+import initial from "../../assets/initial-form.png";
+import connection from "../../assets/connection-form.png";
+import question from "../../assets/question-form.png";
 import imagem4 from "../../assets/imagem4.png";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
@@ -30,13 +30,13 @@ const Home = () => {
           </div>
 
           <div>
-            <img src={imagem1} />
+            <img className="imagem1" src={initial} />
           </div>
         </section>
 
         <section>
           <div>
-            <img src={imagem2} />
+            <img src={connection} />
           </div>
 
           <div>
@@ -69,7 +69,7 @@ const Home = () => {
           </div>
 
           <div>
-            <img src={imagem3} />
+            <img src={question} />
           </div>
         </section>
 
