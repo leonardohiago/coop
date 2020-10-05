@@ -52,6 +52,12 @@ export default createGlobalStyle`
       tr {
         margin-bottom: 8px;
 
+        &:hover {
+          td {
+            background: var(--cinza);
+          }
+        }
+
         td {
           padding: 16px;
           background: var(--cinza-claro);
@@ -64,6 +70,7 @@ export default createGlobalStyle`
           }
 
           &:last-child {
+            text-align: center;
             border-right-style: solid var(--cinza-claro);
             border-top-right-radius: 15px; 
             border-bottom-right-radius: 15px;
