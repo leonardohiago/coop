@@ -32,8 +32,13 @@ export const ListLastActions = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 16px;
 
   h2 {
     width: 100%;
+  }
+
+  & > div {
+    width: calc(50% - 8px);
   }
 `;
