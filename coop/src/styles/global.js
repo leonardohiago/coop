@@ -32,4 +32,24 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  table {
+    border-collapse: separate; 
+    border-spacing: 0 8px;
+    
+    tbody {
+      tr {
+        margin-bottom: 8px;
+        background: var(--cinza-claro);
+
+        td {
+          padding: 16px;
+
+          &:first-child {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
 `;
