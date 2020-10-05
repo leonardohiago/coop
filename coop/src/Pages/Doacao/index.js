@@ -3,6 +3,7 @@ import { Container } from "./styles";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
 import logo from "../../assets/coop-logo.png";
+import obrigado from "../../assets/obrigado-vertical.png"
 
 const Doacao = () => {
   return (
@@ -58,7 +59,7 @@ const Doacao = () => {
       </section>
 
       <aside>
-        <img src="" alt="" />
+        <img src={obrigado} alt="" />
       </aside>
     </Container>
   );

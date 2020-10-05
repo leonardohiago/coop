@@ -12,6 +12,11 @@ section{
     flex-direction: column;
     padding: 2em 5.6em;
     width: 70vw;
+    
+    img {
+        height: 5.4em;
+        width: 13.2em;
+    }
 }
 
 aside{
@@ -19,12 +24,26 @@ aside{
     display: flex;
     height: 100vh;
     width: 30vw;
+    justify-content: center;
+   
+    img {
+        height: 60.5em;
+        width: 35.5em;
+    }
 }
 
 form{
     display: flex;
     flex-direction: column;
-    margin-top: 3%;
+    margin-top: 30px;
+
+    label{
+        color: var(--preto);
+        font-size: 1.8em;
+        font-weight: 400;
+        line-height: 21.09px;
+        margin-bottom: 0.6em;
+    }
 }
 
 .row-paragraph-one{
@@ -40,36 +59,22 @@ form{
     margin-bottom: 11px;
 }
 
-label{
-    color: var(--preto);
-    font-size: 1.8em;
-    font-weight: 400;
-    line-height: 21.09px;
-    margin-bottom: 0.6em;
-}
-
-section img {
-    height: 5.4em;
-    width: 13.2em;
-}
-      
-div{
-    width: 680px;
+div{ 
     display: flex;
-}
+    width: 53vw;
 
-.label-style{
-    display: flex;
-    flex-direction: column;
-    width: 197vw;
-}
-
-.input-style {
-    background-color: var(--cinza);
-    border-radius: 10px;
-    border-style: none;
-    height: 46px;
-    max-width: 315px;
+    .label-style{
+        display: flex;
+        flex-direction: column;
+        width: 197vw;
+    }
+    .input-style {
+        background-color: var(--cinza);
+        border-radius: 10px;
+        border-style: none;
+        height: 46px;
+        max-width: 315px;
+    }
 }
 
 .row-date{
