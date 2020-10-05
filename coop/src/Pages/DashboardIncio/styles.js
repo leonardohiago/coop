@@ -10,6 +10,7 @@ export const Content = styled.main`
   padding: 32px 48px;
 
   table {
+    min-width: 656px;
     margin-top: 24px;
   }
 `;
