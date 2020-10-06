@@ -6,7 +6,6 @@ import Button from '../Button';
 import { Container, Content, Login } from './styles';
 
 const Header = ({logado}) => {
-    console.log(logado);
     return (
         <Container>
             <Content logado={logado}>

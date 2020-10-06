@@ -32,4 +32,51 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  table {
+    border-collapse: separate; 
+    border-spacing: 0 8px;
+
+    thead {
+      th {
+        padding: 0 16px;
+        text-align: left;
+
+        &:last-child {
+          text-align: center;
+        }
+      }
+    }
+    
+    tbody {
+      tr {
+        margin-bottom: 8px;
+
+        &:hover {
+          td {
+            background: var(--cinza);
+          }
+        }
+
+        td {
+          padding: 16px;
+          background: var(--cinza-claro);
+
+          &:first-child {
+            font-weight: 700;
+            border-left-style: solid var(--cinza-claro);
+            border-top-left-radius: 15px; 
+            border-bottom-left-radius: 15px;
+          }
+
+          &:last-child {
+            text-align: center;
+            border-right-style: solid var(--cinza-claro);
+            border-top-right-radius: 15px; 
+            border-bottom-right-radius: 15px;
+          }
+        }
+      }
+    }
+  }
 `;
