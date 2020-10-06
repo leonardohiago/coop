@@ -11,6 +11,7 @@ import DashboardItem from './Pages/DashboardItens';
 import CadastroOng from './Pages/CadastroOng';import GlobalStyle from './styles/global';
 
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>

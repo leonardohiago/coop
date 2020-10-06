@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, Input, Form, Subtitle, Field, FieldGroup, Title, SubmitButton, Select, Option, ItemsGrid } from './styles';
+import { Content, Input, Form, Subtitle, Field, FieldGroup, Title, SubmitButton, Select, Option, ItemsGrid } from './styles';
 
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
+import Upload from '../../Components/Upload';
+import FileList from '../../Components/FileList';
+
 import axios from 'axios';
 
 const CadastroOng = () => {
@@ -315,6 +318,19 @@ const CadastroOng = () => {
                                     </li>
                                 ))}
                             </ItemsGrid>
+                        </FieldGroup>
+
+                        <Subtitle>Upload de imagens da ONG</Subtitle>
+
+                        <FieldGroup>
+                            <Field>
+                                <label>Anexe 5 imagens da ONG</label>
+                                <Content>
+                                    <Upload />
+                                    <FileList />
+                                </Content>
+                            </Field>
+                            
                         </FieldGroup>
 
                         <Subtitle>Dados do Cadastrante</Subtitle>

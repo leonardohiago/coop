@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const Content = styled.div`
+    width: 100%;
+    max-width: 914px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    padding: 20px;
+`;
+
 export const Container = styled.div`
   width: 100%;
   height: calc(100vh - 174px);
