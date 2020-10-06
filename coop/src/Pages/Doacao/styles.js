@@ -72,8 +72,9 @@ div{
         background-color: var(--cinza);
         border-radius: 10px;
         border-style: none;
-        height: 46px;
-        max-width: 315px;
+        height: 35px;
+        width: 280px;
+        padding: 16px 24px;
     }
 }
 
