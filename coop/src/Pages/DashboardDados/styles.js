@@ -1,80 +1,89 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    display: flex;
     width: 100%;
+}
+`;
+
+export const Section = styled.section` 
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.box{
     display: flex;
     flex-wrap: wrap;
-    
+    align-items: center;
+    margin-left: 100px;
 }
 
-.paragraph{
-    color: #var(--preto);
+.font-paragraph{
     font-size: 24px;
     font-weight: 700;
-    line-height: 31px;
-    margin-left: 130px;
-    height: 50px;
-    margin-top: 15px;
-    cursor: context-menu;
-}   
-
-form{
-    max-width: 1100px;
-    background: #FFF;
-    border-radius: 8px;
-    margin-top: 55px;
-    display: flex;
-    flex-direction: column;
-  
+    line-height: 31px;   
 }
 
-.caixa-button{
+p{
     display: flex;
-    justify-content: center;
-    width: 30vw;
-    height: 120px;
-    margin-left: 115px;
+    flex-wrap: wrap;
+    width: 38vw;
+    margin-left: 100px;
+    margin-bottom: 25px;
+    margin-top: 25px; 
+}
 
-    .button-size{
-        border-radius: 30px;
-        width: 159px;
-        height: 33px;    
-        margin: 0 1.5em 0 0;
-        margin-top: 15px;
-    }
-   
+label{
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+    heigth: 20px;
+    margin-top: 10px;
+}
+
+.color-readonly{
+    color: var(--cinza-escuro);
+}
+
+input[type="text"], input[type="email"]{
+    background: var(--cinza-claro);
+    border-style: none;
+    width: 320px;
+    height:35px;
+    border-radius: 10px;
+    padding: 16px 24px;
+}
+
+input, .color-input{
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+}
+
+.box-button{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 15vh;
+    width: 40vw;
+    margin-left: 100px;
+    padding-bottom: 120px;
+    margin-top: 15px;
 }
 
 .button-color-cancel{
     color: var(--vermelho);
 }
 
-.caixa{
-    display: flex;
-    justify-content: center;
-    width: 70vw;
-    height: 10vh;
-    flex-wrap: wrap;
-    margin: 0 auto;
-
-    label{
-        display: flex;
-        flex-direction: column;
-        width: 25vw;
-        height: 4vh;
-        margin: 0px 0px 0px 40px;
-    
-    input{
-        background: var(--cinza-claro);
-        border-radius: 10px;
-        border-style: none;
-        height: 35px;
-        width: 280px;
-        cursor: context-menu;
-        padding: 16px 24px;
-       
-        }
-    }
+.button-size{
+    border-radius: 30px;
+    width: 180px;
+    height: 33px;    
+    margin: 15px 30px 0px 0px;
+    padding: 10px;
+    font-size: 17px;         
 }
 
 `;
