@@ -16,6 +16,8 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  img { cursor: pointer; }
+
   a {
     font-size: 14px;
     text-decoration: none;

@@ -1,15 +1,17 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import logo from '../../assets/coop-logo.png';
 import Button from '../Button';
 import { Container, Content, Login } from './styles';
 
 const Header = ({logado, children}) => {
+    const history = useHistory();
+
     return (
         <Container>
             <Content logado={logado}>
-                <img src={logo} alt="Coop."/>
+                <img src={logo} alt="Coop." onClick={() => history.push('/')}/>
 
                 {children}
 
@@ -24,7 +26,10 @@ const Header = ({logado, children}) => {
                                 Login
                             </NavLink>
 
-                            <Button background="var(--roxo)" backgroundHover="var(--verde)">
+                            <Button 
+                                onClick={() => history.push('/cadastrar-ong')}
+                                background="var(--roxo)" 
+                                backgroundHover="var(--verde)">
                                 Cadastre sua ONG
                             </Button>
                         </>
