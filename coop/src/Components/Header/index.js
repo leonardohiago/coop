@@ -5,26 +5,13 @@ import logo from '../../assets/coop-logo.png';
 import Button from '../Button';
 import { Container, Content, Login } from './styles';
 
-const Header = ({logado}) => {
+const Header = ({logado, children}) => {
     return (
         <Container>
             <Content logado={logado}>
                 <img src={logo} alt="Coop."/>
 
-                <nav>
-                    <NavLink to="/" activeClassName="nav__link--active">
-                        Início
-                    </NavLink>
-                    <NavLink to="/quem-somos" activeClassName="nav__link--active">
-                        Quem somos
-                    </NavLink>
-                    <NavLink to="/como-funciona" activeClassName="nav__link--active">
-                        Como funciona
-                    </NavLink>
-                    <NavLink to="/responsaveis" activeClassName="nav__link--active">
-                        Responsáveis
-                    </NavLink>
-                </nav>
+                {children}
 
                 <Login>
                     {logado ? (
