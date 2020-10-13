@@ -8,6 +8,11 @@ export const Container = styled.main`
   justify-content: space-around;
   flex-wrap: wrap;
 
+  @media screen and (max-width:1024px) {
+    padding: 0 24px;
+    flex-direction: column;
+  }
+
   h2 {
     margin-bottom: 28px;
     font-size: 24px;
@@ -25,6 +30,11 @@ export const ListLastOngs = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width:1024px) {
+    max-width: 100%;
+    margin-bottom: 40px;
+  }
 `;
 
 export const ListLastActions = styled.div`
@@ -34,11 +44,19 @@ export const ListLastActions = styled.div`
   justify-content: space-between;
   gap: 16px;
 
+  @media screen and (max-width:1024px) {
+    width: 100%;
+  }
+
   h2 {
     width: 100%;
   }
 
   & > div {
     width: calc(50% - 8px);
+
+    @media screen and (max-width:1024px) {
+      width: calc(100% - 8px);
+    }
   }
 `;

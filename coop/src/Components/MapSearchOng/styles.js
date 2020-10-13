@@ -5,6 +5,10 @@ export const Container = styled.div`
   max-width: 400px;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width:1024px) {
+    max-width: 100%;
+  }
 `;
 
 export const Filtro = styled.div`

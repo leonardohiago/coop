@@ -12,6 +12,10 @@ export const Container = styled.div`
   border: solid 2px var(--roxo);
   border-radius: 10px;
 
+  @media screen and (max-width:480px) {
+    min-width: 100%;
+  }
+
   & + & {
     margin-top: 12px;
   }
@@ -32,11 +36,21 @@ export const Container = styled.div`
     padding: 14px 12px;
     display: flex;
 
+    @media screen and (max-width:480px) {
+      flex-wrap: wrap;
+    }
+
     button {
       max-width: 90px;
       margin-left: auto;
       height: 24px;
       font-size: 12px;
+
+      @media screen and (max-width:480px) {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 8px;
+      }
     }
   }
 `;
@@ -78,6 +92,10 @@ export const LabelNecessidade = styled.div`
 
   & + & {
     margin-left: 8px;
+  }
+
+  @media screen and (max-width:480px) {
+    margin: 0 8px;
   }
 
   span {
