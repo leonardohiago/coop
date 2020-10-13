@@ -1,54 +1,77 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, Section, Aside } from "./styles";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
 import logo from "../../assets/coop-logo.png";
-import obrigado from "../../assets/obrigado-vertical.png"
+import obrigado from "../../assets/obrigado-vertical.png";
 
 const Doacao = () => {
+  const [form, setForm] = React.useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(event);
+  }
+
+  function handleChange({ target }) {
+    const { id, value } = target;
+    setForm({ ...form, [id]: value });
+  }
+
   return (
     <Container>
-      <section>
-        <img src={logo} alt="" />
+      <Section>
+        <form onSubmit={handleSubmit}>
+          <img className="logo" src={logo} alt="logo" />
+          <p className="p-1">Confirme sua Doação</p>
 
-        <p className="row-paragraph-one">Confirme sua Doação</p>
-
-        <form>
           <div>
-            <label className="label-style">
+            <label>
               Nome completo
-              <input className="input-style" type="text" />
+              <input
+                type="text"
+                value={form.nome_completo}
+                onChange={handleChange}
+              />
             </label>
 
-            <label className="label-style">
+            <label>
               Whatsapp
-              <input className="input-style" type="text" />
+              <input
+                type="text"
+                value={form.whatsapp}
+                onChange={handleChange}
+              />
             </label>
           </div>
 
           <div>
-            <p className="row-paragraph-two">O que deseja doar?</p>
+            <p className="p-2">O que deseja doar?</p>
           </div>
 
           <Checkbox></Checkbox>
 
-          <div className="row-date">
-            <label className="label-style">
+          <div className="row-1">
+            <label>
               Data de Entrega da Doação
-              <input className="input-style" type="text" />
+              <input
+                type="text"
+                value={form.data_entrega}
+                onChange={handleChange}
+              />
             </label>
           </div>
 
-          <div className="row">
+          <div className="row-2">
             <Button
-              className="button-size-font button-size button-font"
+              className="button-size"
               background="var(--verde)"
               backgroundHover="var(--roxo)"
             >
               Confirmar
             </Button>
             <Button
-              className="button-size-font button-size button-font button-color-cancel"
+              className="button-size color-cancel"
               background="var(--cinza)"
               backgroundHover="var(--cinza-claro)"
             >
@@ -56,11 +79,11 @@ const Doacao = () => {
             </Button>
           </div>
         </form>
-      </section>
+      </Section>
 
-      <aside>
-        <img src={obrigado} alt="" />
-      </aside>
+      <Aside>
+        <img src={obrigado} alt="obrigado" />
+      </Aside>
     </Container>
   );
 };

@@ -1,30 +1,31 @@
 import styled from "styled-components";
 
-export const Styled = styled.div`
+export const GroupCheckbox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-top: 1%;
+  width:100%;
+  flex-wrap: wrap;
 }
 
-.container {
+label {
   display: flex;
   position: relative;
-  padding-left: 9%;
-  height: 7vh;
-  width: 15vw; 
+  padding-left: 60px;
+  height: 60px;
+  width: 165px; 
+  flex-wrap: wrap;
+  padding-top: 5px;
 }
 
-.item-position{
-  padding-top: 9px; 
+.item{
+  padding-top: 11px;
 }
 
-.container input {
+label input[type="checkbox"] {
   position: absolute;
   opacity: 0;
 }
   
-.checkmark {
+span {
   position: absolute;
   top: 0;
   left: 0;
@@ -32,29 +33,30 @@ export const Styled = styled.div`
   width: 45px;
   background-color: var(--cinza);
   border-radius: 10px;
-  box-sizing: border-box;
   cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
 }
   
-.checkmark:hover {
+span:hover {
   background-color: var(--cinza-claro);
 }
  
-.container input:checked ~ .checkmark {
+label input[type="checkbox"]:checked ~ span {
   background-color: var(--roxo);
 }
   
-.checkmark:after {
+span:after {
   content: "";
   position: absolute;
   display: none;
 }
   
-.container input:checked ~ .checkmark:after {
+label input:checked ~ span:after {
   display: block;
 }
   
-.container .checkmark:after {
+label span:after {
   left: 15px;
   top: 5px;
   width: 11px;
@@ -64,7 +66,5 @@ export const Styled = styled.div`
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-   
 }
-  
 `;

@@ -1,78 +1,148 @@
-import React from 'react';
-import { Styled } from "./styles";
+import React from "react";
+import { GroupCheckbox } from "./styles";
 
 const Checkbox = () => {
+  const [itens, setItens] = React.useState("");
+
+  function handleChange({ target }) {
+    if (target.checked) {
+      setItens([...itens, target.value]);
+    } else {
+      setItens(itens.filter((item) => item !== target.value));
+    }
+  }
+
   return (
-    <Styled>
-      <div class="column-checkbox">
-        <label class="container item-position">
+    <GroupCheckbox>
+      <div>
+        <label className="item">
           Dinheiro
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("1")}
+            value="1"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container item-position">
+        <label className="item">
           Alimento
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("2")}
+            value="2"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container item-position">
+        <label className="item">
           Ração
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("3")}
+            value="3"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container item-position">
+        <label className="item">
           Eletrônicos
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("4")}
+            value="4"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
       </div>
 
-      <div class="column-checkbox">
-        <label class="container item-position">
+      <div>
+        <label className="item">
           Roupa
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("5")}
+            value="5"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container item-position">
+        <label className="item">
           Móveis
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("6")}
+            value="6"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container item-position">
+        <label className="item">
           Mão de obra
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("7")}
+            value="7"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container">
+        <label>
           Material escolar
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("8")}
+            value="8"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
       </div>
 
-      <div class="column-checkbox">
-        <label class="container">
+      <div>
+        <label>
           Material limpeza
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("9")}
+            value="9"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container">
+        <label>
           Material construção
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("10")}
+            value="10"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container">
+        <label>
           Material higiene
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("11")}
+            value="11"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
-        <label class="container item-position">
+        <label className="item">
           Outros
-          <input type="checkbox" />
-          <span class="checkmark"></span>
+          <input
+            type="checkbox"
+            checked={itens.includes("12")}
+            value="12"
+            onChange={handleChange}
+          />
+          <span></span>
         </label>
       </div>
-    </Styled>
+    </GroupCheckbox>
   );
 };
 
