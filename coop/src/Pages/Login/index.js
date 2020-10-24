@@ -46,16 +46,16 @@ const Login = () => {
             <input type="password" name="senha" id="senha" />
           </div>
 
-          <Button  onClick={() => history.push('/dashboard')} background="var(--verde)" backgroundHover="var(--roxo)">
+          <Button onClick={() => history.push('/dashboard')} background="var(--verde)" backgroundHover="var(--roxo)">
             Acessar
           </Button>
         </form>
 
         <p>
           Não possui cadastro?
-          <span><a href="#">
+          <span onClick={() => history.push('/cadastrar-ong')}>
             Crie sua conta agora
-          </a></span>
+          </span>
         </p>
       </section>
     </Container>

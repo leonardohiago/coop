@@ -103,9 +103,14 @@ export const Container = styled.main`
       font-weight: 400;
       line-height: 14.06px;
 
-      a {
+      span {
+        cursor: pointer;
         color: var(--roxo);
         margin-left: 2px;
+        text-decoration: underline;
+      }
+      span:hover {
+        opacity: .8;
       }
     }
   } 
