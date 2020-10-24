@@ -82,6 +82,7 @@ export const Container = styled.main`
           border: none;
           border-radius: 1px;
           height: 46px;
+          padding-left: 20px;
           width: 354px;
         }
       }

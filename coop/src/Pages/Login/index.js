@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Container } from './styles';
 import Button from '../../Components/Button';
@@ -6,6 +7,8 @@ import Button from '../../Components/Button';
 import logo from '../../assets/coop-logo.png';
 
 const Login = () => {
+  const history = useHistory();
+
   return (
     <Container>
 
@@ -35,15 +38,15 @@ const Login = () => {
           <div>
             <label htmlFor="senha" className="label-senha">
               Senha
-              <span><a href="#">
+              {/* <span><a href="#">
                 Esqueceu a senha?
-              </a></span>
+              </a></span> */}
             </label>
           
             <input type="password" name="senha" id="senha" />
           </div>
 
-          <Button background="var(--verde)" backgroundHover="var(--roxo)">
+          <Button  onClick={() => history.push('/dashboard')} background="var(--verde)" backgroundHover="var(--roxo)">
             Acessar
           </Button>
         </form>
