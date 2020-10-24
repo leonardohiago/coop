@@ -112,6 +112,68 @@ export const Container = styled.main`
       span:hover {
         opacity: .8;
       }
-    }
+    } 
   } 
+
+  @media (max-width: 935px) {
+    flex-direction: column;
+
+    aside {
+      border-radius: 25px;
+      height: 20vh;
+  
+      p {
+        font-size: 2.8em;
+        text-align: start;
+        br {
+          display: none;
+        }
+      }
+    }
+
+    section {
+      height: 80vh;
+
+      img {
+        align-self: center;
+      }
+      p {
+        text-align: center;
+      }
+    }
+  }
+
+  @media (max-width: 870px) {
+    aside {
+      width: 80%;
+    }
+    section {
+      width: auto;
+    }
+  }
+
+  @media (max-width: 505px) {
+    aside {
+      width: 100%;
+
+      p {
+        font-size: 2em;
+        br {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 440px) {
+    aside {
+      p {
+        font-size: 1.8em;
+      }
+    }
+
+    section {
+      padding: 1em;
+    }
+  }
 `;
