@@ -82,7 +82,7 @@ const Doacao = () => {
       </Section>
 
       <Aside>
-        <img src={obrigado} alt="obrigado" />
+        <img className="logo-obrigado" src={obrigado} alt="obrigado" />
       </Aside>
     </Container>
   );

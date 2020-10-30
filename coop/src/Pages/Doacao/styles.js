@@ -60,13 +60,26 @@ export const Section = styled.section`
         border-radius: 30px;
         width: 187px;
         height: 39px;
-        margin:0 1.5em 0 0;    
+        margin:0 1.5em 0 0;   
+        margin-top: 15px; 
+    }
+
+    .box-button{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: 15vh;
+        width: 40vw;
+        margin-left: 100px;
+        padding-bottom: 120px;
+        margin-top: 15px;
     }
     
     .color-cancel{
         color: var(--vermelho);
     }   
 }
+
 `;
 
 export const Aside = styled.aside`
@@ -80,6 +93,8 @@ export const Aside = styled.aside`
         width: 400px;  
     }
 }
+
+
 `;
 
 export const Container = styled.main`
@@ -96,12 +111,34 @@ export const Container = styled.main`
     flex-wrap: wrap;
   }
 
-  @media (max-width: 792px) {
+  @media(max-width: 1200px) {
+    flex-direction: column;
+
+    .logo-obrigado{
+        -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+    .logo-obrigado{
+        width:300px;
+        height: 400px;
+        align-self: center;
+        margin-left: 45px; 
+    }
+
     aside {
-      display: none;
+      width: 400px;
+      position: absolute;
+      border-radius: 25px;
+      height: 20vh;
+      margin-top: 8px;
+      margin-left: 35px;
     }
-    section {
-      display: block;
+    form{
+        margin-top: 150px;
+        align-self: center;
+        width: 500px;
     }
+   
   }
 `;

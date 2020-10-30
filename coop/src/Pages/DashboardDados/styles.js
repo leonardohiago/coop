@@ -13,6 +13,14 @@ export const Section = styled.section`
     margin-top: 30px;
 }
 
+@media(max-width: 1000px) {
+    flex-direction: row;
+    form{
+        align-items: center; 
+        width: 100px;  
+    }
+}
+
 .box{
     display: flex;
     flex-wrap: wrap;
