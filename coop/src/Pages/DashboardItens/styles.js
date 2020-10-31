@@ -83,51 +83,6 @@ export const Field = styled.div`
   margin-bottom: 24px;
 `;
 
-export const FieldGroup = styled.div`
-    flex: 1;
-    display: flex;
-`;
-
-export const ItemsGrid = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  list-style: none;
-
-  li {
-    background: #5B25B1;
-    border: 2px solid #f5f5f5;
-    height: 140px;
-    width: 140;
-    border-radius: 20px;
-    padding: 32px 24px 32px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    span {
-      flex: 1;
-      margin-top: 15px;
-    
-      display: flex;
-      align-items: center;
-      color: white;
-      font-size: 12px;
-    }
-    
-    li.selected {
-      background: #E1FAEC;
-      border: 2px solid #34CB79;
-    }
-  }
-`;
-
 export const FieldButtons = styled.div`
   flex: 1;
   
