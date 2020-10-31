@@ -10,7 +10,8 @@ const DashboardDados = () => {
     nome_Ong: "ONG Ação Vida",
     cnpj: "00.806.666/0001-31",
     email: "ongacaovida@gmail.com",
-    whatapps: "(81) 9 9999-9999",
+    whatsapp: "(81) 9 9999-9999",
+    senha: "loremipsum",
     sobre: "Ong destinada a ajuda de pessoas que m",
     area_atuacao: "Geral",
     facebook: "https://www.facebook.com/ongacaovida",
@@ -41,7 +42,7 @@ const DashboardDados = () => {
 
             <div className="box">
               <label className="color-readonly">
-                Nome da ONG*
+                Nome da ONG
                 <input
                   type="text"
                   className="color-readonly"
@@ -64,7 +65,7 @@ const DashboardDados = () => {
 
             <div className="box">
               <label>
-                E-mail*
+              <span>E-mail<span className="required">*</span></span>
                 <input
                   type="email"
                   className="color-input"
@@ -73,10 +74,10 @@ const DashboardDados = () => {
                 />
               </label>
               <label>
-                Whatsapp*
+              <span>Whatsapp<span className="required">*</span></span>
                 <input
                   type="text"
-                  value={form.whatapps}
+                  value={form.whatsapp}
                   onChange={handleChange}
                 />
               </label>
@@ -84,7 +85,27 @@ const DashboardDados = () => {
 
             <div className="box">
               <label>
-                Sobre*
+                <span>Senha<span className="required">*</span></span>
+                <input
+                  type="password"
+                  className="color-input"
+                  value={form.senha}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                <span>Confirmação da Senha<span className="required">*</span></span>
+                <input
+                  type="password"
+                  value={form.senha}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+
+            <div className="box">
+              <label>
+              <span>Sobre<span className="required">*</span></span>
                 <input type="text" value={form.sobre} onChange={handleChange} />
               </label>
               <label>
@@ -99,7 +120,7 @@ const DashboardDados = () => {
 
             <div className="box">
               <label>
-                Facebook*
+                <span>Facebook<span className="required">*</span></span>
                 <input
                   type="text"
                   value={form.facebook}
@@ -120,7 +141,7 @@ const DashboardDados = () => {
 
             <div className="box">
               <label>
-                Logradouro*
+              <span>Logradouro<span className="required">*</span></span>
                 <input
                   type="text"
                   value={form.logradouro}
@@ -128,7 +149,7 @@ const DashboardDados = () => {
                 />
               </label>
               <label>
-                Número*
+              <span>Número<span className="required">*</span></span>
                 <input
                   type="text"
                   value={form.numero}
@@ -147,14 +168,14 @@ const DashboardDados = () => {
                 />
               </label>
               <label>
-                CEP*
+              <span>CEP<span className="required">*</span></span>
                 <input type="text" value={form.cep} onChange={handleChange} />
               </label>
             </div>
 
             <div className="box">
               <label>
-                Estado*
+              <span>Estado<span className="required">*</span></span>
                 <input
                   type="text"
                   value={form.estado}
@@ -162,7 +183,7 @@ const DashboardDados = () => {
                 />
               </label>
               <label>
-                Cidade*
+              <span>Cidade<span className="required">*</span></span>
                 <input
                   type="text"
                   value={form.cidade}

@@ -66,7 +66,7 @@ const DashboardInicio = () => {
           <Form>
             <Field>
               <Upload />
-              <label htmlFor="legendaPubl" style={{padding: "10px 0"}}>Legenda</label>
+              <label htmlFor="legendaPubl" style={{padding: "10px 0"}}>Legenda<span style={{color: "var(--roxo)", fontWeight: "700"}}>*</span></label>
               <Input
                 type="text"
                 id="legendaPubl"

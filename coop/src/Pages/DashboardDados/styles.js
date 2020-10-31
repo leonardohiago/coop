@@ -51,11 +51,16 @@ label{
     margin-top: 10px;
 }
 
+.required {
+    color: #5B25B1;
+    font-weight: 700;
+}
+
 .color-readonly{
     color: var(--cinza-escuro);
 }
 
-input[type="text"], input[type="email"]{
+input[type="text"], input[type="email"], input[type="password"]{
     background: var(--cinza-claro);
     border-style: none;
     width: 320px;
