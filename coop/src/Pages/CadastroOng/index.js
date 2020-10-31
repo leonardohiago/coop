@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Content, Input, Form, Subtitle, Field, FieldGroup, Title, SubmitButton, Select, Option, ItemsGrid } from './styles';
+import { Content, Input, Form, Subtitle, Field, FieldGroup, Title, SubmitButton, Select, Option, ItemsGrid, CancelButton, FieldButtons } from './styles';
 
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
@@ -350,8 +350,11 @@ const CadastroOng = () => {
                                 />
                             </Field>                          
                         </FieldGroup>
-
-                        <SubmitButton>Confirmar</SubmitButton>
+                        
+                        <FieldButtons>
+                            <SubmitButton>Confirmar</SubmitButton>
+                            <CancelButton>Cancelar</CancelButton>
+                        </FieldButtons>
 
                     </form>
 
