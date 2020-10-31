@@ -100,4 +100,6 @@ export const Container = styled.div`
   }
 `;
 
-export const Content = styled.main``;
+export const Content = styled.main`
+  margin: 0 auto;
+`;

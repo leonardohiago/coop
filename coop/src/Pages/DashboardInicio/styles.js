@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.main`
-  width: 100%;
+  margin: 0 auto;
   padding: 32px 48px;
 
   table {

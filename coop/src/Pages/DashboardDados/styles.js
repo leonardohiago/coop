@@ -10,7 +10,7 @@ export const Section = styled.section`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 30px;
+    margin: 30px auto 0;
 }
 
 @media(max-width: 1000px) {
