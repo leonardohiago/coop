@@ -6,74 +6,12 @@ import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import Upload from '../../Components/Upload';
 import FileList from '../../Components/FileList';
+import ItensDoacao from "../../Components/ItensDoacao";
+
 
 import axios from 'axios';
 
 const CadastroOng = () => {
-
-    const doacoes = [
-        {
-            src: '',
-            nome: 'Dinheiro',
-            id: 1,
-        },
-        {
-            src: '',
-            nome: 'Alimento',
-            id: 2,
-        },
-        {
-            src: '',
-            nome: 'Ração',
-            id: 3,
-        },
-        {
-            src: '',
-            nome: 'Eletrônicos',
-            id: 4,
-        },
-        {
-            src: '',
-            nome: 'Roupa',
-            id: 5,
-        },
-        {
-            src: '',
-            nome: 'Móveis',
-            id: 6,
-
-        },
-        {
-            src: '',
-            nome: 'Mão de Obra',
-            id: 7,
-        },
-        {
-            src: '',
-            nome: 'Material Escolar',
-            id: 8,
-        },
-        {
-            src: '',
-            nome: 'Material de Limpeza',
-            id: 9,
-        },
-        {
-            src: '',
-            nome: 'Material de Construção',
-            id: 10,
-        },
-        {
-            src: '',
-            nome: 'Material de Higiene',
-            id: 11,
-        },
-        {
-            src: '',
-            nome: 'Outro',
-            id: 12,
-        },
-    ]
 
     const [form, setForm] = React.useState({
         nomeOng: '',
@@ -309,16 +247,7 @@ const CadastroOng = () => {
 
                         <Subtitle>Itens de doação para ONG</Subtitle>
 
-                        <FieldGroup>
-                            <ItemsGrid>
-                                {doacoes.map(({ id, nome, src }) => (
-                                    <li key={id}>
-                                        <img src={src}/>
-                                        <span>{nome}</span>
-                                    </li>
-                                ))}
-                            </ItemsGrid>
-                        </FieldGroup>
+                       <ItensDoacao />
 
                         <Subtitle>Upload de imagens da ONG</Subtitle>
 

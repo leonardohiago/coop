@@ -16,6 +16,7 @@ export const ItemsGrid = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   list-style: none;
+  margin: 0 auto;
 
   li {
     background: #5b25b1;
