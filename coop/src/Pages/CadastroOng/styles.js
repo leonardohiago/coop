@@ -85,6 +85,11 @@ export const Field = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
+
+  label span {
+    color: var(--roxo);
+    font-weight: 700;
+  }
 `;
 
 export const FieldGroup = styled.div`

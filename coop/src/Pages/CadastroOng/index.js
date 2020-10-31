@@ -97,7 +97,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="nomeOng">Nome da Ong</label>
+                                <label htmlFor="nomeOng">Nome da Ong<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="nomeOng"
@@ -119,7 +119,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                            <label htmlFor="emailOng">E-mail</label>
+                            <label htmlFor="emailOng">E-mail<span>*</span></label>
                                 <Input
                                     type="email"
                                     id="emailOng"
@@ -129,7 +129,7 @@ const CadastroOng = () => {
                             </Field>
 
                             <Field>
-                            <label htmlFor="whatsappOng">Whatsapp</label>
+                            <label htmlFor="whatsappOng">Whatsapp<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="whatsappOng"
@@ -141,7 +141,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                            <label htmlFor="senhaOng">Senha</label>
+                            <label htmlFor="senhaOng">Senha<span>*</span></label>
                                 <Input
                                     type="password"
                                     id="senhaOng"
@@ -151,7 +151,7 @@ const CadastroOng = () => {
                             </Field>
 
                             <Field>
-                            <label htmlFor="confirmSenhaOng">Confirmação da Senha</label>
+                            <label htmlFor="confirmSenhaOng">Confirmação da Senha<span>*</span></label>
                                 <Input
                                     type="password"
                                     id="confirmSenhaOng"
@@ -163,7 +163,7 @@ const CadastroOng = () => {
                         
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="sobre">Sobre</label>
+                                <label htmlFor="sobre">Sobre<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="sobre"
@@ -173,7 +173,7 @@ const CadastroOng = () => {
                             </Field>
 
                             <Field>
-                                <label htmlFor="areaAtuacao">Área de Atuação</label>
+                                <label htmlFor="areaAtuacao">Área de Atuação<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="areaAtuacao"
@@ -185,7 +185,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="facebook">Facebook</label>
+                                <label htmlFor="facebook">Facebook<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="facebook"
@@ -208,7 +208,7 @@ const CadastroOng = () => {
                         
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="logradouro">Logradouro</label>
+                                <label htmlFor="logradouro">Logradouro<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="logradouro"
@@ -217,7 +217,7 @@ const CadastroOng = () => {
                                 />
                             </Field>
                             <Field>
-                                <label htmlFor="numero">Número</label>
+                                <label htmlFor="numero">Número<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="numero"
@@ -238,7 +238,7 @@ const CadastroOng = () => {
                                 />
                             </Field>
                             <Field>
-                                <label htmlFor="cep">CEP</label>
+                                <label htmlFor="cep">CEP<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="cep"
@@ -250,7 +250,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="estado">Estado</label>
+                                <label htmlFor="estado">Estado<span>*</span></label>
                                 <Select name="estado" id="estado" value={selectedUf} onChange={handleSelectUf}>
                                     <Option value="0">Selecione uma UF</Option>
                                     {ufs.map(uf => (
@@ -259,7 +259,7 @@ const CadastroOng = () => {
                                 </Select>
                             </Field>
                             <Field>
-                                <label htmlFor="cidade">Cidade</label>
+                                <label htmlFor="cidade">Cidade<span>*</span></label>
                                 <Select name="cidade" id="cidade" value={selectedCidade} onChange={handleSelectCidade}>
                                     <Option value="0">Selecione uma Cidade</Option>
                                     {cidades.map(cidade => (
@@ -290,7 +290,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="nomeCompleto">Nome Completo</label>
+                                <label htmlFor="nomeCompleto">Nome Completo<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="nomeCompleto"
@@ -299,7 +299,7 @@ const CadastroOng = () => {
                                 />
                             </Field>
                             <Field>
-                                <label htmlFor="dataNascimento">Data de Nascimento</label>
+                                <label htmlFor="dataNascimento">Data de Nascimento<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="dataNascimento"
@@ -311,7 +311,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="emailCadastrante">E-mail</label>
+                                <label htmlFor="emailCadastrante">E-mail<span>*</span></label>
                                 <Input
                                     type="email"
                                     id="emailCadastrante"
@@ -332,7 +332,7 @@ const CadastroOng = () => {
 
                         <FieldGroup>
                             <Field>
-                                <label htmlFor="trabalhaOng">Trabalha na ONG?</label>
+                                <label htmlFor="trabalhaOng">Trabalha na ONG?<span>*</span></label>
                                 <Input
                                     type="text"
                                     id="trabalhaOng"
