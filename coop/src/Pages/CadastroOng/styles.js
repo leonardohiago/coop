@@ -65,7 +65,7 @@ export const Option = styled.option`
 
 export const Title = styled.h1`
   flex: 1;
-  margin-bottom: 60px;
+  // margin-bottom: 60px;
   text-align: center;
   font-size: 36px;
 `;

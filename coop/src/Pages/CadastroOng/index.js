@@ -18,6 +18,8 @@ const CadastroOng = () => {
         CNPJ: '',
         emailOng: '',
         whatsappOng: '',
+        senhaOng: '',
+        confirmSenhaOng: '',
         sobre: '',
         areaAtuacao: '',
         facebook: '',
@@ -132,6 +134,28 @@ const CadastroOng = () => {
                                     type="text"
                                     id="whatsappOng"
                                     value={form.whatsappOng}
+                                    onChange={handleChange}
+                                />
+                            </Field>
+                        </FieldGroup>
+
+                        <FieldGroup>
+                            <Field>
+                            <label htmlFor="senhaOng">Senha</label>
+                                <Input
+                                    type="password"
+                                    id="senhaOng"
+                                    value={form.senhaOng}
+                                    onChange={handleChange}
+                                />
+                            </Field>
+
+                            <Field>
+                            <label htmlFor="confirmSenhaOng">Confirmação da Senha</label>
+                                <Input
+                                    type="password"
+                                    id="confirmSenhaOng"
+                                    value={form.confirmSenhaOng}
                                     onChange={handleChange}
                                 />
                             </Field>
