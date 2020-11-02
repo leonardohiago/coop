@@ -53,6 +53,13 @@ export const Container = styled.main`
         text-align: left;
       }
 
+      .error {
+        color: red;
+        font-size: 1.5em;
+        font-weight: 700;
+        text-align: left;
+      }
+
       div {
         display: flex;
         flex-direction: column;

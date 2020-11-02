@@ -8,6 +8,13 @@ export const Container = styled.main`
 
   div.banner-ong {
     margin-top: 30px;
+    width: 100%;
+  }
+
+  .banner {
+    border-radius: 20px;
+    height: inherit;
+    width: 100%;
   }
 
   img.logo-ong {
@@ -22,13 +29,14 @@ export const Container = styled.main`
 
   section {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 50px;
     width: 860px;
   }
 
   p.informacoes-ong {
-    margin-top: 5px;
+    margin: 5px 0 18px;
   }
 
   Button {
@@ -57,6 +65,17 @@ export const CardOng = styled.div`
 
     color: var(--cinza-escuro);
   }
+
+  @media (max-width: 795px) {
+    margin: 0 auto;
+    width: auto;
+  }
+  @media (max-width: 450px) {
+    width: 320px;
+    .informacoes-ong {
+      width: 300px;
+    }
+  }
 `;
 
 export const ListLastActions = styled.div`
@@ -68,6 +87,14 @@ export const ListLastActions = styled.div`
   h2 {
     margin: 0 0 20px 26px;
     width: 50%;
+  }
+
+  @media (max-width: 795px) {
+    margin: 20px auto 0;
+  }
+
+  @media (max-width: 450px) {
+    width: 320px;
   }
 `;
 

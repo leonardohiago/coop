@@ -1,10 +1,11 @@
 import React from 'react'
-import { AiOutlineInfoCircle, AiOutlineInstagram, AiFillFacebook} from 'react-icons/ai';
+import { AiOutlineInstagram, AiFillFacebook} from 'react-icons/ai';
 import { FaWhatsapp } from 'react-icons/fa'
 import { MdMail, MdPhoneInTalk} from 'react-icons/md';
 
-import { Container, InfoOng, Contato, LabelNecessidade } from './styles';
+import { Container, InfoOng, Contato } from './styles';
 import Button from '../Button';
+import ItensNecessarios from '../ItensNecessarios';
 
 const BoxOngResumo = () => (
   <Container>
@@ -26,25 +27,7 @@ const BoxOngResumo = () => (
     <hr/>
 
     <footer>
-      <LabelNecessidade necessidade="baixa">
-        <AiOutlineInfoCircle />
-        <span>Fralda</span>
-      </LabelNecessidade>
-
-      <LabelNecessidade necessidade="media">
-        <AiOutlineInfoCircle />
-        <span>Remédio</span>
-      </LabelNecessidade>
-
-      <LabelNecessidade necessidade="alta">
-        <AiOutlineInfoCircle />
-        <span>Alimento </span>
-      </LabelNecessidade>
-
-      <LabelNecessidade necessidade="baixa">
-        <AiOutlineInfoCircle />
-        <span>Pessoa</span>
-      </LabelNecessidade>
+      <ItensNecessarios />
 
       <Button background="var(--verde)" backgroundHover="var(--roxo)">
         Colaborar
