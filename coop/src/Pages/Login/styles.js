@@ -83,6 +83,22 @@ export const Container = styled.main`
             line-height: 14.06px;
           }
         }
+        
+        div {
+          position: relative;
+        }
+
+        i {
+          color: var(--verde);
+          cursor: pointer;
+          position: absolute;
+          right: 10px;
+          top: 12px;
+        }
+
+        i:hover {
+          color: var(--roxo);
+        }
 
         input {
           background-color: var(--cinza);

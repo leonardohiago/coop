@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { CgDanger } from "react-icons/cg";
@@ -7,11 +7,19 @@ import { Container } from './styles';
 import Button from '../../Components/Button';
 
 import logo from '../../assets/coop-logo.png';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
 
 const Login = () => {
   const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm();
+
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
 
   { /*TODO: se ja tiver logado, n pede mais o login */}
   function onSubmit(data) {
@@ -65,19 +73,22 @@ const Login = () => {
                 Esqueceu a senha?
               </a></span> */}
             </label>
-          
-            <input
-              type="password"
-              name="senha"
-              id="senha"
-              ref={register({
-                required: "Por favor, preencha o campo.",
-                pattern: {
-                  value: /^.{6,}$/,
-                    message: "A senha deve possuir mais que 6 caracteres.",
-                  },
-                })}
-            />
+              
+            <div>
+              <input
+                type={passwordShown ? "text" : "password"}
+                name="senha"
+                id="senha"
+                ref={register({
+                  required: "Por favor, preencha o campo.",
+                  pattern: {
+                    value: /^.{6,}$/,
+                      message: "A senha deve possuir mais que 6 caracteres.",
+                    },
+                  })}
+              />
+              <i onClick={togglePasswordVisiblity}>{passwordShown ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}</i>
+            </div>
 
             {errors.senha && <p className="error"><CgDanger color="red" size={16} /> {errors.senha.message}</p>}
           </div>
