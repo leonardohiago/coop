@@ -5,7 +5,7 @@ import { Container } from "./styles";
 import initial from "../../assets/initial-form.png";
 import connection from "../../assets/connection-form.png";
 import question from "../../assets/question-form.png";
-import imagem4 from "../../assets/imagem4.png";
+import equipe from "../../assets/equipe.png";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
@@ -18,15 +18,15 @@ const Home = () => {
   const history = useHistory();
 
   function handleClickQueroColaborar() {
-    history.push('/ongs');
+    history.push("/ongs");
   }
 
   function handleScroll(e, ref) {
     e.preventDefault();
 
     ref.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
+      behavior: "smooth",
+      block: "start",
     });
   }
 
@@ -35,42 +35,47 @@ const Home = () => {
       <Header logado={false}>
         <nav>
           <a href="/" onClick={(e) => handleScroll(e, sectionColabore)}>
-              Início
+            Início
           </a>
           <a href="/" onClick={(e) => handleScroll(e, sectionQuemSomos)}>
-              Quem somos
+            O que é o Coop ?
           </a>
           <a href="/" onClick={(e) => handleScroll(e, sectionComoFunciona)}>
-              Como funciona
+            Como funciona
           </a>
           <a href="/" onClick={(e) => handleScroll(e, sectionResponsaveis)}>
-              Responsáveis
+            Responsáveis
           </a>
         </nav>
       </Header>
 
       <Container>
-        <section ref={sectionColabore}>
-          <div>
-            <p className="titulo_lado_esquerdo">Colabore com o trabalho de ONGs</p>
-            <p className="texto_lado_esquerdo">
-              Através da nossa plataforma você pode cooperar com o trabalho de
-              diversas ONGs brasileiras, colaborando com a melhora da vida de
-              milhares de pessoas.
-            </p>
+        <section className="teste">
+          <section ref={sectionColabore}>
+            <div>
+              <p className="titulo_lado_esquerdo">
+                Colabore com o trabalho de ONGs
+              </p>
+              <p className="texto_lado_esquerdo">
+                Através da nossa plataforma você pode cooperar com o trabalho de
+                diversas ONGs brasileiras, colaborando com a melhora da vida de
+                milhares de pessoas.
+              </p>
 
-            <Button 
-              onClick={handleClickQueroColaborar}
-              className="botao_lado_esquerdo" 
-              background="var(--roxo)" 
-              backgroundHover="var(--verde)">
-              Quero Colaborar
-            </Button>
-          </div>
+              <Button
+                onClick={handleClickQueroColaborar}
+                className="botao_lado_esquerdo"
+                background="var(--roxo)"
+                backgroundHover="var(--verde)"
+              >
+                Quero Colaborar
+              </Button>
+            </div>
 
-          <div>
-            <img className="imagem1" src={initial} alt="" />
-          </div>
+            <div>
+              <img className="imagem1" src={initial} alt="" />
+            </div>
+          </section>
         </section>
 
         <section ref={sectionQuemSomos}>
@@ -79,16 +84,17 @@ const Home = () => {
           </div>
 
           <div>
-            <p className="titulo_lado_direito">Quem somos</p>
+            <p className="titulo_lado_direito">O que é o Coop ?</p>
             <p className="texto_lado_direito">
               Coop é uma plataforma gratuíta que conecta pessoas à ONGs dentro
               de um só lugar. Ajudando diversas ONGs a continuarem com seus
               trabalhos sociais, através da doação dos nossos usuários.
             </p>
-            <Button 
+            <Button
               onClick={handleClickQueroColaborar}
-              background="var(--roxo)" 
-              backgroundHover="var(--verde)">
+              background="var(--roxo)"
+              backgroundHover="var(--verde)"
+            >
               Quero Colaborar
             </Button>
           </div>
@@ -105,11 +111,12 @@ const Home = () => {
               concretizar sua doação, seja ela qual for.
             </p>
 
-            <Button 
+            <Button
               onClick={handleClickQueroColaborar}
-              className="botao_lado_esquerdo" 
-              background="var(--roxo)" 
-              backgroundHover="var(--verde)">
+              className="botao_lado_esquerdo"
+              background="var(--roxo)"
+              backgroundHover="var(--verde)"
+            >
               Quero Colaborar
             </Button>
           </div>
@@ -121,7 +128,7 @@ const Home = () => {
 
         <section ref={sectionResponsaveis}>
           <div>
-            <img src={imagem4} alt="" />
+            <img className="equipe" src={equipe} alt=" " />
           </div>
 
           <div>
@@ -129,15 +136,39 @@ const Home = () => {
             <p className="texto_lado_direito">
               Essa é a equipe responsável pela criação e desenvolvimento dessa
               plataforma maravilhosa, que visa juntamente com sua ajuda, poder
-              melhorar a vida de milhares de pessoas.
+              melhorar a vida de milhares de pessoas.Entre os integrantes da
+              equipe estão (cima para baixo){" "}
+              <button className="nomes">
+                <a href="https://www.linkedin.com/in/jussara-andrade-731731142?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BObBdvfQCShC8cGHBmjWm%2Bg%3D%3D">
+                  Jussara
+                </a>
+              </button>
+              ,{" "}
+              <button className="nomes">
+                <a href="https://www.linkedin.com/in/leonardo-hiago-a398001a7?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpcE0WYdiSbicM6H92WsQYg%3D%3D">
+                  Leonardo
+                </a>
+              </button>
+              ,{" "}
+              <button className="nomes">
+                <a href="https://www.linkedin.com/in/vinicius-sedrim-b776a5158?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B39c%2F4S1FT8K3oklksXlKVQ%3D%3D">
+                  Vinicius
+                </a>
+              </button>
+              ,{" "}
+              <button className="nomes">
+                <a href="https://www.linkedin.com/in/samuel-damasceno-filho-84ab1313a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BnoKnyz%2F6Twac6ETuc%2Bd80g%3D%3D">
+                  Samuel
+                </a>
+              </button>{" "}
+              e{" "}
+              <button className="nomes">
+                <a href="https://www.linkedin.com/in/rayannebertolacelima?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BxG7auYDsRbGhv5rSifkjzw%3D%3D">
+                  Rayanne
+                </a>
+              </button>
+              .
             </p>
-
-            <Button 
-              onClick={handleClickQueroColaborar}
-              background="var(--roxo)" 
-              backgroundHover="var(--verde)">
-              Quero Colaborar
-            </Button>
           </div>
         </section>
       </Container>

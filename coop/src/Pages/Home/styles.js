@@ -1,11 +1,25 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
+  max-width: 100%;
   align-items: center;
   display: flex;
-  flex-direction: column;
-  
+  flex-wrap: wrap;
+
+a{
+  font-weight: bold;
+  color:#5B25B1;
+  text-decoration: none;
+}
+
+a:hover{
+  color:#18B087;
+}
+
+.nomes{
+  background: none;
+  border: 0px;
+}
 
   img {
     width:400px;
@@ -70,6 +84,13 @@ export const Container = styled.div`
     text-align: left;
     color: #888888;
     margin-bottom: 30px;
+  }
+
+  .equipe{
+
+    width:400px;
+    height:550px;
+
   }
 
 

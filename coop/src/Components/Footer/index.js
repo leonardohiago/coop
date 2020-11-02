@@ -11,9 +11,9 @@ const Footer = () => {
                 <img src={logo} alt="Coop."/>
 
                 <RedesSociais>
-                    <AiFillFacebook color="#fff" size={24} />
-                    <AiOutlineTwitter color="#fff" size={24} />
-                    <AiOutlineInstagram color="#fff" size={24} />
+                    <a href = "https://www.facebook.com/ongs.tms.9"> <AiFillFacebook color="#fff" size={24} /> </a>
+                    <a href = "https://www.facebook.com/ongs.tms.9"><AiOutlineTwitter color="#fff" size={24} /> </a>
+                    <a href = "https://www.facebook.com/ongs.tms.9"><AiOutlineInstagram color="#fff" size={24} /> </a>
                 </RedesSociais>
             </Content>
         </Container>
