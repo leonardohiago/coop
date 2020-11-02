@@ -72,7 +72,11 @@ const Login = () => {
               id="senha"
               ref={register({
                 required: "Por favor, preencha o campo.",
-              })}
+                pattern: {
+                  value: /^.{6,}$/,
+                    message: "A senha deve possuir mais que 6 caracteres.",
+                  },
+                })}
             />
 
             {errors.senha && <p className="error"><CgDanger color="red" size={16} /> {errors.senha.message}</p>}

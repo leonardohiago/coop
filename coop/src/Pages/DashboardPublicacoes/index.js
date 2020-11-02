@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Container, StatusDoacoes, BoxStatus, ButtonDoado, Content, Input, Form, Field, SubmitButton, CancelButton, FieldButtons } from './styles';
 
-
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
 import MenuDashboard from "../../Components/MenuDashboard";
