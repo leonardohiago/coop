@@ -104,11 +104,10 @@ const Home = () => {
           <div>
             <p className="titulo_lado_esquerdo">Como funciona</p>
             <p className="texto_lado_esquerdo">
-              Por meio da nossa plataforma você consegue encontrar perfis com
-              informações das ONGs de todo o Brasil, inclusive as que estão mais
-              próximas de onde você mora. Após você encontrar a ONG que deseja
-              realizar a doação, você pode entrar em contato com a mesma e
-              concretizar sua doação, seja ela qual for.
+            Acesse a pagina Ongs clicando em Quero Colaborar,
+            escolha a Ong para qual deseja fazer a doação,
+            clique em Colaborar e por fim,escolha o quando quer doar.
+            Pronto, com sua cooperação muitas pessoas serão ajudadas.
             </p>
 
             <Button
