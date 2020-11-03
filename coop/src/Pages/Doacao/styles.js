@@ -43,17 +43,15 @@ export const Section = styled.section`
     }
     
     .p-2{
-        margin-bottom: 11px;
-        margin-top: 12px;
+        margin-bottom: 10px;
+        margin-top: 10px;
     }
   
-    .row-1{
-        margin-top: 15px;
-    }
+    
 
     .row-2{
         display: flex;
-        padding-top: 22px;
+        padding-top: 10px;
     }
     
     .button-size{
@@ -61,7 +59,7 @@ export const Section = styled.section`
         width: 187px;
         height: 39px;
         margin:0 1.5em 0 0;   
-        margin-top: 15px; 
+        margin-top: 2px; 
     }
 
     .box-button{
