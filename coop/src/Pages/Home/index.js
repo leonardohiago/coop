@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <>
-      <Header logado={false}>
+      <Header className="tela" logado={false}>
         <nav>
           <a href="/" onClick={(e) => handleScroll(e, sectionColabore)}>
             Início
