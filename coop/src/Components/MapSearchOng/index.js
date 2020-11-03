@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import GoogleMapReact from 'google-map-react'
 
 import { Container, Filtro, Mapa, AvisoSelecioneCidade } from './styles';
-import mapImg from '../../assets/map_example.png';
 
-const Map = () => {
-  const [cidadeSelecionada, setCidadeSelecionada] = useState(false);
+const MapSearchOng = () => {
+  const [cidadeSelecionada, setCidadeSelecionada] = useState(true);
+  const [localUsuario, setLocalUsuario] = useState({
+      lat: -13.7026315,
+      lng: -69.688677,
+    });
+  const [zoomLevel, setZoomLevel] = useState(2);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(({coords: {latitude: lat, longitude: lng}}) => {
+      setLocalUsuario({
+        lat: lat,
+        lng: lng
+      });
+
+      setZoomLevel(14);
+    });
+  }, []);
 
   return (
     <Container>
@@ -23,16 +39,23 @@ const Map = () => {
       </Filtro>
 
       <Mapa>
-        <img src={mapImg} alt="Mapa"/>
-
         {!cidadeSelecionada && (
           <AvisoSelecioneCidade>
             <span>Selecione uma cidade</span>
           </AvisoSelecioneCidade>
         )}
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: 'INSIRA AQUI A API KEY' }}
+          defaultCenter={localUsuario}
+          defaultZoom={zoomLevel}
+          center={localUsuario}
+          zoom={zoomLevel}
+        >
+        </GoogleMapReact>
       </Mapa>
+
     </Container>
   );
 }
 
-export default Map;
+export default MapSearchOng;

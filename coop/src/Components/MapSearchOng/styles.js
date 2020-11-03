@@ -35,6 +35,8 @@ export const Filtro = styled.div`
 export const Mapa = styled.div`
   position: relative;
   width: 100%;
+  height: 100%;
+  min-height: 400px;
   border: solid 2px var(--roxo);
   border-radius: 10px;
   overflow: hidden;
@@ -57,6 +59,7 @@ export const AvisoSelecioneCidade = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9000;
 
   span {
     font-size: 24px;
