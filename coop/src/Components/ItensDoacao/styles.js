@@ -17,6 +17,7 @@ export const ItemsGrid = styled.ul`
   gap: 16px;
   list-style: none;
   margin: 0 auto;
+  
 
   li {
     background: #5b25b1;
@@ -34,6 +35,13 @@ export const ItemsGrid = styled.ul`
     text-align: center;
 
     cursor: pointer;
+
+    &:hover{
+
+      box-shadow: 0 0 30px #FFA500;
+      transition: 0.3s;
+  }
+  
 
     span {
       flex: 1;

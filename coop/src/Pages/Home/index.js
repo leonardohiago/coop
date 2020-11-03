@@ -137,7 +137,7 @@ const Home = () => {
               Essa é a equipe responsável pela criação e desenvolvimento dessa
               plataforma maravilhosa, que visa juntamente com sua ajuda, poder
               melhorar a vida de milhares de pessoas.Entre os integrantes da
-              equipe estão (cima para baixo){" "}
+              equipe estão (cima para baixo):{" "}
               <button className="nomes">
                 <a href="https://www.linkedin.com/in/jussara-andrade-731731142?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BObBdvfQCShC8cGHBmjWm%2Bg%3D%3D">
                   Jussara

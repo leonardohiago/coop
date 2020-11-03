@@ -72,6 +72,8 @@ export const Subtitle = styled.h2`
   align-items: center;
   margin: 0 0 20px;
   font-size: 24px;
+
+
 `;
 
 
@@ -81,6 +83,8 @@ export const Field = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
+
+
 `;
 
 export const FieldButtons = styled.div`
@@ -89,6 +93,9 @@ export const FieldButtons = styled.div`
   display: flex;
   margin: 24px 0;
   width: 656px;
+
+
+
 `;
 
 export const SubmitButton = styled.button`
