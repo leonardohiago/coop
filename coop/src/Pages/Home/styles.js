@@ -6,6 +6,10 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
 
+.tela{
+  background: fixed;
+}  
+
 a{
   font-weight: bold;
   color:#5B25B1;
