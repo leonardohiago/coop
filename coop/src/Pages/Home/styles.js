@@ -93,5 +93,31 @@ a:hover{
 
   }
 
+  @media(max-width: 700px){
+      img{
+        width:50vw;
+        height:50vw;
+        display: flex;
+
+      }
+
+      section{
+        width: 300px;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: center;
+
+      }
+
+      .titulo_lado_direito, .titulo_lado_esquerdo{
+        margin-left: auto;
+        margin-right: auto;
+        width: 9em;
+      }
+
+  }
 
 `;

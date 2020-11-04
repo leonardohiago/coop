@@ -130,7 +130,7 @@ const Home = () => {
             <img className="equipe" src={equipe} alt=" " />
           </div>
 
-          <div>
+          <div className="responsaveis">
             <p className="titulo_lado_direito">Responsáveis</p>
             <p className="texto_lado_direito">
               Essa é a equipe responsável pela criação e desenvolvimento dessa
