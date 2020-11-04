@@ -18,6 +18,13 @@ export const Content = styled.div`
 
 export const RedesSociais = styled.div`
   svg {
+    color: #fff;
     margin-right: 8px;
+  }
+  a {
+    text-decoration: none;
+  }
+  svg:hover {
+    color: var(--verde);
   }
 `;

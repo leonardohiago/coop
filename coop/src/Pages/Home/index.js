@@ -38,7 +38,7 @@ const Home = () => {
             Início
           </a>
           <a href="/" onClick={(e) => handleScroll(e, sectionQuemSomos)}>
-            O que é o Coop ?
+            O que é o Coop?
           </a>
           <a href="/" onClick={(e) => handleScroll(e, sectionComoFunciona)}>
             Como funciona
@@ -50,8 +50,8 @@ const Home = () => {
       </Header>
 
       <Container>
-        <section className="teste">
-          <section ref={sectionColabore}>
+        <section ref={sectionColabore}>
+          <section className="section-one">
             <div>
               <p className="titulo_lado_esquerdo">
                 Colabore com o trabalho de ONGs
@@ -84,11 +84,11 @@ const Home = () => {
           </div>
 
           <div>
-            <p className="titulo_lado_direito">O que é o Coop ?</p>
+            <p className="titulo_lado_direito">O que é o Coop?</p>
             <p className="texto_lado_direito">
-              Coop é uma plataforma gratuíta que conecta pessoas à ONGs dentro
+              Coop é uma plataforma gratuita que conecta pessoas à ONGs dentro
               de um só lugar. Ajudando diversas ONGs a continuarem com seus
-              trabalhos sociais, através da doação dos nossos usuários.
+              trabalhos sociais, através da sua doação.
             </p>
             <Button
               onClick={handleClickQueroColaborar}
@@ -104,10 +104,10 @@ const Home = () => {
           <div>
             <p className="titulo_lado_esquerdo">Como funciona</p>
             <p className="texto_lado_esquerdo">
-            Acesse a pagina Ongs clicando em Quero Colaborar,
-            escolha a Ong para qual deseja fazer a doação,
-            clique em Colaborar e por fim,escolha o quando quer doar.
-            Pronto, com sua cooperação muitas pessoas serão ajudadas.
+            Acesse a página Ongs clicando em "Quero Colaborar";
+            Escolha a Ong para qual deseja fazer a doação;
+            Clique em "Colaborar" e, por fim, escolha o quê e quando deseja doar.
+            Pronto! Sua colaboração pode mudar o mundo de muitas pessoas.
             </p>
 
             <Button
@@ -133,36 +133,35 @@ const Home = () => {
           <div className="responsaveis">
             <p className="titulo_lado_direito">Responsáveis</p>
             <p className="texto_lado_direito">
-              Essa é a equipe responsável pela criação e desenvolvimento dessa
-              plataforma maravilhosa, que visa juntamente com sua ajuda, poder
-              melhorar a vida de milhares de pessoas.Entre os integrantes da
-              equipe estão (cima para baixo):{" "}
+              Esta é a equipe responsável pela criação e desenvolvimento desta
+              plataforma, que visa, juntamente com sua ajuda, poder
+              melhorar a vida de milhares de pessoas. Os integrantes são:{" "}
               <button className="nomes">
-                <a href="https://www.linkedin.com/in/jussara-andrade-731731142?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BObBdvfQCShC8cGHBmjWm%2Bg%3D%3D">
+                <a href="https://www.linkedin.com/in/jussara-andrade-731731142?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BObBdvfQCShC8cGHBmjWm%2Bg%3D%3D" target="_blank">
                   Jussara
                 </a>
               </button>
               ,{" "}
               <button className="nomes">
-                <a href="https://www.linkedin.com/in/leonardo-hiago-a398001a7?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpcE0WYdiSbicM6H92WsQYg%3D%3D">
+                <a href="https://www.linkedin.com/in/leonardo-hiago-a398001a7?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BpcE0WYdiSbicM6H92WsQYg%3D%3D" target="_blank">
                   Leonardo
                 </a>
               </button>
               ,{" "}
               <button className="nomes">
-                <a href="https://www.linkedin.com/in/vinicius-sedrim-b776a5158?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B39c%2F4S1FT8K3oklksXlKVQ%3D%3D">
+                <a href="https://www.linkedin.com/in/vinicius-sedrim-b776a5158?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B39c%2F4S1FT8K3oklksXlKVQ%3D%3D" target="_blank">
                   Vinicius
                 </a>
               </button>
               ,{" "}
               <button className="nomes">
-                <a href="https://www.linkedin.com/in/samuel-damasceno-filho-84ab1313a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BnoKnyz%2F6Twac6ETuc%2Bd80g%3D%3D">
+                <a href="https://www.linkedin.com/in/samuel-damasceno-filho-84ab1313a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BnoKnyz%2F6Twac6ETuc%2Bd80g%3D%3D" target="_blank">
                   Samuel
                 </a>
               </button>{" "}
               e{" "}
               <button className="nomes">
-                <a href="https://www.linkedin.com/in/rayannebertolacelima?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BxG7auYDsRbGhv5rSifkjzw%3D%3D">
+                <a href="https://www.linkedin.com/in/rayannebertolacelima?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BxG7auYDsRbGhv5rSifkjzw%3D%3D" target="_blank">
                   Rayanne
                 </a>
               </button>

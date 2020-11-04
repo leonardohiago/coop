@@ -4,7 +4,7 @@ export const Container = styled.div`
   max-width: 100%;
   align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 
 .tela{
   background: fixed;
@@ -32,6 +32,10 @@ a:hover{
     margin:20px;
   }
 
+  .imagem1 {
+    width: 420px;
+  }
+
   .botao_lado_esquerdo{
     margin-left: auto;
   }
@@ -43,7 +47,11 @@ a:hover{
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 30px;
-    
+    height: 100vh;    
+  }
+
+  .section-one {
+    margin-top: 120px;
   }
 
   .titulo_lado_esquerdo {
@@ -91,10 +99,7 @@ a:hover{
   }
 
   .equipe{
-
-    width:400px;
-    height:550px;
-
+    height: 550px;
   }
 
   @media(max-width: 700px){
@@ -120,6 +125,14 @@ a:hover{
         margin-left: auto;
         margin-right: auto;
         width: 9em;
+      }
+
+      .equipe{
+        height: auto;
+      }
+
+      .responsaveis {
+        width: 100%;
       }
 
   }
