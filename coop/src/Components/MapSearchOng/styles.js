@@ -48,22 +48,3 @@ export const Mapa = styled.div`
     height: 390px;
   }
 `;
-
-export const AvisoSelecioneCidade = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.65);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9000;
-
-  span {
-    font-size: 24px;
-    font-weight: 900;
-    color: var(--roxo);
-  }
-`;

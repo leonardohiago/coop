@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { Container, ListLastOngs, ListLastActions } from "./styles";
+import { Container, ListLastOngs, ListLastActions } from './styles';
 
-import Header from "../../Components/Header";
-import Footer from "../../Components/Footer";
+import Header from '../../Components/Header';
+import Footer from '../../Components/Footer';
 import BoxOngResumo from '../../Components/BoxOngResumo';
 import MapSearchOng from '../../Components/MapSearchOng';
 import BoxOngLastAction from '../../Components/BoxOngLastAction';
