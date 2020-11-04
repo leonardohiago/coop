@@ -33,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <BurguerMenu className="tela" logado={false}>
+      <HeaderHome className="tela" logado={false}>
         <nav>
           <a href="/" onClick={(e) => handleScroll(e, sectionColabore)}>
             Início
@@ -48,7 +48,7 @@ const Home = () => {
             Responsáveis
           </a>
         </nav>
-      </BurguerMenu>
+      </HeaderHome>
 
       <Container>
         <section ref={sectionColabore}>
