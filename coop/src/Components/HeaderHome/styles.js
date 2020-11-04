@@ -4,6 +4,8 @@ export const Container = styled.header`
   width: 100%;
   padding: 8px 0;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  background: #fff;
 `;
 
 export const Content = styled.div`
@@ -15,18 +17,23 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   img { cursor: pointer; }
+
   a {
     font-size: 14px;
     text-decoration: none;
     color: var(--preto);
+
     &:hover {
       color: var(--roxo);
     }
   }
+
   a + a {
     margin-left: 24px;
   }
+
   .nav__link--active {
     font-weight: 700;
   }

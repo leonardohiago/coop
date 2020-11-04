@@ -6,7 +6,8 @@ import initial from "../../assets/initial-form.png";
 import connection from "../../assets/connection-form.png";
 import question from "../../assets/question-form.png";
 import equipe from "../../assets/equipe.png";
-import Header from "../../Components/Header";
+import HeaderHome from "../../Components/HeaderHome";
+import BurguerMenu from "../../Components/BurguerMenu";
 import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
 
@@ -32,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <Header className="tela" logado={false}>
+      <BurguerMenu className="tela" logado={false}>
         <nav>
           <a href="/" onClick={(e) => handleScroll(e, sectionColabore)}>
             Início
@@ -47,7 +48,7 @@ const Home = () => {
             Responsáveis
           </a>
         </nav>
-      </Header>
+      </BurguerMenu>
 
       <Container>
         <section ref={sectionColabore}>
