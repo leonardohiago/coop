@@ -10,30 +10,74 @@ import Button from "../../Components/Button";
 
 import logo from "../../assets/coop-logo.png";
 import obrigado from "../../assets/obrigado-vertical.png";
-import { useHistory } from "react-router-dom";
+
+import api from '../../services/api';
+import { render } from "@testing-library/react";
 
 const Doacao = () => {
-  const history = useHistory();
- 
-  const {register, handleSubmit, errors} = useForm();
-
+  
+ /*
+ const {register, handleSubmit, errors} = useForm();
   const[nomeCompleto, setNomeCompleto] = useState(false);
   const[whatsapp, setWhatsapp] = useState(false);
   const[dataNascimento, setDataNascimento] = useState(false);
 
-  
+  const [listaDoacoes, setListaDoacoes] = useState([]);
+  */
+
+  /*
   function onSubmit(value){
     if(value.nomeCompleto !== ' ' 
     && value.whatsapp !== ' '
     && value.dataNascimento !== ' ');
     
+  }
+*/
+  
+const [listaDoacoes, setListaDoacoes] = useState([]);
+
+  const [form, SetFrom] = useState(
+  {nomeCompleto: '', whatsapp: '', dataNascimento: ''}
+  );
+
+  const handleChange = (event) =>{
+    SetFrom({...form, [event.target.name]: event.target.value})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    api.post(`/doacao`)
+      .then(function (response){
+        console.log(response)
+      })
+      .catch(function (error){
+        console.log(error)
+      })
+
+      api.get(`/doacao`)
+        .then((response)=>{
+          let doacoes = [];
+
+          response.data.forEach(doacao => {
+            doacoes.push(doacao);
+          });
+          
+          setListaDoacoes(doacoes);
+          console.log(doacoes)
+         
+        })
+       
 
   }
+
+
   
   return (
     <Container>
       <Section>
-        <form onSubmit={handleSubmit(onSubmit)}>
+     
+        <form onSubmit={handleSubmit}>
           <img className="logo" src={logo} alt="logo" />
           <p className="p-1">Confirme sua Doação</p>
 
@@ -43,12 +87,19 @@ const Doacao = () => {
               <input
                 type="text"
                 name="nomeCompleto"
-                id="nomeCompleto"
+                value={form.nomeCompleto}
+                onChange={handleChange}
+                /*
                 ref={register({
                   required: "Por favor, preencha o campo."
                 })}
+                
+                {errors.nomeCompleto && <p className="error"><CgDanger color="red" size={16} /> {errors.nomeCompleto.message}</p>}
+                */
               />
-             {errors.nomeCompleto && <p className="error"><CgDanger color="red" size={16} /> {errors.nomeCompleto.message}</p>}
+              
+             
+            
             </label>
          
             <label>
@@ -56,12 +107,17 @@ const Doacao = () => {
               <input
                 type="text"
                 name="whatsapp"
-                id="whatsapp"
+                value={form.whatsapp}
+                onChange={handleChange}
+                /*
                 ref={register({
                   required: "Por favor, preencha o campo."
                 })}
+                 {errors.whatsapp && <p className="error"><CgDanger color="red" size={16} /> {errors.whatsapp.message}</p>}
+
+                */
               />
-              {errors.whatsapp && <p className="error"><CgDanger color="red" size={16} /> {errors.whatsapp.message}</p>}
+             
             </label>
           </div>
 
@@ -77,12 +133,16 @@ const Doacao = () => {
               <input
                 type="text"
                 name="dataNascimento"
-                id="dataNascimento"
+                value={form.dataNascimento}
+                onChange={handleChange}
+                /*
                 ref={register({
                   required: "Por favor, preencha o campo."
                 })}
+                 {errors.dataNascimento && <p className="error"><CgDanger color="red" size={16} /> {errors.dataNascimento.message}</p>}
+                */
               />
-              {errors.dataNascimento && <p className="error"><CgDanger color="red" size={16} /> {errors.dataNascimento.message}</p>}
+             
             </label>
           </div>
 
