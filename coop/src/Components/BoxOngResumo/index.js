@@ -1,15 +1,24 @@
-import React from 'react'
+/* eslint-disable react/jsx-no-target-blank */
+import React, { useMemo } from 'react'
+import { Link } from 'react-router-dom';
 import { AiOutlineInstagram, AiFillFacebook} from 'react-icons/ai';
 import { FaWhatsapp } from 'react-icons/fa'
-import { MdMail, MdPhoneInTalk} from 'react-icons/md';
+import { MdMail } from 'react-icons/md';
 
 import { Container, InfoOng, Contato } from './styles';
 import Button from '../Button';
 import ItensNecessarios from '../ItensNecessarios';
 
 const BoxOngResumo = (props) => {
-  const { ong } = props;
+  const ong = useMemo(() => {
+    return {...props.ong, whatsapp_ong: props.ong.whatsapp_ong.replace(/-|\(|\)|\s/g, '')};
+  }, [props.ong]);
+
   const itensRequeridos = ong.itens_doacao_requeridos.replace(' ', '').split(',');
+
+  const handleClickColaborar = () => {
+    console.log(ong.id);
+  }
 
   return (
     <Container>
@@ -20,17 +29,22 @@ const BoxOngResumo = (props) => {
         </InfoOng>
 
         <Contato>
-          <a href={`mailto:${ong.email}`}><MdMail /></a>
+          <Link to={`mailto:${ong.email}`}><MdMail /></Link>
           {
             ong.whatsapp_ong && (
-              <a href={`https://api.whatsapp.com/send?phone=55${ong.whatsapp_ong.replace(/-|\(|\)|\s/g, '')}&text=&source=&data=&app_absent=`}><FaWhatsapp /></a>
+              <a href={`https://api.whatsapp.com/send?phone=55${ong.whatsapp_ong}&text=&source=&data=&app_absent=`} target="_blank"><FaWhatsapp /></a>
             )
           }
           {
-            
+            ong.facebook_ong && (
+              <a href={ong.facebook_ong} target="_blank"><AiFillFacebook /></a>
+            )
           }
-          <AiOutlineInstagram />
-          <AiFillFacebook />
+          {
+            ong.instagram_ong && (
+              <a href={ong.instagram_ong} target="_blank"><AiOutlineInstagram /></a>
+            )
+          }
         </Contato>
       </header>
 
@@ -39,7 +53,7 @@ const BoxOngResumo = (props) => {
       <footer>
         <ItensNecessarios itens={itensRequeridos} />
 
-        <Button background="var(--verde)" backgroundHover="var(--roxo)">
+        <Button background="var(--verde)" backgroundHover="var(--roxo)" onClick={handleClickColaborar}>
           Colaborar
         </Button>
       </footer>
