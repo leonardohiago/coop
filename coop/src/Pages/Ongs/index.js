@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import api from '../../services/api';
 
 import { Container, ListLastOngs, ListLastActions } from './styles';
 
@@ -32,6 +34,14 @@ const Home = () => {
     }
   ];
 
+  const [ultimasOngs, setUltimasOngs] = useState([]);
+
+  useEffect(() => {
+    api.get(`/ongs?pagina=0&quantidade=4`).then(response => {
+      setUltimasOngs(response.data.ongs);
+    });
+  }, []);
+
   return (
     <>
       <Header />
@@ -40,10 +50,9 @@ const Home = () => {
         <ListLastOngs>
           <h2>Últimas ONGs cadastradas</h2>
 
-          <BoxOngResumo />
-          <BoxOngResumo />
-          <BoxOngResumo />
-          <BoxOngResumo />
+          {ultimasOngs.map(ong => (
+            <BoxOngResumo ong={ong} key={ong.id} />
+          ))}
         </ListLastOngs>
           
         <MapSearchOng />

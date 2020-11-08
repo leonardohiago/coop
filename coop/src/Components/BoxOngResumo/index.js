@@ -7,33 +7,44 @@ import { Container, InfoOng, Contato } from './styles';
 import Button from '../Button';
 import ItensNecessarios from '../ItensNecessarios';
 
-const BoxOngResumo = () => (
-  <Container>
-    <header>
-      <InfoOng>
-        <h3>Associação São Vicente de Paula - Lar dos Idosos</h3>
-        <h4>5ª Avenida, 10 - Municípios, Balneário Camboriú - SC</h4>
-      </InfoOng>
+const BoxOngResumo = (props) => {
+  const { ong } = props;
+  const itensRequeridos = ong.itens_doacao_requeridos.replace(' ', '').split(',');
 
-      <Contato>
-        <MdMail />
-        <MdPhoneInTalk />
-        <FaWhatsapp />
-        <AiOutlineInstagram />
-        <AiFillFacebook />
-      </Contato>
-    </header>
+  return (
+    <Container>
+      <header>
+        <InfoOng>
+          <h3>{ong.nome_ong}</h3>
+          <h4>{ong.logradouro_local_ong}, {ong.numero_local_ong} - {ong.cidade_local_ong} - {ong.estado}</h4>
+        </InfoOng>
 
-    <hr/>
+        <Contato>
+          <a href={`mailto:${ong.email}`}><MdMail /></a>
+          {
+            ong.whatsapp_ong && (
+              <a href={`https://api.whatsapp.com/send?phone=55${ong.whatsapp_ong.replace(/-|\(|\)|\s/g, '')}&text=&source=&data=&app_absent=`}><FaWhatsapp /></a>
+            )
+          }
+          {
+            
+          }
+          <AiOutlineInstagram />
+          <AiFillFacebook />
+        </Contato>
+      </header>
 
-    <footer>
-      <ItensNecessarios />
+      <hr/>
 
-      <Button background="var(--verde)" backgroundHover="var(--roxo)">
-        Colaborar
-      </Button>
-    </footer>
-  </Container>
-);
+      <footer>
+        <ItensNecessarios itens={itensRequeridos} />
+
+        <Button background="var(--verde)" backgroundHover="var(--roxo)">
+          Colaborar
+        </Button>
+      </footer>
+    </Container>
+  );
+}
 
 export default BoxOngResumo;

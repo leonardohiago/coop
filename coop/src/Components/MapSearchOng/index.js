@@ -54,6 +54,7 @@ const MapSearchOng = () => {
     }
   }, [ufSelecionada]);
 
+  // Busca ONGs da cidade seleciona
   const handleCidadeSelecionada = (cidade) => {
     api.get(`/ongs/${ufSelecionada}/${cidade}`).then(response => {
       response.data.forEach(ongs => {

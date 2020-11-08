@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import {useForm} from "react-hook-form";
+// import {useForm} from "react-hook-form";
 
-import { CgDanger } from "react-icons/cg";
+// import { CgDanger } from "react-icons/cg";
 
 import { Container, Section, Aside } from "./styles";
 import Checkbox from "../../Components/Checkbox";
@@ -11,10 +11,9 @@ import logo from "../../assets/coop-logo.png";
 import obrigado from "../../assets/obrigado-vertical.png";
 
 import api from '../../services/api';
-import { render } from "@testing-library/react";
+// import { render } from "@testing-library/react";
 
-const Doacao = () => {
-  
+const Doacao = () => {  
  /*
  const {register, handleSubmit, errors} = useForm();
   const[nomeCompleto, setNomeCompleto] = useState(false);
@@ -32,43 +31,51 @@ const Doacao = () => {
     
   }
 */
-  const [form, SetForm] = React.useState({
-    nomeCompleto: '',
-    whatsapp: '',
-    itensDoacao: '1,2,4',
-    dataEntrega: '',
-    statusEntrega: 'Aguardando!',
-    fkOng: '1',
+  const [form, SetForm] = useState({
+    nome_completo: 'Samuel Teste',
+    whatsapp: '(11) 95555-2222',
+    itens: 'Roupa, Dinheiro',
+    data_entrega: '2020-11-09',
+    status_doacao: 'Aguardando',
+    ong: {
+      id: 1
+    },
   });
 
   const [listaDoacoes, setListaDoacoes] = useState([]);
 
-  const handleChange = (event) =>{
-    SetForm({...form, [event.target.name]: event.target.value})
+  // const handleChange = (event) =>{
+  //   SetForm({...form, [event.target.name]: event.target.value})
+  // }
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    await api.post('/doacao', form).then(response => {
+      console.log(response.data);
+    });
   }
   
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
 
-    api.post('/doacao', {...form})
-     .then((response) => console.log(response));
+  //   api.post('/doacao', {...form})
+  //    .then((response) => console.log(response));
 
-    api.get(`/doacao`)
-        .then((response)=>{
-          let doacoes = [];
+  //   api.get(`/doacao`)
+  //       .then((response)=>{
+  //         let doacoes = [];
 
-          response.data.forEach(doacao => {
-            doacoes.push(doacao);
-          });
+  //         response.data.forEach(doacao => {
+  //           doacoes.push(doacao);
+  //         });
           
-          setListaDoacoes(doacoes);
-          console.log(doacoes)
+  //         setListaDoacoes(doacoes);
+  //         console.log(doacoes)
          
-        })
-       
-
-  }
+  //       })
+  // }
 
 
   
@@ -86,8 +93,8 @@ const Doacao = () => {
               <input
                 type="text"
                 name="nomeCompleto"
-                value={form.nomeCompleto}
-                onChange={handleChange}
+                // value={form.nomeCompleto}
+                // onChange={handleChange}
                 /*
                 ref={register({
                   required: "Por favor, preencha o campo."
@@ -106,8 +113,8 @@ const Doacao = () => {
               <input
                 type="text"
                 name="whatsapp"
-                value={form.whatsapp}
-                onChange={handleChange}
+                // value={form.whatsapp}
+                // onChange={handleChange}
                 /*
                 ref={register({
                   required: "Por favor, preencha o campo."
@@ -132,8 +139,8 @@ const Doacao = () => {
               <input
                 type="text"
                 name="dataEntrega"
-                value={form.dataEntrega}
-                onChange={handleChange}
+                // value={form.dataEntrega}
+                // onChange={handleChange}
                 /*
                 ref={register({
                   required: "Por favor, preencha o campo."

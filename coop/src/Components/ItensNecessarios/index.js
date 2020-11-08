@@ -3,27 +3,14 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 
 import { Container, LabelNecessidade } from "./styles";
 
-const ItensNecessarios = () => (
+const ItensNecessarios = ({ itens }) => (
   <Container>
-    <LabelNecessidade necessidade="baixa">
-      <AiOutlineInfoCircle />
-      <span>Fralda</span>
-    </LabelNecessidade>
-
-    <LabelNecessidade necessidade="media">
-      <AiOutlineInfoCircle />
-      <span>Remédio</span>
-    </LabelNecessidade>
-
-    <LabelNecessidade necessidade="alta">
-      <AiOutlineInfoCircle />
-      <span>Alimento </span>
-    </LabelNecessidade>
-
-    <LabelNecessidade necessidade="baixa">
-      <AiOutlineInfoCircle />
-      <span>Pessoa</span>
-    </LabelNecessidade>
+    {itens.map(item => (
+      <LabelNecessidade necessidade="baixa" key={item}>
+        <AiOutlineInfoCircle />
+        <span>{item}</span>
+      </LabelNecessidade>
+    ))}
   </Container>
 );
 
