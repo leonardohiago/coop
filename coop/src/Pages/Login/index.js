@@ -21,7 +21,7 @@ const Login = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
-  { /*TODO: se ja tiver logado, n pede mais o login */}
+  /*TODO: se ja tiver logado, n pede mais o login */
   function onSubmit(data) {
     if (data.email === 'ong@gmail.com' && data.senha === 'ong1234')
       history.push('/dashboard');

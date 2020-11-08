@@ -7,7 +7,7 @@ import connection from "../../assets/connection-form.png";
 import question from "../../assets/question-form.png";
 import equipe from "../../assets/equipe.png";
 import HeaderHome from "../../Components/HeaderHome";
-import BurguerMenu from "../../Components/BurguerMenu";
+// import BurguerMenu from "../../Components/BurguerMenu";
 import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
 

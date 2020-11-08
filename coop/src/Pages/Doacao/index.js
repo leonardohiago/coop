@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 
-
 import { CgDanger } from "react-icons/cg";
 
 import { Container, Section, Aside } from "./styles";
@@ -33,29 +32,29 @@ const Doacao = () => {
     
   }
 */
-  
-const [listaDoacoes, setListaDoacoes] = useState([]);
+  const [form, SetForm] = React.useState({
+    nomeCompleto: '',
+    whatsapp: '',
+    itensDoacao: '1,2,4',
+    dataEntrega: '',
+    statusEntrega: 'Aguardando!',
+    fkOng: '1',
+  });
 
-  const [form, SetFrom] = useState(
-  {nomeCompleto: '', whatsapp: '', dataNascimento: ''}
-  );
+  const [listaDoacoes, setListaDoacoes] = useState([]);
 
   const handleChange = (event) =>{
-    SetFrom({...form, [event.target.name]: event.target.value})
+    SetForm({...form, [event.target.name]: event.target.value})
   }
+  
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    api.post(`/doacao`)
-      .then(function (response){
-        console.log(response)
-      })
-      .catch(function (error){
-        console.log(error)
-      })
+    api.post('/doacao', {...form})
+     .then((response) => console.log(response));
 
-      api.get(`/doacao`)
+    api.get(`/doacao`)
         .then((response)=>{
           let doacoes = [];
 
@@ -132,8 +131,8 @@ const [listaDoacoes, setListaDoacoes] = useState([]);
               Data de Entrega da Doação
               <input
                 type="text"
-                name="dataNascimento"
-                value={form.dataNascimento}
+                name="dataEntrega"
+                value={form.dataEntrega}
                 onChange={handleChange}
                 /*
                 ref={register({

@@ -22,7 +22,7 @@ import bannerOng3 from "../../assets/img_ong_banner/banner-ong3.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-const Login = () => {
+const Perfil = () => {
   /* vai receber o json pela api */
   const ongClicada = {
     id: 1,
@@ -97,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Perfil;
