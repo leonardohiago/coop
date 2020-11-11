@@ -5,8 +5,11 @@ import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
 import { Container, Section } from "./styles";
 
+import api from '../../services/api';
+
 const DashboardDados = () => {
   const [form, setForm] = React.useState({
+    id: "1",
     nome_Ong: "ONG Ação Vida",
     cnpj: "00.806.666/0001-31",
     email: "ongacaovida@gmail.com",
@@ -17,17 +20,25 @@ const DashboardDados = () => {
     facebook: "https://www.facebook.com/ongacaovida",
     instagram: "https://www.instagram.com/ongacaovida",
 
-    logradouro: "Rua São Pedro",
-    numero: "582",
-    complemento: "Próximo a loja de seu Zé",
-    cep: "49089-173",
-    estado: "SE",
-    cidade: "Aracaju",
+    logradouro: 'Santo Amaro',
+    numero: '66666',
+    complemento: 'Casa',
+    cep: '65656-454',
+    estado: 'SP',
+    cidade: 'SP',
   });
 
-  function handleChange({ target }) {
-    const { id, value } = target;
-    setForm({ ...form, [id]: value });
+  const handleChange = (event) =>{
+    setForm({...form, [event.target.name]: event.target.value})
+  }
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    await api.put('/ongs/edita', form)
+      .then(response => {
+      console.log(response.data);
+    });
   }
 
   return (
@@ -37,7 +48,7 @@ const DashboardDados = () => {
       <Container>
         <MenuDashboard />
         <Section>
-          <form>
+          <form onSubmit={handleSubmit}>
             <p className="font-paragraph">Dados da ONG</p>
 
             <div className="box">
@@ -197,6 +208,7 @@ const DashboardDados = () => {
                 className="button-size"
                 background="var(--verde)"
                 backgroundHover="var(--roxo)"
+                type="submit"
               >
                 Atualizar
               </Button>
