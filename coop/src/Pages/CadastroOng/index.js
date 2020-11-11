@@ -10,34 +10,37 @@ import ItensDoacao from "../../Components/ItensDoacao";
 
 
 import axios from 'axios';
+import api from '../../services/api';
 
 const CadastroOng = () => {
 
     const [form, setForm] = React.useState({
-        nomeOng: '',
-        CNPJ: '',
-        emailOng: '',
-        whatsappOng: '',
-        senhaOng: '',
+        nome_ong: '',
+        cnpj_ong: '',
+        email: '',
+        whatsapp_ong: '',
+        senha: '',
         confirmSenhaOng: '',
-        sobre: '',
-        areaAtuacao: '',
-        facebook: '',
-        instagram: '',
+        sobre_ong: '',
+        area_atuacao_ong: '',
+        facebook_ong: '',
+        instagram_ong: '',
 
-        logradouro: '',
-        numero: '',
-        componento: '',
-        cep: '',
+        itens_doacao_requeridos: '',
+
+        logradouro_local_ong: '',
+        numero_local_ong: '',
+        complemento_local_ong: '',
+        cep_local_ong: '',
         estado: '',
-        cidade: '',
+        cidade_local_ong: '',
 
-        nomeCompleto: '',
-        dataNascimento: '',
-        emailCadastrante: '',
-        whatsappCadastrante: '',
-        trabalhaOng: '',
-        funcao: '',
+        nome_completo_responsavel: '',
+        data_nascimento_responsavel: '',
+        email_responsavel: '',
+        whatsapp_responsavel: '',
+        trabalha_ong: '',
+        funcao_responsavel: '',
     });
 
     const [ufs, setUfs] = useState([]);
@@ -78,16 +81,24 @@ const CadastroOng = () => {
         setSelectedCidade(cidade);
     }
 
-    function handleChange({ target }) {
-        const { id, value } = target;
-        setForm({...form, [id]: value});
-    }
+    const handleChange = (event) => {
+        setForm({ ...form, [event.target.name]: event.target.value });
+    
+      };
+
+    const handleSubmit = async (event) =>{
+        event.preventDefault();
+
+        await api.post("/usuarios", form).then((response) =>{
+            console.log(response.data);
+        });
+    };
 
     return (
         <>
             <Header />
 
-                <Form>
+                <Form onSubmit={handleSubmit}>
 
                 <Title>Cadastro da ONG</Title>
 
@@ -100,8 +111,8 @@ const CadastroOng = () => {
                                 <label htmlFor="nomeOng">Nome da Ong<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="nomeOng"
-                                    value={form.nomeOng}
+                                    name="nome_ong"
+                                    value={form.nome_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -110,8 +121,8 @@ const CadastroOng = () => {
                                 <label htmlFor="cnpj">CNPJ</label>
                                 <Input
                                     type="text"
-                                    id="cnpj"
-                                    value={form.cnpj}
+                                    name="cnpj_ong"
+                                    value={form.cnpj_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -122,8 +133,8 @@ const CadastroOng = () => {
                             <label htmlFor="emailOng">E-mail<span>*</span></label>
                                 <Input
                                     type="email"
-                                    id="emailOng"
-                                    value={form.emailOng}
+                                    name="email"
+                                    value={form.email}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -132,8 +143,8 @@ const CadastroOng = () => {
                             <label htmlFor="whatsappOng">Whatsapp<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="whatsappOng"
-                                    value={form.whatsappOng}
+                                    name="whatsapp_ong"
+                                    value={form.whatsapp_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -144,8 +155,8 @@ const CadastroOng = () => {
                             <label htmlFor="senhaOng">Senha<span>*</span></label>
                                 <Input
                                     type="password"
-                                    id="senhaOng"
-                                    value={form.senhaOng}
+                                    name="senha"
+                                    value={form.senha}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -154,7 +165,7 @@ const CadastroOng = () => {
                             <label htmlFor="confirmSenhaOng">Confirmação da Senha<span>*</span></label>
                                 <Input
                                     type="password"
-                                    id="confirmSenhaOng"
+                                    name="confirmSenhaOng"
                                     value={form.confirmSenhaOng}
                                     onChange={handleChange}
                                 />
@@ -166,8 +177,8 @@ const CadastroOng = () => {
                                 <label htmlFor="sobre">Sobre<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="sobre"
-                                    value={form.sobre}
+                                    name="sobre_ong"
+                                    value={form.sobre_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -176,8 +187,8 @@ const CadastroOng = () => {
                                 <label htmlFor="areaAtuacao">Área de Atuação<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="areaAtuacao"
-                                    value={form.areaAtuacao}
+                                    name="area_atuacao_ong"
+                                    value={form.area_atuacao_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -188,8 +199,8 @@ const CadastroOng = () => {
                                 <label htmlFor="facebook">Facebook<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="facebook"
-                                    value={form.facebook}
+                                    name="facebook_ong"
+                                    value={form.facebook_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -197,8 +208,8 @@ const CadastroOng = () => {
                                 <label htmlFor="instagram">Instagram</label>
                                 <Input
                                     type="text"
-                                    id="instagram"
-                                    value={form.instagram}
+                                    name="instagram_ong"
+                                    value={form.instagram_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -211,8 +222,8 @@ const CadastroOng = () => {
                                 <label htmlFor="logradouro">Logradouro<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="logradouro"
-                                    value={form.logradouro}
+                                    name="logradouro_local_ong"
+                                    value={form.logradouro_local_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -220,8 +231,8 @@ const CadastroOng = () => {
                                 <label htmlFor="numero">Número<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="numero"
-                                    value={form.numero}
+                                    name="numero_local_ong"
+                                    value={form.numero_local_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -232,8 +243,8 @@ const CadastroOng = () => {
                                 <label htmlFor="complemento">Complemento</label>
                                 <Input
                                     type="text"
-                                    id="complemento"
-                                    value={form.complemento}
+                                    name="complemento_local_ong"
+                                    value={form.complemento_local_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -241,8 +252,8 @@ const CadastroOng = () => {
                                 <label htmlFor="cep">CEP<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="cep"
-                                    value={form.cep}
+                                    name="cep_local_ong"
+                                    value={form.cep_local_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -293,8 +304,8 @@ const CadastroOng = () => {
                                 <label htmlFor="nomeCompleto">Nome Completo<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="nomeCompleto"
-                                    value={form.nomeCompleto}
+                                    name="nome_completo_responsavel"
+                                    value={form.nome_completo_responsavel}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -302,8 +313,8 @@ const CadastroOng = () => {
                                 <label htmlFor="dataNascimento">Data de Nascimento<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="dataNascimento"
-                                    value={form.dataNascimento}
+                                    name="data_nascimento_responsavel"
+                                    value={form.data_nascimento_responsavel}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -314,8 +325,8 @@ const CadastroOng = () => {
                                 <label htmlFor="emailCadastrante">E-mail<span>*</span></label>
                                 <Input
                                     type="email"
-                                    id="emailCadastrante"
-                                    value={form.emailCadastrante}
+                                    name="email_responsavel"
+                                    value={form.email_responsavel}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -323,8 +334,8 @@ const CadastroOng = () => {
                                 <label htmlFor="whatsappCadastrante">Whatsapp</label>
                                 <Input
                                     type="text"
-                                    id="whatsappCadastrante"
-                                    value={form.whatsappCadastrante}
+                                    name="whatsapp_responsavel"
+                                    value={form.whatsapp_responsavel}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -335,8 +346,8 @@ const CadastroOng = () => {
                                 <label htmlFor="trabalhaOng">Trabalha na ONG?<span>*</span></label>
                                 <Input
                                     type="text"
-                                    id="trabalhaOng"
-                                    value={form.trabalhaOng}
+                                    name="trabalha_ong"
+                                    value={form.trabalha_ong}
                                     onChange={handleChange}
                                 />
                             </Field>
@@ -344,15 +355,15 @@ const CadastroOng = () => {
                                 <label htmlFor="funcao">Função</label>
                                 <Input
                                     type="text"
-                                    id="funcao"
-                                    value={form.funcao}
+                                    name="funcao_responsavel"
+                                    value={form.funcao_responsavel}
                                     onChange={handleChange}
                                 />
                             </Field>                          
                         </FieldGroup>
                         
                         <FieldButtons>
-                            <SubmitButton>Confirmar</SubmitButton>
+                            <SubmitButton type="submit">Confirmar</SubmitButton>
                             <CancelButton>Cancelar</CancelButton>
                         </FieldButtons>
 
