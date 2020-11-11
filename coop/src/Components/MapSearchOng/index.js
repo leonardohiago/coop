@@ -69,7 +69,7 @@ const MapSearchOng = () => {
     //   let enderecoApi = ong.logradouro_local_ong.replaceAll(' ', '+');
     //   enderecoApi += `,${ong.numero_local_ong},+${ong.cidade_local_ong},${ong.estado}`;
 
-    //   const responseGMaps = await api.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${enderecoApi}&key=AIzaSyAkLpGUjdDkoZvvn9xSVybNPUF1haIbSZQ`);
+    //   const responseGMaps = await api.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${enderecoApi}&key=`);
     
     //   console.log(ong.id + ': ' + responseGMaps.data.results[0].geometry.location.lat + ' - ' + responseGMaps.data.results[0].geometry.location.lng);
     // });
