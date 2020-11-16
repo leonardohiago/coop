@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import api from '../../services/api';
 
-import { Container, ListLastOngs, ListLastActions } from './styles';
+import { Container, ListLastOngs, ListLastActions, Paginacao, PaginacaoItem } from './styles';
 
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
@@ -21,6 +21,7 @@ const Home = () => {
   const [ultimasOngs, setUltimasOngs] = useState([]);
   const [cidadeSelecionada, setCidadeSelecionada] = useState('');
   const [ufSelecionada, setUfSelecionada] = useState('');
+  const [paginacao, setPaginacao] = useState({});
 
   const listOngs = [
     {
@@ -45,20 +46,50 @@ const Home = () => {
     });
   }, []);
 
-  const listarUltimasOngsUf = useCallback((uf) => {
+  const listarUltimasOngsUf = useCallback((uf, pagina = 0) => {
     
-    api.get(`/ongs/${uf}?pagina=0&quantidade=4`).then(response => {
+    api.get(`/ongs/${uf}?pagina=${pagina}&quantidade=4`).then(response => {
       setUltimasOngs(response.data.ongs);
       setUfSelecionada(uf);
+      setPaginacao({
+        paginaAtual: response.data.paginaAtual,
+        totalPaginas: response.data.totalPaginas
+      });
     });
   }, []);
 
-  const listarUltimasOngsCidade = useCallback((cidade) => {
-    api.get(`/ongs/${ufSelecionada}/${cidade}?pagina=0&quantidade=4`).then(response => {
+  const listarUltimasOngsCidade = useCallback((cidade, pagina = 0) => {
+    api.get(`/ongs/${ufSelecionada}/${cidade}?pagina=${pagina}&quantidade=4`).then(response => {
       setUltimasOngs(response.data.ongs);
       setCidadeSelecionada(cidade);
+      setPaginacao({
+        paginaAtual: response.data.paginaAtual,
+        totalPaginas: response.data.totalPaginas
+      });
     });
   }, [ufSelecionada]);
+
+  function handleClickPaginaItem(pagina) {
+    if(cidadeSelecionada) {
+      listarUltimasOngsCidade(cidadeSelecionada, pagina);
+    } else {
+      listarUltimasOngsUf(ufSelecionada, pagina);
+    }
+  }
+
+  function getPaginacao() {
+    const pages = [];
+
+    for(let i = 0; i < paginacao.totalPaginas; i++) {
+      if(paginacao.paginaAtual !== i) {
+        pages.push(<PaginacaoItem key={i} onClick={() => handleClickPaginaItem(i)} />)
+      } else {
+        pages.push(<PaginacaoItem key={i} atual />)
+      }
+    }
+
+    return pages;
+  }
 
   return (
     <>
@@ -76,6 +107,12 @@ const Home = () => {
           {ultimasOngs.map(ong => (
             <BoxOngResumo ong={ong} key={ong.id} />
           ))}
+
+          {(ufSelecionada !== '' || cidadeSelecionada !== '') && (
+            <Paginacao>
+              {getPaginacao()}
+            </Paginacao>
+          )}
         </ListLastOngs>
           
         <MapSearchOng 

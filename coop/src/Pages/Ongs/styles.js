@@ -6,6 +6,7 @@ export const Container = styled.main`
   margin: 56px auto;
   display: flex;
   justify-content: space-around;
+  align-items: flex-start;
   flex-wrap: wrap;
 
   @media screen and (max-width:1024px) {
@@ -34,6 +35,25 @@ export const ListLastOngs = styled.div`
   @media screen and (max-width:1024px) {
     max-width: 100%;
     margin-bottom: 40px;
+  }
+`;
+
+export const Paginacao = styled.div`
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+`;
+
+export const PaginacaoItem = styled.div`
+  width: 12px;
+  height: 12px;
+  background: ${props => props.atual ? 'var(--verde)' : 'var(--roxo)'};
+  border-radius: 6px;
+  cursor: ${props => props.atual ? 'default' : 'pointer'};;
+  transition: all 0.3s;
+
+  &:hover {
+    background: ${props => props.atual ? 'var(--verde)' : 'var(--vermelho)'};
   }
 `;
 
