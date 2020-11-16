@@ -11,7 +11,7 @@ import { Container, Filtro, Mapa, OngPin, ContentPin, AvatarPin, ResumoOngPin } 
 
 import Button from '../Button';
 
-const MapSearchOng = () => {
+const MapSearchOng = ({listarUltimasOngsUf, listarUltimasOngsCidade}) => {
   const [listaEstados, setListaEstados] = useState([]);
   const [listaCidades, setListaCidades] = useState([]);
   const [ufSelecionada, setUfSelecionada] = useState('');
@@ -58,24 +58,19 @@ const MapSearchOng = () => {
   
         setListaCidades(cidades);
       });
+
+      listarUltimasOngsUf(ufSelecionada);
     }
-  }, [ufSelecionada]);
+  }, [listarUltimasOngsUf, ufSelecionada]);
 
   // Busca ONGs da cidade seleciona
   const handleCidadeSelecionada = useCallback(async (cidade) => {
     const response = await api.get(`/ongs/${ufSelecionada}/${cidade}`);
 
-    // response.data.forEach(async ong => {
-    //   let enderecoApi = ong.logradouro_local_ong.replaceAll(' ', '+');
-    //   enderecoApi += `,${ong.numero_local_ong},+${ong.cidade_local_ong},${ong.estado}`;
+    setOngsCidade(response.data.ongs);
 
-    //   const responseGMaps = await api.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${enderecoApi}&key=`);
-    
-    //   console.log(ong.id + ': ' + responseGMaps.data.results[0].geometry.location.lat + ' - ' + responseGMaps.data.results[0].geometry.location.lng);
-    // });
-
-    setOngsCidade(response.data);
-  }, [ufSelecionada])
+    listarUltimasOngsCidade(cidade);
+  }, [listarUltimasOngsCidade, ufSelecionada])
 
   const handleClickColaborar = (id) => {
     console.log(id);

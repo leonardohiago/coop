@@ -14,9 +14,14 @@ import logoOng1 from '../../assets/img_ong_acoes/logo-1.png';
 import logoOng2 from '../../assets/img_ong_acoes/logo-2.png';
 import fotoOng1 from '../../assets/img_ong_acoes/1.png';
 import fotoOng2 from '../../assets/img_ong_acoes/2.png';
+import { useCallback } from 'react';
 
 
 const Home = () => {
+  const [ultimasOngs, setUltimasOngs] = useState([]);
+  const [cidadeSelecionada, setCidadeSelecionada] = useState('');
+  const [ufSelecionada, setUfSelecionada] = useState('');
+
   const listOngs = [
     {
       id: 1,
@@ -34,13 +39,26 @@ const Home = () => {
     }
   ];
 
-  const [ultimasOngs, setUltimasOngs] = useState([]);
-
   useEffect(() => {
     api.get(`/ongs?pagina=0&quantidade=4`).then(response => {
       setUltimasOngs(response.data.ongs);
     });
   }, []);
+
+  const listarUltimasOngsUf = useCallback((uf) => {
+    
+    api.get(`/ongs/${uf}?pagina=0&quantidade=4`).then(response => {
+      setUltimasOngs(response.data.ongs);
+      setUfSelecionada(uf);
+    });
+  }, []);
+
+  const listarUltimasOngsCidade = useCallback((cidade) => {
+    api.get(`/ongs/${ufSelecionada}/${cidade}?pagina=0&quantidade=4`).then(response => {
+      setUltimasOngs(response.data.ongs);
+      setCidadeSelecionada(cidade);
+    });
+  }, [ufSelecionada]);
 
   return (
     <>
@@ -48,14 +66,22 @@ const Home = () => {
 
       <Container>
         <ListLastOngs>
-          <h2>Últimas ONGs cadastradas</h2>
+          {ufSelecionada === '' && cidadeSelecionada === ''
+            ? <h2>Últimas ONGs cadastradas</h2>
+            : cidadeSelecionada === ''
+              ? <h2>Últimas ONGs cadastradas em {ufSelecionada}</h2>
+              : <h2>Últimas ONGs cadastradas em {cidadeSelecionada}/{ufSelecionada}</h2>
+          }
 
           {ultimasOngs.map(ong => (
             <BoxOngResumo ong={ong} key={ong.id} />
           ))}
         </ListLastOngs>
           
-        <MapSearchOng />
+        <MapSearchOng 
+          listarUltimasOngsUf={listarUltimasOngsUf} 
+          listarUltimasOngsCidade={listarUltimasOngsCidade} 
+        />
 
         <ListLastActions>
           <h2>Ações Realizadas</h2>
