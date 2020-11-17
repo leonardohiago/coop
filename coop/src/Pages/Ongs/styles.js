@@ -38,6 +38,11 @@ export const ListLastOngs = styled.div`
   }
 `;
 
+export const Loading = styled.div`
+  align-self: center;
+`;
+
+
 export const Paginacao = styled.div`
   margin-top: 16px;
   display: flex;

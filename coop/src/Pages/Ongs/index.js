@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import api from '../../services/api';
 
-import { Container, ListLastOngs, ListLastActions, Paginacao, PaginacaoItem } from './styles';
+import { Container, Loading, ListLastOngs, ListLastActions, Paginacao, PaginacaoItem } from './styles';
 
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
@@ -10,6 +10,7 @@ import BoxOngResumo from '../../Components/BoxOngResumo';
 import MapSearchOng from '../../Components/MapSearchOng';
 import BoxOngLastAction from '../../Components/BoxOngLastAction';
 
+import loading from '../../assets/loading.gif';
 import logoOng1 from '../../assets/img_ong_acoes/logo-1.png';
 import logoOng2 from '../../assets/img_ong_acoes/logo-2.png';
 import fotoOng1 from '../../assets/img_ong_acoes/1.png';
@@ -22,6 +23,7 @@ const Home = () => {
   const [cidadeSelecionada, setCidadeSelecionada] = useState('');
   const [ufSelecionada, setUfSelecionada] = useState('');
   const [paginacao, setPaginacao] = useState({});
+  const [loadingOngs, setLoadingOngs] = useState(false);
 
   const listOngs = [
     {
@@ -41,13 +43,17 @@ const Home = () => {
   ];
 
   useEffect(() => {
+    setLoadingOngs(true);
+
     api.get(`/ongs?pagina=0&quantidade=4`).then(response => {
+      setLoadingOngs(false);
       setUltimasOngs(response.data.ongs);
     });
   }, []);
 
   const listarUltimasOngsUf = useCallback((uf, pagina = 0) => {
-    
+    setLoadingOngs(true);
+
     api.get(`/ongs/${uf}?pagina=${pagina}&quantidade=4`).then(response => {
       setUltimasOngs(response.data.ongs);
       setUfSelecionada(uf);
@@ -55,10 +61,13 @@ const Home = () => {
         paginaAtual: response.data.paginaAtual,
         totalPaginas: response.data.totalPaginas
       });
+      setLoadingOngs(false);
     });
   }, []);
 
   const listarUltimasOngsCidade = useCallback((cidade, pagina = 0) => {
+    setLoadingOngs(true);
+
     api.get(`/ongs/${ufSelecionada}/${cidade}?pagina=${pagina}&quantidade=4`).then(response => {
       setUltimasOngs(response.data.ongs);
       setCidadeSelecionada(cidade);
@@ -66,6 +75,7 @@ const Home = () => {
         paginaAtual: response.data.paginaAtual,
         totalPaginas: response.data.totalPaginas
       });
+      setLoadingOngs(false);
     });
   }, [ufSelecionada]);
 
@@ -104,10 +114,17 @@ const Home = () => {
               : <h2>Últimas ONGs cadastradas em {cidadeSelecionada}/{ufSelecionada}</h2>
           }
 
-          {ultimasOngs.map(ong => (
-            <BoxOngResumo ong={ong} key={ong.id} />
-          ))}
-
+          {!loadingOngs
+            ? (
+              ultimasOngs.map(ong => (
+                <BoxOngResumo ong={ong} key={ong.id} />
+              ))
+            ) : (
+              <Loading>
+                <img src={loading} alt="Carregando dados das ONGs"/>
+              </Loading>
+            )
+          }
           {(ufSelecionada !== '' || cidadeSelecionada !== '') && (
             <Paginacao>
               {getPaginacao()}
