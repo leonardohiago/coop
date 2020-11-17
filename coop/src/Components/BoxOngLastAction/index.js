@@ -3,13 +3,13 @@ import React from 'react'
 import { Container, Header, Foto } from './styles';
 import Button from '../Button';
 
-const BoxOngResumo = ({ong}) => {
+const BoxOngResumo = ({publicacao}) => {
   
   return (
     <Container>
       <Header>
-        <img src={ong.logo} alt={`Logo - ${ong.nome}`}/>
-        <h3>{ong.nome}</h3>
+        <img src={`http://localhost:8080/api/imagem/logo-${publicacao.ong.id}.png`} alt={`Logo - ${publicacao.ong.nome_ong}`}/>
+        <h3>{publicacao.ong.nome_ong}</h3>
   
         <Button background="var(--verde)" backgroundHover="var(--roxo)">
           Colaborar
@@ -17,10 +17,10 @@ const BoxOngResumo = ({ong}) => {
       </Header>
 
       <Foto>
-        <img src={ong.foto} alt={`Ação realizada por ${ong.nome}`} />
+        <img src={`http://localhost:8080/api/imagem/${publicacao.imagem_publicacao}`} alt={`Ação realizada por ${publicacao.ong.nome_ong}`} />
       </Foto>
 
-      <p>{ong.texto}</p>
+      <p>{publicacao.legenda_publicacao}</p>
     </Container>
   );
 }

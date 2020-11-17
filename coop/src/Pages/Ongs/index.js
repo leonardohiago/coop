@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import api from '../../services/api';
 
@@ -11,12 +11,6 @@ import MapSearchOng from '../../Components/MapSearchOng';
 import BoxOngLastAction from '../../Components/BoxOngLastAction';
 
 import loading from '../../assets/loading.gif';
-import logoOng1 from '../../assets/img_ong_acoes/logo-1.png';
-import logoOng2 from '../../assets/img_ong_acoes/logo-2.png';
-import fotoOng1 from '../../assets/img_ong_acoes/1.png';
-import fotoOng2 from '../../assets/img_ong_acoes/2.png';
-import { useCallback } from 'react';
-
 
 const Home = () => {
   const [ultimasOngs, setUltimasOngs] = useState([]);
@@ -24,30 +18,25 @@ const Home = () => {
   const [ufSelecionada, setUfSelecionada] = useState('');
   const [paginacao, setPaginacao] = useState({});
   const [loadingOngs, setLoadingOngs] = useState(false);
-
-  const listOngs = [
-    {
-      id: 1,
-      nome: 'Associação São Vicente de Paula',
-      logo: logoOng1,
-      foto: fotoOng1,
-      texto: 'A certificação de metodologias que nos auxiliam a lidar com a execução dos pontos do programa assume importantes posições no estabelecimento dos paradigmas corporativos. Evidentemente...'
-    },
-    {
-      id: 2,
-      nome: 'Associação São João',
-      logo: logoOng2,
-      foto: fotoOng2,
-      texto: 'Neste sentido, a necessidade de renovação processual maximiza as possibilidades por conta dos procedimentos normalmente adotados. Não obstante, o comprometimento entre as equipes aponta para a melhoria...'
-    }
-  ];
+  const [publicacoes, setPublicacoes] = useState([]);
 
   useEffect(() => {
+    /**
+     * Carrega últimas ONGs cadastradas
+     */
     setLoadingOngs(true);
 
     api.get(`/ongs?pagina=0&quantidade=4`).then(response => {
       setLoadingOngs(false);
       setUltimasOngs(response.data.ongs);
+    });
+
+    /**
+     * Carrega publicações
+     */
+    api.get('/publicacao').then(response => {
+      setPublicacoes(response.data);
+      console.log(response.data);
     });
   }, []);
 
@@ -140,10 +129,10 @@ const Home = () => {
         <ListLastActions>
           <h2>Ações Realizadas</h2>
 
-          {listOngs.map(ong => (
+          {publicacoes.map(publicacao => (
             <BoxOngLastAction
-              key={ong.id}
-              ong={ong}
+              key={publicacao.id}
+              publicacao={publicacao}
             />
           ))}
         </ListLastActions>
