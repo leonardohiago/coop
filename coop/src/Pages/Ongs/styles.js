@@ -84,4 +84,8 @@ export const ListLastActions = styled.div`
       width: calc(100% - 8px);
     }
   }
+
+  button {
+    margin: 0 auto;
+  }
 `;

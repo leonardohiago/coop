@@ -9,6 +9,7 @@ import Footer from '../../Components/Footer';
 import BoxOngResumo from '../../Components/BoxOngResumo';
 import MapSearchOng from '../../Components/MapSearchOng';
 import BoxOngLastAction from '../../Components/BoxOngLastAction';
+import Button from '../../Components/Button';
 
 import loading from '../../assets/loading.gif';
 
@@ -16,9 +17,10 @@ const Home = () => {
   const [ultimasOngs, setUltimasOngs] = useState([]);
   const [cidadeSelecionada, setCidadeSelecionada] = useState('');
   const [ufSelecionada, setUfSelecionada] = useState('');
-  const [paginacao, setPaginacao] = useState({});
+  const [paginacaoOngs, setPaginacaoOngs] = useState({});
   const [loadingOngs, setLoadingOngs] = useState(false);
   const [publicacoes, setPublicacoes] = useState([]);
+  const [paginacaoPublicacoes, setPaginacaoPublicoes] = useState(0);
 
   useEffect(() => {
     /**
@@ -27,16 +29,23 @@ const Home = () => {
     setLoadingOngs(true);
 
     api.get(`/ongs?pagina=0&quantidade=4`).then(response => {
-      setLoadingOngs(false);
+      setPaginacaoOngs({
+        paginaAtual: response.data.paginaAtual,
+        totalPaginas: response.data.totalPaginas
+      });
       setUltimasOngs(response.data.ongs);
+      setLoadingOngs(false);
     });
 
     /**
      * Carrega publicações
      */
-    api.get('/publicacao').then(response => {
-      setPublicacoes(response.data);
-      console.log(response.data);
+    api.get('/publicacao?pagina=0&quantidade=2').then(response => {
+      setPublicacoes(response.data.publicacoes);
+      setPaginacaoPublicoes({
+        paginaAtual: response.data.paginaAtual,
+        totalPaginas: response.data.totalPaginas
+      });
     });
   }, []);
 
@@ -46,7 +55,7 @@ const Home = () => {
     api.get(`/ongs/${uf}?pagina=${pagina}&quantidade=4`).then(response => {
       setUltimasOngs(response.data.ongs);
       setUfSelecionada(uf);
-      setPaginacao({
+      setPaginacaoOngs({
         paginaAtual: response.data.paginaAtual,
         totalPaginas: response.data.totalPaginas
       });
@@ -60,7 +69,7 @@ const Home = () => {
     api.get(`/ongs/${ufSelecionada}/${cidade}?pagina=${pagina}&quantidade=4`).then(response => {
       setUltimasOngs(response.data.ongs);
       setCidadeSelecionada(cidade);
-      setPaginacao({
+      setPaginacaoOngs({
         paginaAtual: response.data.paginaAtual,
         totalPaginas: response.data.totalPaginas
       });
@@ -68,7 +77,7 @@ const Home = () => {
     });
   }, [ufSelecionada]);
 
-  function handleClickPaginaItem(pagina) {
+  function handleClickPaginaItemOngs(pagina) {
     if(cidadeSelecionada) {
       listarUltimasOngsCidade(cidadeSelecionada, pagina);
     } else {
@@ -76,18 +85,30 @@ const Home = () => {
     }
   }
 
-  function getPaginacao() {
+  function getPaginacaoOngs() {
     const pages = [];
 
-    for(let i = 0; i < paginacao.totalPaginas; i++) {
-      if(paginacao.paginaAtual !== i) {
-        pages.push(<PaginacaoItem key={i} onClick={() => handleClickPaginaItem(i)} />)
+    for(let i = 0; i < paginacaoOngs.totalPaginas; i++) {
+      if(paginacaoOngs.paginaAtual !== i) {
+        pages.push(<PaginacaoItem key={i} onClick={() => handleClickPaginaItemOngs(i)} />)
       } else {
         pages.push(<PaginacaoItem key={i} atual />)
       }
     }
 
     return pages;
+  }
+
+  function handleVerMaisPublicacoes() {
+    console.log('teste');
+    api.get(`/publicacao?pagina=${paginacaoPublicacoes.paginaAtual + 1}&quantidade=2`).then(response => {
+      setPublicacoes([...publicacoes, response.data.publicacoes[0], response.data.publicacoes[1]]);
+  
+      setPaginacaoPublicoes({
+        paginaAtual: response.data.paginaAtual,
+        totalPaginas: response.data.totalPaginas
+      });
+    });
   }
 
   return (
@@ -114,11 +135,10 @@ const Home = () => {
               </Loading>
             )
           }
-          {(ufSelecionada !== '' || cidadeSelecionada !== '') && (
-            <Paginacao>
-              {getPaginacao()}
-            </Paginacao>
-          )}
+
+          <Paginacao>
+            {getPaginacaoOngs()}
+          </Paginacao>
         </ListLastOngs>
           
         <MapSearchOng 
@@ -135,6 +155,10 @@ const Home = () => {
               publicacao={publicacao}
             />
           ))}
+
+        {(paginacaoPublicacoes.paginaAtual < paginacaoPublicacoes.totalPaginas - 1) && <Button background="var(--verde)" backgroundHover="var(--roxo)" onClick={handleVerMaisPublicacoes}>
+          Ver mais publicações
+        </Button>}
         </ListLastActions>
       </Container>
 
