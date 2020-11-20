@@ -1,5 +1,7 @@
 import React from "react";
 
+import api from '../../services/api';
+
 import { Container, CardOng, ListLastActions } from "./styles";
 
 import Header from "../../Components/Header";
@@ -23,16 +25,51 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 const Perfil = () => {
+
+  /*
+            "id": 1,
+            "email": "ongacaovida@gmail.com",
+            "nome_ong": "ONG Ação Vida",
+            "whatsapp_ong": "(81) 9 9999-9999",
+            "sobre_ong": "Ong destinada a ajuda de pessoas que m",
+            "facebook_ong": "https://www.facebook.com/ongacaovida",
+            "instagram_ong": null,
+            "logradouro_local_ong": "Rua tal",
+            "numero_local_ong": "123456",
+            "complemento_local_ong": null,
+            "cep_local_ong": "36520000",
+            "estado": "MG",
+            "cidade": "VRB",
+            "itens_doacao_requeridos": "Alimento, Roupa, Dinheiro"
+  */
+
   /* vai receber o json pela api */
-  const ongClicada = {
+  const ong = {
     id: 1,
-    nome: "Associação São Vicente de Paula",
+    nome_ong: "Associação São Vicente de Paula",
     contato: "",
+    logradouro_local_ong: "Rua tal",
+    numero_local_ong: "123456",
+    complemento_local_ong: null,
+    cep_local_ong: "36520000",
+    estado: "MG",
+    cidade: "VRB",
     logo: logoOng1,
     foto: fotoOng1,
     banner: [bannerOng1, bannerOng2, bannerOng3],
-    texto:
+    sobre_ong:
       "A certificação de metodologias que nos auxiliam a lidar com a execução dos pontos do programa assume importantes posições no estabelecimento dos paradigmas corporativos. Evidentemente...",
+    itens_doacao_requeridos: "Alimento,Roupa,Dinheiro",
+  };
+
+  const itensRequeridos = ong.itens_doacao_requeridos.replace(' ', '').split(',');
+
+  const publicacao = {
+    ong: {
+      id: 1,
+      nome_ong: "Associação São Vicente de Paula",
+    },
+    imagem_publicacao: "1.png",
   };
 
   return (
@@ -49,23 +86,24 @@ const Perfil = () => {
             style={{ borderRadius: "20px;" }}
           >
             <div>
-              <img src={ongClicada.banner[0]} className="banner" />
+              <img src={ong.banner[0]} className="banner" />
             </div>
             <div>
-              <img src={ongClicada.banner[1]} className="banner" />
+              <img src={ong.banner[1]} className="banner" />
             </div>
             <div>
-              <img src={ongClicada.banner[2]} className="banner" />
+              <img src={ong.banner[2]} className="banner" />
             </div>
             
           </Carousel>
 
-          <img src={ongClicada.logo} alt="" className="logo-ong" />
+          <img src={ong.logo} alt="" className="logo-ong" />
         </div>
 
         <section>
           <CardOng>
-            <h2>{ongClicada.nome}</h2>
+            <h2>{ong.nome_ong}</h2>
+            <h4>{ong.logradouro_local_ong}, {ong.numero_local_ong}, {ong.complemento_local_ong} - {ong.cidade} / {ong.estado}</h4>
 
             <Contato>
               <MdMail />
@@ -75,9 +113,9 @@ const Perfil = () => {
               <AiFillFacebook />
             </Contato>
 
-            <p className="informacoes-ong">{ongClicada.texto}</p>
+            <p className="informacoes-ong">{ong.sobre_ong}</p>
 
-            <ItensNecessarios />
+            <ItensNecessarios itens={itensRequeridos} />
 
             <Button background="var(--verde)" backgroundHover="var(--roxo)">
               Colaborar
@@ -87,7 +125,10 @@ const Perfil = () => {
           <ListLastActions>
             <h2>Ações Realizadas</h2>
 
-            <BoxOngLastAction ong={ongClicada} />
+            <BoxOngLastAction
+              key={publicacao.id}
+              publicacao={publicacao}
+            />
           </ListLastActions>
         </section>
       </Container>

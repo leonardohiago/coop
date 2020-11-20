@@ -13,7 +13,8 @@ export const Container = styled.main`
 
   .banner {
     border-radius: 20px;
-    height: inherit;
+    // height: inherit;
+    height: fit-content;
     width: 100%;
   }
 
@@ -54,6 +55,11 @@ export const CardOng = styled.div`
   flex-wrap: wrap;
 
   h2 {
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    color: var(--cinza-escuro);
     margin-bottom: 5px;
   }
 
