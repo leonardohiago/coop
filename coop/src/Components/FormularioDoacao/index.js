@@ -1,88 +1,61 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import Button from "../../Components/Button";
 import { GroupCheckbox } from "./styles";
 
 import logo from "../../assets/coop-logo.png";
-
 import api from "../../services/api";
 
-// import {useForm} from "react-hook-form";
-// import { CgDanger } from "react-icons/cg";
+import { CgDanger } from "react-icons/cg";
 
 const FormularioDoacao = () => {
-  /*
- const {register, handleSubmit, errors} = useForm();
-  const[nomeCompleto, setNomeCompleto] = useState(false);
-  const[whatsapp, setWhatsapp] = useState(false);
-  const[dataNascimento, setDataNascimento] = useState(false);
 
-  const [listaDoacoes, setListaDoacoes] = useState([]);
-  */
+  const { register, handleSubmit, errors } = useForm();
 
-  /*
-  function onSubmit(value){
-    if(value.nomeCompleto !== ' ' 
-    && value.whatsapp !== ' '
-    && value.dataNascimento !== ' ');
+  const onSubmit = (data, event) => {
+    data.itensDoacao = data.itensDoacao.toString();
+    data.statusEntrega = "Aguardando";
+    data.fkOng = {"id": 1}; // TODO: RECEBER O ID PELO BOTÃO DA TELA ANTERIOR   
+
+    console.log(JSON.stringify(data));
     
+    api.post(`/doacao`,
+      JSON.stringify(data), {
+      headers: {
+        'Content-Type': 'application/json',
+        }
+      })
+      .then(response => {
+        if(response.status == 200) {
+          alert("Sua doação foi confirmada. O Coop agradece sua colaboração =)")
+          event.target.reset();
+        }
+        console.log(response)
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
   }
-*/
-  const [form, SetForm] = useState({
-    nomeCompleto: "",
-    whatsapp: "",
-    itensDoacao: "",
-    dataEntrega: "",
-    statusEntrega: "",
-    fkOng: {
-      id: 1,
-    },
-  });
-
-  const [itens, setItens] = React.useState("");
-
-  function handleCheckbox({ target }) {
-    if (target.checked) {
-      setItens([...itens, target.value]);
-    } else {
-      setItens(itens.filter((item) => item !== target.value));
-    }
-  }
-
-  const handleChange = (event) => {
-    SetForm({ ...form, [event.target.name]: event.target.value });
-
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    await api.post("/doacao", form).then((response) => {
-      console.log(response.data);
-    });
-  };
+  
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <img className="logo" src={logo} alt="logo" />
       <p className="p-1">Confirme sua Doação</p>
 
       <div>
-        <label>
-          Nome completo
+        <label htmlFor="nomeCompleto">
+          Nome Completo
           <input
             type="text"
             name="nomeCompleto"
-            value={form.nomeCompleto}
-            onChange={handleChange}
-            /*
-    ref={register({
-      required: "Por favor, preencha o campo."
-    })}
-    
-    {errors.nomeCompleto && <p className="error"><CgDanger color="red" size={16} /> {errors.nomeCompleto.message}</p>}
-    */
+            ref={register({
+              required: "Por favor, preencha o campo.",
+              maxLength: 100,
+              })}
           />
+          {errors.nomeCompleto && <p className="error"><CgDanger color="red" size={16} /> {errors.nomeCompleto.message}</p>}
         </label>
 
         <label>
@@ -90,16 +63,17 @@ const FormularioDoacao = () => {
           <input
             type="text"
             name="whatsapp"
-            value={form.whatsapp}
-            onChange={handleChange}
-            /*
-    ref={register({
-      required: "Por favor, preencha o campo."
-    })}
-     {errors.whatsapp && <p className="error"><CgDanger color="red" size={16} /> {errors.whatsapp.message}</p>}
-
-    */
-          />
+            ref={register({
+              required: "Por favor, preencha o campo.",
+              maxLength: 14,
+              pattern: {
+              value: /^\s*(\d{2}|\d{0})[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/i,
+                message: "Informe um número válido.",
+              },
+            })}
+            />
+            {errors.whatsapp && <p className="error"><CgDanger color="red" size={16} /> {errors.whatsapp.message}</p>}
+  
         </label>
       </div>
 
@@ -113,9 +87,9 @@ const FormularioDoacao = () => {
             Dinheiro
             <input
               type="checkbox"
-              //checked={itens.includes("Dinheiro")}
-              //value="Dinheiro"
-              //onChange={handleCheckbox}
+              name="itensDoacao"
+              value="Dinheiro"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -123,9 +97,9 @@ const FormularioDoacao = () => {
             Alimento
             <input
               type="checkbox"
-              //checked={itens.includes("2")}
-              //value="2"
-              //onChange={handleChange}
+              name="itensDoacao"
+              value="Alimento"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -133,9 +107,9 @@ const FormularioDoacao = () => {
             Ração
             <input
               type="checkbox"
-              //checked={itens.includes("3")}
-              //value="3"
-              //onChange={handleChange}
+              name="itensDoacao"
+              value="Ração"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -143,9 +117,9 @@ const FormularioDoacao = () => {
             Eletrônicos
             <input
               type="checkbox"
-              //checked={itens.includes("4")}
-              //value="4"
-              //onChange={handleChange}
+              name="itensDoacao"
+              value="Eletrônicos"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -156,9 +130,9 @@ const FormularioDoacao = () => {
             Roupa
             <input
               type="checkbox"
-              //checked={itens.includes("5")}
-              //value="5"
-              //onChange={handleChange}
+              name="itensDoacao"
+              value="Roupa"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -166,9 +140,9 @@ const FormularioDoacao = () => {
             Móveis
             <input
               type="checkbox"
-              // checked={itens.includes("6")}
-              // value="6"
-              // onChange={handleChange}
+              name="itensDoacao"
+              value="Móveis"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -176,19 +150,19 @@ const FormularioDoacao = () => {
             Mão de obra
             <input
               type="checkbox"
-              //checked={itens.includes("7")}
-              //value="7"
-              // onChange={handleChange}
+              name="itensDoacao"
+              value="Mão de Obra"
+              ref={register()}
             />
             <span></span>
           </label>
           <label>
-            Material escolar
+            Material Escolar
             <input
               type="checkbox"
-              // checked={itens.includes("8")}
-              // value="8"
-              // onChange={handleChange}
+              name="itensDoacao"
+              value="Material Escolar"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -196,32 +170,32 @@ const FormularioDoacao = () => {
 
         <div>
           <label>
-            Material limpeza
+            Material de Limpeza
             <input
               type="checkbox"
-              // checked={itens.includes("9")}
-              // value="9"
-              // onChange={handleChange}
+              name="itensDoacao"
+              value="Material de Limpeza"
+              ref={register()}
             />
             <span></span>
           </label>
           <label>
-            Material construção
+            Material de Construção
             <input
               type="checkbox"
-              // checked={itens.includes("10")}
-              //value="10"
-              //onChange={handleChange}
+              name="itensDoacao"
+              value="Material de Construção"
+              ref={register()}
             />
             <span></span>
           </label>
           <label>
-            Material higiene
+            Material de Higiene
             <input
               type="checkbox"
-              //checked={itens.includes("11")}
-              //value="11"
-              // onChange={handleChange}
+              name="itensDoacao"
+              value="Material de Higiene"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -229,9 +203,9 @@ const FormularioDoacao = () => {
             Outros
             <input
               type="checkbox"
-              // checked={itens.includes("12")}
-              // value="12"
-              // onChange={handleChange}
+              name="itensDoacao"
+              value="Outros"
+              ref={register()}
             />
             <span></span>
           </label>
@@ -240,19 +214,15 @@ const FormularioDoacao = () => {
 
       <div className="row-1">
         <label>
-          Data de Entrega da Doação
+          Data para Entrega da Doação
           <input
             type="text"
             name="dataEntrega"
-            value={form.dataEntrega}
-            onChange={handleChange}
-            /*
-    ref={register({
-      required: "Por favor, preencha o campo."
-    })}
-     {errors.dataNascimento && <p className="error"><CgDanger color="red" size={16} /> {errors.dataNascimento.message}</p>}
-    */
+            ref={register({
+            required: "Por favor, preencha o campo."
+          })}
           />
+           {errors.dataEntrega && <p className="error"><CgDanger color="red" size={16} /> {errors.dataEntrega.message}</p>}
         </label>
       </div>
 
