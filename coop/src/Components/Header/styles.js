@@ -46,9 +46,17 @@ export const Login = styled.div`
   align-items: center;
   
   a {
-    margin-right: 24px;
+    width: 40px;
+    height: 40px;
     font-weight: 700;
-  }
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
 
- 
+    &:hover {
+      background: var(--cinza);
+    }
+  }
 `;

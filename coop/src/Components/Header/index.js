@@ -22,11 +22,11 @@ const HeaderHome = ({children}) => {
                     {email ? (
                         <>
                             {history.location.pathname !== '/dashboard' && (
-                                <NavLink to="/dashboard" activeClassName="nav__link--active">
+                                <NavLink to="/dashboard" activeClassName="nav__link--active" title="Dashboard">
                                     <FaDesktop />
                                 </NavLink>
                             )}
-                            <NavLink to="/" onClick={signOut}>
+                            <NavLink to="/" onClick={signOut} title="Logout">
                                 <FaSignOutAlt />
                             </NavLink>
                         </>
