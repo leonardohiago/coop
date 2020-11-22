@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 import { Container } from "./styles";
-import initial from "../../assets/initial-form.png";
+import initial from "../../assets/piggy_bank.gif";
 import connection from "../../assets/connection-form.png";
 import question from "../../assets/question-form.png";
 import equipe from "../../assets/equipe.png";
@@ -33,7 +34,7 @@ const Home = () => {
 
   return (
     <>
-      <HeaderHome className="tela" logado={false}>
+      <HeaderHome>
         <nav>
           <a href="/" onClick={(e) => handleScroll(e, sectionColabore)}>
             Início
@@ -73,8 +74,8 @@ const Home = () => {
               </Button>
             </div>
 
-            <div>
-              <img className="imagem1" src={initial} alt="" />
+            <div className="imagem1">
+              <img src={initial} alt="Cofrinho" />
             </div>
           </section>
         </section>
@@ -128,7 +129,7 @@ const Home = () => {
 
         <section ref={sectionResponsaveis}>
           <div>
-            <img className="equipe" src={equipe} alt=" " />
+            <img className="equipe" src={equipe} alt="Equipe do Coop" />
           </div>
 
           <div className="responsaveis">

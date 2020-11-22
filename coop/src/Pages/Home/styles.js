@@ -6,10 +6,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-.tela{
-  background: fixed;
-}  
-
 a{
   font-weight: bold;
   color:#5B25B1;
@@ -33,7 +29,10 @@ a:hover{
   }
 
   .imagem1 {
-    width: 420px;
+    img {
+      width: 406px;
+      height: 406px;
+    }
   }
 
   .botao_lado_esquerdo{
@@ -43,15 +42,9 @@ a:hover{
   section {
     display: flex;
     align-items: center;
-    max-width: 800px;
+    max-width: 856px;
     margin: 0 auto;
-    margin-top: 50px;
-    margin-bottom: 30px;
-    height: 100vh;    
-  }
-
-  .section-one {
-    margin-top: 120px;
+    height: 100vh;
   }
 
   .titulo_lado_esquerdo {
@@ -134,7 +127,5 @@ a:hover{
       .responsaveis {
         width: 100%;
       }
-
   }
-
 `;
