@@ -10,7 +10,6 @@ import { FaDesktop, FaSignOutAlt } from 'react-icons/fa';
 const HeaderHome = ({children}) => {
     const history = useHistory();
     const { email, signOut } = useAuth();
-    console.log(history.location.pathname);
 
     return (
         <Container isDashboard={history.location.pathname === '/dashboard'}>

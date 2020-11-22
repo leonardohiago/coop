@@ -21,6 +21,7 @@ const Home = () => {
   const [loadingOngs, setLoadingOngs] = useState(false);
   const [publicacoes, setPublicacoes] = useState([]);
   const [paginacaoPublicacoes, setPaginacaoPublicoes] = useState(0);
+  const [carregandoPublicacoes, setCarregandoPublicacoes] = useState(false);
 
   useEffect(() => {
     /**
@@ -40,12 +41,16 @@ const Home = () => {
     /**
      * Carrega publicações
      */
+    setCarregandoPublicacoes(true);
+
     api.get('/publicacao?pagina=0&quantidade=2').then(response => {
       setPublicacoes(response.data.publicacoes);
       setPaginacaoPublicoes({
         paginaAtual: response.data.paginaAtual,
         totalPaginas: response.data.totalPaginas
       });
+
+      setCarregandoPublicacoes(false);
     });
   }, []);
 
@@ -100,14 +105,18 @@ const Home = () => {
   }
 
   function handleVerMaisPublicacoes() {
-    console.log('teste');
+    setCarregandoPublicacoes(true);
+
     api.get(`/publicacao?pagina=${paginacaoPublicacoes.paginaAtual + 1}&quantidade=2`).then(response => {
+      console.log(response.data);
       setPublicacoes([...publicacoes, response.data.publicacoes[0], response.data.publicacoes[1]]);
   
       setPaginacaoPublicoes({
         paginaAtual: response.data.paginaAtual,
         totalPaginas: response.data.totalPaginas
       });
+
+      setCarregandoPublicacoes(false);
     });
   }
 
@@ -126,9 +135,12 @@ const Home = () => {
 
           {!loadingOngs
             ? (
-              ultimasOngs.map(ong => (
-                <BoxOngResumo ong={ong} key={ong.id} />
-              ))
+              ultimasOngs.length > 0 ? 
+                ultimasOngs.map(ong => (
+                  <BoxOngResumo ong={ong} key={ong.id} />
+                )) : (
+                  <h2>Nenhuma ONG foi encontrada!</h2>
+                )
             ) : (
               <Loading>
                 <img src={loading} alt="Carregando dados das ONGs"/>
@@ -149,15 +161,19 @@ const Home = () => {
         <ListLastActions>
           <h2>Ações Realizadas</h2>
 
-          {publicacoes.map(publicacao => (
-            <BoxOngLastAction
-              key={publicacao.id}
-              publicacao={publicacao}
-            />
-          ))}
+          { publicacoes.length > 0 ?
+              publicacoes.map(publicacao => (
+                <BoxOngLastAction
+                  key={publicacao.id}
+                  publicacao={publicacao}
+                />
+              )) : (
+                <h2>Nenhuma publicação foi encontrada!</h2>
+              )
+          }
 
         {(paginacaoPublicacoes.paginaAtual < paginacaoPublicacoes.totalPaginas - 1) && <Button background="var(--verde)" backgroundHover="var(--roxo)" onClick={handleVerMaisPublicacoes}>
-          Ver mais publicações
+          {carregandoPublicacoes ? 'Carregando...' : 'Ver mais publicações'}
         </Button>}
         </ListLastActions>
       </Container>

@@ -7,6 +7,7 @@ export const Container = styled.header`
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.05);
   position: ${props => props.isDashboard ? 'relative' : 'fixed'};
   background: #fff;
+  z-index: 1000;
 `;
 
 export const Content = styled.div`
