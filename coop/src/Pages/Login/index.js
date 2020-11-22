@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { CgDanger } from "react-icons/cg";
 
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 import { Container } from './styles';
 import Button from '../../Components/Button';
 
@@ -11,6 +13,9 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 
 const Login = () => {
+  const { signIn, email } = useAuth();
+  const { addToast } = useToast();
+
   const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm();
@@ -21,10 +26,25 @@ const Login = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
-  /*TODO: se ja tiver logado, n pede mais o login */
-  function onSubmit(data) {
-    if (data.email === 'ong@gmail.com' && data.senha === 'ong1234')
+  useState(() => {
+    // Se o usuário estiver logado redireciona para /dashboard
+    if(email) {
       history.push('/dashboard');
+    }
+  }, []);
+  
+  async function onSubmit (data) {
+    try {
+      await signIn(data);
+
+      history.push('/dashboard');
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Erro na autenticação',
+        description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+      });
+    }
   }
 
   return (
@@ -37,8 +57,9 @@ const Login = () => {
       </aside>
 
       <section>
-
-        <img src={logo} alt="" />
+        <NavLink to="/">
+          <img src={logo} alt="Coop" />
+        </NavLink>
         
         <form onSubmit={handleSubmit(onSubmit)}>
           <p>

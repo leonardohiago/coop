@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, /*useState*/ } from "react";
 
 import {
   Container,
   Content,
   StatusDoacoes,
   BoxStatus,
-  ButtonDoado,
+  // ButtonDoado,
 } from "./styles";
 
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
 import MenuDashboard from "../../Components/MenuDashboard";
 
-import api from "../../services/api";
+// import api from "../../services/api";
 
 const DashboardInicio = () => {
-  const [listaDoacoes, SetListaDoacoes] = useState([]);
+  // const [listaDoacoes, SetListaDoacoes] = useState([]);
 
   useEffect(() => {
-    api.get(`/doacao`).then((response) => {
-      let doacao = [];
+    // api.get(`/doacao`).then((response) => {
+    //   let doacao = [];
 
-      response.data.forEach((doacoes) => {
-        doacao.push(doacoes);
-      });
+    //   response.data.forEach((doacoes) => {
+    //     doacao.push(doacoes);
+    //   });
 
-      SetListaDoacoes(doacao);
-    });
+    //   SetListaDoacoes(doacao);
+    // });
   });
 
   return (
@@ -67,7 +67,7 @@ const DashboardInicio = () => {
             </thead>
 
             <tbody>
-              {listaDoacoes.map((doacao) => (
+              {/* {listaDoacoes.map((doacao) => (
                 <tr key={doacao.id_doacao}>
                   <td>{doacao.id_doacao}</td>
                   <td>{doacao.nomeCompleto}</td>
@@ -77,7 +77,7 @@ const DashboardInicio = () => {
                     <ButtonDoado color="vermelho">Não</ButtonDoado>
                   </td>
                 </tr>
-              ))}
+              ))} */}
             </tbody>
           </table>
         </Content>
