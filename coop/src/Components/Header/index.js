@@ -12,7 +12,7 @@ const HeaderHome = ({children}) => {
     const { email, signOut } = useAuth();
 
     return (
-        <Container isDashboard={history.location.pathname === '/dashboard'}>
+        <Container isDashboard={history.location.pathname.indexOf('/dashboard') > -1}>
             <Content logado={email}>
                 <img src={logo} alt="Coop." onClick={() => history.push('/')}/>
 
@@ -21,9 +21,9 @@ const HeaderHome = ({children}) => {
                 <Login>
                     {email ? (
                         <>
-                            {history.location.pathname !== '/dashboard' && (
+                            {history.location.pathname.indexOf('/dashboard') < 0 && (
                                 <NavLink to="/dashboard" activeClassName="nav__link--active" title="Dashboard">
-                                    <FaDesktop />
+                                    <FaDesktop /> {history.location.pathname.indexOf('/dashboard')}
                                 </NavLink>
                             )}
                             <NavLink to="/" onClick={signOut} title="Logout">
