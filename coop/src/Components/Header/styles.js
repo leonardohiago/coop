@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   width: 100%;
+  top: 0;
   padding: 8px 0;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.05);
   position: ${props => props.isDashboard ? 'relative' : 'fixed'};
