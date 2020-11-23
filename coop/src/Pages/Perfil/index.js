@@ -23,8 +23,10 @@ import bannerOng3 from "../../assets/img_ong_banner/banner-ong3.png";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { useParams } from "react-router-dom";
 
 const Perfil = () => {
+  const { id } = useParams();
 
   /*
             "id": 1,

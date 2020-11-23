@@ -62,6 +62,10 @@ export const InfoOng = styled.div`
     font-weight: 400;
     color: var(--cinza-escuro);
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Contato = styled.div`

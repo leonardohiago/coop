@@ -21,7 +21,7 @@ const Routes = () => (
     <Route path="/" component={Home} exact />
     <Route path="/login" component={Login} />
     <Route path="/ongs" component={Ongs} />
-    <Route path="/perfil" component={Perfil} />
+    <Route path="/perfil/:id" component={Perfil} />
     <Route path="/doacao" component={Doacao} />
     <Route path="/cadastrar-ong" component={CadastroOng} exact />
     

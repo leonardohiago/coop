@@ -24,8 +24,10 @@ const BoxOngResumo = (props) => {
     <Container>
       <header>
         <InfoOng>
-          <h3>{ong.nome_ong}</h3>
-          <h4>{ong.logradouro_local_ong}, {ong.numero_local_ong} - {ong.cidade_local_ong} - {ong.estado}</h4>
+          <Link to={`/perfil/${ong.id}`}>
+            <h3>{ong.nome_ong}</h3>
+            <h4>{ong.logradouro_local_ong}, {ong.numero_local_ong} - {ong.cidade_local_ong} - {ong.estado}</h4>
+          </Link>
         </InfoOng>
 
         <Contato>
