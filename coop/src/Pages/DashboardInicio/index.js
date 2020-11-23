@@ -1,33 +1,32 @@
-import React, { useEffect, /*useState*/ } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Container,
   Content,
   StatusDoacoes,
   BoxStatus,
-  // ButtonDoado,
+  ButtonDoado,
 } from "./styles";
 
+import { useAuth } from '../../hooks/auth';
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
 import MenuDashboard from "../../Components/MenuDashboard";
 
-// import api from "../../services/api";
+import api from "../../services/api";
 
 const DashboardInicio = () => {
-  // const [listaDoacoes, SetListaDoacoes] = useState([]);
+  const { id } = useAuth();
+  const [listaDoacoes, SetListaDoacoes] = useState([]);
+  const [numDoacoesRecebidas, SetNumDoacoesRecebidas] = useState(0);
+  const [numDoacoesPendentes, SetNumDoacoesPendentes] = useState(0);
+  const [numDoacoesCanceladas, SetNumDoacoesCanceladas] = useState(0);
 
   useEffect(() => {
-    // api.get(`/doacao`).then((response) => {
-    //   let doacao = [];
-
-    //   response.data.forEach((doacoes) => {
-    //     doacao.push(doacoes);
-    //   });
-
-    //   SetListaDoacoes(doacao);
-    // });
-  });
+    api.get(`/doacao/${id}`).then((response) => {
+      SetListaDoacoes(response.data.doacoes);
+    });
+  }, [id]);
 
   return (
     <>
@@ -39,17 +38,17 @@ const DashboardInicio = () => {
         <Content>
           <StatusDoacoes>
             <BoxStatus color="verde">
-              <span>17</span>
+              <span>{numDoacoesRecebidas}</span>
               <p>Doações Recebidas</p>
             </BoxStatus>
 
             <BoxStatus color="amarelo">
-              <span>42</span>
+              <span>{numDoacoesPendentes}</span>
               <p>Doações Pendentes</p>
             </BoxStatus>
 
             <BoxStatus color="vermelho">
-              <span>12</span>
+              <span>{numDoacoesCanceladas}</span>
               <p>Doações Canceladas</p>
             </BoxStatus>
           </StatusDoacoes>
@@ -67,17 +66,25 @@ const DashboardInicio = () => {
             </thead>
 
             <tbody>
-              {/* {listaDoacoes.map((doacao) => (
-                <tr key={doacao.id_doacao}>
-                  <td>{doacao.id_doacao}</td>
-                  <td>{doacao.nomeCompleto}</td>
-                  <td>{doacao.itensDoacao}</td>
-                  <td>
-                    <ButtonDoado color="verde">Sim</ButtonDoado>
-                    <ButtonDoado color="vermelho">Não</ButtonDoado>
-                  </td>
-                </tr>
-              ))} */}
+              {listaDoacoes.length > 0 ? 
+                listaDoacoes.map((doacao) => (
+                  <tr key={doacao.id}>
+                    <td>{doacao.id}</td>
+                    <td>{doacao.nomeCompleto}</td>
+                    <td>{doacao.itensDoacao}</td>
+                    <td>
+                      <ButtonDoado color="verde">Sim</ButtonDoado>
+                      <ButtonDoado color="vermelho">Não</ButtonDoado>
+                    </td>
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan="4">
+                      <h2>Não há doações!</h2>
+                    </td>
+                  </tr>
+                ) 
+              }
             </tbody>
           </table>
         </Content>
