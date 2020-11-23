@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    setData({ token, email });
+    setData({ token, email, id });
 
   }, []);
 

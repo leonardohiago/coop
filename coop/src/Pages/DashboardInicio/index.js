@@ -23,30 +23,44 @@ const DashboardInicio = () => {
   const [numDoacoesCanceladas, SetNumDoacoesCanceladas] = useState(0);
 
   useEffect(() => {
-    // Pega todas as doaçõe feitas para ONG
-    api.get(`/doacao/${id}`).then((response) => {
-      SetListaDoacoes(response.data.doacoes);
-    });
-
-    // Pega o número total de doações com o status de aguardando
-    api.get(`/doacao/${id}/total`).then((response) => {
-      SetNumDoacoesPendentes(response.data);
-    });
-
-    // Pega o número total de doações canceladas
-    api.get(`/doacao/${id}/total?status=Cancelado`).then((response) => {
-      SetNumDoacoesCanceladas(response.data);
-    });
-
-    // Pega o número total de doações recebidas
-    api.get(`/doacao/${id}/total?status=Recebido`).then((response) => {
-      SetNumDoacoesRecebidas(response.data);
-    });
+      // Pega todas as doaçõe feitas para ONG
+      api.get(`/doacao/${id}`).then((response) => {
+        SetListaDoacoes(response.data.doacoes);
+      });
+  
+      // Pega o número total de doações com o status de aguardando
+      api.get(`/doacao/${id}/total`).then((response) => {
+        SetNumDoacoesPendentes(response.data);
+      });
+  
+      // Pega o número total de doações canceladas
+      api.get(`/doacao/${id}/total?status=Cancelado`).then((response) => {
+        SetNumDoacoesCanceladas(response.data);
+      });
+  
+      // Pega o número total de doações recebidas
+      api.get(`/doacao/${id}/total?status=Recebido`).then((response) => {
+        SetNumDoacoesRecebidas(response.data);
+      });
   }, [id]);
+
+  const handleAlterarStatus = (doacao, status) => {
+    doacao.statusEntrega = status;
+
+    api.post(`/doacao/alterar-status/${doacao.id}`, doacao).then(response => {
+      SetListaDoacoes(listaDoacoes.filter(doacaoAtual => {
+        return doacaoAtual.id !== doacao.id ? doacaoAtual : {...doacao, statusEntrega: status};
+      }));
+
+      (status === 'Recebido') ? SetNumDoacoesRecebidas(numDoacoesRecebidas + 1) : SetNumDoacoesCanceladas(numDoacoesCanceladas + 1);
+
+      SetNumDoacoesPendentes(numDoacoesPendentes - 1);
+    })
+  }
 
   return (
     <>
-      <Header logado={true} />
+      <Header />
 
       <Container>
         <MenuDashboard />
@@ -92,8 +106,8 @@ const DashboardInicio = () => {
                       {
                         doacao.statusEntrega === 'Aguardando' ? (
                           <>
-                            <ButtonDoado color="verde">Sim</ButtonDoado>
-                            <ButtonDoado color="vermelho">Não</ButtonDoado>
+                            <ButtonDoado color="verde" onClick={() => handleAlterarStatus(doacao, 'Recebido')}>Sim</ButtonDoado>
+                            <ButtonDoado color="vermelho" onClick={() => handleAlterarStatus(doacao, 'Cancelado')}>Não</ButtonDoado>
                           </>
                         ) : (
                           doacao.statusEntrega
