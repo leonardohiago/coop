@@ -5,12 +5,12 @@ import logo from '../../assets/coop-logo.png';
 import Button from '../Button';
 import { Container, Content, Login } from './styles';
 import { useAuth } from '../../hooks/auth';
-import { FaDesktop, FaSignOutAlt } from 'react-icons/fa';
+import { FaSignInAlt, FaDesktop, FaSignOutAlt } from 'react-icons/fa';
 
 const HeaderHome = ({children}) => {
     const history = useHistory();
     const { email, signOut } = useAuth();
-
+    
     return (
         <Container isDashboard={history.location.pathname.indexOf('/dashboard') > -1}>
             <Content logado={email}>
@@ -23,7 +23,7 @@ const HeaderHome = ({children}) => {
                         <>
                             {history.location.pathname.indexOf('/dashboard') < 0 && (
                                 <NavLink to="/dashboard" activeClassName="nav__link--active" title="Dashboard">
-                                    <FaDesktop /> {history.location.pathname.indexOf('/dashboard')}
+                                    <FaDesktop />
                                 </NavLink>
                             )}
                             <NavLink to="/" onClick={signOut} title="Logout">
@@ -33,7 +33,7 @@ const HeaderHome = ({children}) => {
                     ) : (
                         <>
                             <NavLink to="/login" activeClassName="nav__link--active">
-                                Login
+                                <FaSignInAlt />
                             </NavLink>
 
                             <Button 

@@ -59,4 +59,8 @@ export const Login = styled.div`
       background: var(--cinza);
     }
   }
+
+  button {
+    margin-left: 8px;
+  }
 `;

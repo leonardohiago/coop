@@ -7,11 +7,12 @@ export const AuthProvider = ({ children }) => {
   const [data, setData] = useState(() => {
     const token = localStorage.getItem('@Coop:token');
     const email = localStorage.getItem('@Coop:email');
+    const id = localStorage.getItem('@Coop:id');
 
     if (token && email) {
       api.defaults.headers.authorization = `Bearer ${token}`;
 
-      return { token, email: JSON.parse(email) };
+      return { token, email, id };
     }
 
     return {};
@@ -25,12 +26,11 @@ export const AuthProvider = ({ children }) => {
       }
     });
 
-    console.log(response.data);
-
-    const { token, email } = response.data;
+    const { token, email, id } = response.data;
 
     localStorage.setItem('@Coop:token', token);
-    localStorage.setItem('@Coop:email', JSON.stringify(email));
+    localStorage.setItem('@Coop:email', email);
+    localStorage.setItem('@Coop:id', id);
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
@@ -41,13 +41,14 @@ export const AuthProvider = ({ children }) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('@Coop:token');
     localStorage.removeItem('@Coop:email');
+    localStorage.removeItem('@Coop:id');
 
     setData({});
   }, []);
 
   const updateUser = useCallback(
     (email) => {
-      localStorage.setItem('@Coop:email', JSON.stringify(email));
+      localStorage.setItem('@Coop:email', email);
 
       setData({
         token: data.token,
@@ -59,7 +60,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ email: data.email, signIn, signOut, updateUser }}
+      value={{ email: data.email, id: data.id, signIn, signOut, updateUser }}
     >
       {children}
     </AuthContext.Provider>
