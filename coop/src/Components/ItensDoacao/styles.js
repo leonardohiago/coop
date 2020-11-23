@@ -19,7 +19,7 @@ export const ItemsGrid = styled.ul`
   margin: 0 auto;
   
 
-  li {
+  .checkbox {
     background: #5b25b1;
     border: 2px solid #f5f5f5;
     height: 140px;

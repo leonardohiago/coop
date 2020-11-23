@@ -12,7 +12,6 @@ import { CgDanger } from "react-icons/cg";
 const FormularioDoacao = () => {
 
   const { register, handleSubmit, errors } = useForm();
-
   const onSubmit = (data, event) => {
     data.itensDoacao = data.itensDoacao.toString();
     data.statusEntrega = "Aguardando";
