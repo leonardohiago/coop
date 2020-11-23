@@ -23,8 +23,24 @@ const DashboardInicio = () => {
   const [numDoacoesCanceladas, SetNumDoacoesCanceladas] = useState(0);
 
   useEffect(() => {
+    // Pega todas as doaçõe feitas para ONG
     api.get(`/doacao/${id}`).then((response) => {
       SetListaDoacoes(response.data.doacoes);
+    });
+
+    // Pega o número total de doações com o status de aguardando
+    api.get(`/doacao/${id}/total`).then((response) => {
+      SetNumDoacoesPendentes(response.data);
+    });
+
+    // Pega o número total de doações canceladas
+    api.get(`/doacao/${id}/total?status=Cancelado`).then((response) => {
+      SetNumDoacoesCanceladas(response.data);
+    });
+
+    // Pega o número total de doações recebidas
+    api.get(`/doacao/${id}/total?status=Recebido`).then((response) => {
+      SetNumDoacoesRecebidas(response.data);
     });
   }, [id]);
 
