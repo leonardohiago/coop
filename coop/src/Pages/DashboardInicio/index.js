@@ -73,8 +73,16 @@ const DashboardInicio = () => {
                     <td>{doacao.nomeCompleto}</td>
                     <td>{doacao.itensDoacao}</td>
                     <td>
-                      <ButtonDoado color="verde">Sim</ButtonDoado>
-                      <ButtonDoado color="vermelho">Não</ButtonDoado>
+                      {
+                        doacao.statusEntrega === 'Aguardando' ? (
+                          <>
+                            <ButtonDoado color="verde">Sim</ButtonDoado>
+                            <ButtonDoado color="vermelho">Não</ButtonDoado>
+                          </>
+                        ) : (
+                          doacao.statusEntrega
+                        )
+                      }
                     </td>
                   </tr>
                 )) : (
