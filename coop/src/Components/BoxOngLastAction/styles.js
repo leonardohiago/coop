@@ -16,14 +16,23 @@ export const Container = styled.div`
     color: var(--preto);
     line-height: 20px;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Header = styled.header`
   width: 100%;
   padding: 8px 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+
+  a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   img {
     width: 48px;
@@ -39,7 +48,7 @@ export const Header = styled.header`
 
   button {
     max-width: 90px;
-    margin-left: auto;
+    margin: 0 0 0 auto;
     height: 24px;
     font-size: 12px;
   }
