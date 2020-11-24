@@ -1,45 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header";
 import MenuDashboard from "../../Components/MenuDashboard";
 import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
 import { Container, Section } from "./styles";
 
+import { useAuth } from '../../hooks/auth';
+
 import api from '../../services/api';
 
 const DashboardDados = () => {
-  const [form, setForm] = React.useState({
-    id: "1",
-    nome_Ong: "ONG Ação Vida",
-    cnpj: "00.806.666/0001-31",
-    email: "ongacaovida@gmail.com",
-    whatsapp: "(81) 9 9999-9999",
-    senha: "loremipsum",
-    sobre: "Ong destinada a ajuda de pessoas que m",
-    area_atuacao: "Geral",
-    facebook: "https://www.facebook.com/ongacaovida",
-    instagram: "https://www.instagram.com/ongacaovida",
+  const { id } = useAuth();
 
-    logradouro: 'Santo Amaro',
-    numero: '66666',
-    complemento: 'Casa',
-    cep: '65656-454',
-    estado: 'SP',
-    cidade: 'SP',
-  });
+  const [DadosOng, SetDadosOng] = React.useState({
+    nome_ong: '',
+    cnpj_ong: '',
+    email: '',
+    whatsapp_ong: '',
+    senha: '',
+    sobre_ong: '',
+    area_atuacao_ong: '',
+    facebook_ong: '',
+    instagram_ong: '',
 
-  const handleChange = (event) =>{
-    setForm({...form, [event.target.name]: event.target.value})
-  }
+    logradouro_local_ong: '',
+    numero_local_ong: '',
+    complemento_local_ong: '',
+    cep_local_ong: '',
+    estado: '',
+    cidade: ''  
+});
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+const handleChange = (event) =>{
+  SetDadosOng({...DadosOng, [event.target.name]: event.target.value});
+};
 
-    await api.put('/ongs/edita', form)
-      .then(response => {
-      console.log(response.data);
+const handleSubmit = async (event) =>{
+  event.preventDefault();
+
+  await api.put(`/ongs/edita/${id}`, DadosOng)
+  .then((response)=>{
+    if(response.status == 200){
+      alert("Alteração feita com sucesso!")
+      event.target.reset();
+    }
+    console.log(response);
+  }, [id]);
+
+}
+
+  useEffect(() =>{
+    api.get(`/ongs/listaOng/${id}`, DadosOng).then((response) =>{
+      SetDadosOng(response.data);
     });
-  }
+  }, [id]);
+
 
   return (
     <>
@@ -57,8 +72,8 @@ const DashboardDados = () => {
                 <input
                   type="text"
                   className="color-readonly"
-                  value={form.nome_Ong}
-                  onChange={handleChange}
+                  name="nome_ong"
+                  value={DadosOng.nome_ong}
                   readOnly
                 />
               </label>
@@ -67,8 +82,8 @@ const DashboardDados = () => {
                 <input
                   type="text"
                   className="color-readonly"
-                  value={form.cnpj}
-                  onChange={handleChange}
+                  name="cnpj_ong"
+                  value={DadosOng.cnpj_ong}
                   readOnly
                 />
               </label>
@@ -80,7 +95,8 @@ const DashboardDados = () => {
                 <input
                   type="email"
                   className="color-input"
-                  value={form.email}
+                  name="email"
+                  value={DadosOng.email}
                   onChange={handleChange}
                 />
               </label>
@@ -88,7 +104,8 @@ const DashboardDados = () => {
               <span>Whatsapp<span className="required">*</span></span>
                 <input
                   type="text"
-                  value={form.whatsapp}
+                  name="whatsapp_ong"
+                  value={DadosOng.whatsapp_ong}
                   onChange={handleChange}
                 />
               </label>
@@ -100,7 +117,8 @@ const DashboardDados = () => {
                 <input
                   type="password"
                   className="color-input"
-                  value={form.senha}
+                  name="senha"
+                  value={DadosOng.senha}
                   onChange={handleChange}
                 />
               </label>
@@ -108,7 +126,8 @@ const DashboardDados = () => {
                 <span>Confirmação da Senha<span className="required">*</span></span>
                 <input
                   type="password"
-                  value={form.senha}
+                  name="senha"
+                  value={DadosOng.senha}
                   onChange={handleChange}
                 />
               </label>
@@ -117,13 +136,19 @@ const DashboardDados = () => {
             <div className="box">
               <label>
               <span>Sobre<span className="required">*</span></span>
-                <input type="text" value={form.sobre} onChange={handleChange} />
+                <input 
+                type="text"
+                name="sobre_ong" 
+                value={DadosOng.sobre_ong} 
+                onChange={handleChange} 
+                />
               </label>
               <label>
                 Área de atuação
                 <input
                   type="text"
-                  value={form.area_atuacao}
+                  name="area_atuacao_ong"
+                  value={DadosOng.area_atuacao_ong}
                   onChange={handleChange}
                 />
               </label>
@@ -134,7 +159,8 @@ const DashboardDados = () => {
                 <span>Facebook<span className="required">*</span></span>
                 <input
                   type="text"
-                  value={form.facebook}
+                  name="facebook_ong"
+                  value={DadosOng.facebook_ong}
                   onChange={handleChange}
                 />
               </label>
@@ -142,7 +168,8 @@ const DashboardDados = () => {
                 Instagram
                 <input
                   type="text"
-                  value={form.instagram}
+                  name="instagram_ong"
+                  value={DadosOng.instagram_ong}
                   onChange={handleChange}
                 />
               </label>
@@ -155,7 +182,8 @@ const DashboardDados = () => {
               <span>Logradouro<span className="required">*</span></span>
                 <input
                   type="text"
-                  value={form.logradouro}
+                  name="logradouro_local_ong"
+                  value={DadosOng.logradouro_local_ong}
                   onChange={handleChange}
                 />
               </label>
@@ -163,7 +191,8 @@ const DashboardDados = () => {
               <span>Número<span className="required">*</span></span>
                 <input
                   type="text"
-                  value={form.numero}
+                  name="numero_local_ong"
+                  value={DadosOng.numero_local_ong}
                   onChange={handleChange}
                 />
               </label>
@@ -174,13 +203,18 @@ const DashboardDados = () => {
                 Complemento
                 <input
                   type="text"
-                  value={form.complemento}
+                  name="complemento_local_ong"
+                  value={DadosOng.complemento_local_ong}
                   onChange={handleChange}
                 />
               </label>
               <label>
               <span>CEP<span className="required">*</span></span>
-                <input type="text" value={form.cep} onChange={handleChange} />
+                <input 
+                    type="text" 
+                    name="cep_local_ong"
+                    value={DadosOng.cep_local_ong} 
+                    onChange={handleChange} />
               </label>
             </div>
 
@@ -189,7 +223,8 @@ const DashboardDados = () => {
               <span>Estado<span className="required">*</span></span>
                 <input
                   type="text"
-                  value={form.estado}
+                  name="estado"
+                  value={DadosOng.estado}
                   onChange={handleChange}
                 />
               </label>
@@ -197,7 +232,8 @@ const DashboardDados = () => {
               <span>Cidade<span className="required">*</span></span>
                 <input
                   type="text"
-                  value={form.cidade}
+                  name="cidade"
+                  value={DadosOng.cidade}
                   onChange={handleChange}
                 />
               </label>
