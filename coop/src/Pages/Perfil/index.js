@@ -130,6 +130,7 @@ const Perfil = () => {
             <BoxOngLastAction
               key={publicacao.id}
               publicacao={publicacao}
+              ong={publicacao.ong}
             />
           </ListLastActions>
         </section>

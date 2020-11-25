@@ -165,6 +165,7 @@ const Home = () => {
                 <BoxOngLastAction
                   key={publicacao.id}
                   publicacao={publicacao}
+                  ong={publicacao.fkOng}
                 />
               )) : (
                 <h2>Nenhuma publicação foi encontrada!</h2>
