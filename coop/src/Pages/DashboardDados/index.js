@@ -37,6 +37,8 @@ const DashboardDados = () => {
     cidade: "",
   });
 
+  
+
   const handleChange = (event) => {
     SetDadosOng({ ...DadosOng, [event.target.name]: event.target.value });
   };
@@ -44,7 +46,7 @@ const DashboardDados = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await api.put(`/ongs/edita/${id}`, DadosOng).then(
+    await api.post(`/ongs/altera-dados-ong/${id}`, DadosOng).then(
       (response) => {
         if (response.status == 200) {
           alert("Alteração feita com sucesso!");
@@ -322,7 +324,7 @@ const DashboardDados = () => {
             </div>
 
             <div className="box-button">
-              <Button
+              <Button 
                 className="button-size"
                 background="var(--verde)"
                 backgroundHover="var(--roxo)"
