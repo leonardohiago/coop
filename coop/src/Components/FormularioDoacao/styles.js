@@ -16,6 +16,7 @@ export const GroupCheckbox = styled.div`
     padding-top: 5px;
   }
 
+
   .item{
     padding-top: 11px;
   }

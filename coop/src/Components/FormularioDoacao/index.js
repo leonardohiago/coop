@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router-dom';
 
 import Button from "../../Components/Button";
 import { GroupCheckbox } from "./styles";
@@ -9,9 +10,15 @@ import api from "../../services/api";
 
 import { CgDanger } from "react-icons/cg";
 
+import { useAuth } from "../../hooks/auth";
+
 const FormularioDoacao = () => {
 
+  const { id } = useAuth();
+
+  const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
+
   const onSubmit = (data, event) => {
     data.itensDoacao = data.itensDoacao.toString();
     data.statusEntrega = "Aguardando";
@@ -37,10 +44,10 @@ const FormularioDoacao = () => {
       });
   }
   
-
+ 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <img className="logo" src={logo} alt="logo" />
+       <img src={logo} alt="Coop." onClick={() => history.push('/')}/>
       <p className="p-1">Confirme sua Doação</p>
 
       <div>
