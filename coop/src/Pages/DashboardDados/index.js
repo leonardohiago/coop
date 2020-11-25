@@ -5,56 +5,100 @@ import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
 import { Container, Section } from "./styles";
 
-import { useAuth } from '../../hooks/auth';
+import { useAuth } from "../../hooks/auth";
 
-import api from '../../services/api';
+import api from "../../services/api";
 
 const DashboardDados = () => {
   const { id } = useAuth();
 
+  const [ufs, setUfs] = useState([]);
+  const [cidades, setCidades] = useState([]);
+
+  const [selectedUf, setSelectedUf] = useState("0");
+  const [selectedCidade, setSelectedCidade] = useState("0");
+
   const [DadosOng, SetDadosOng] = React.useState({
-    nome_ong: '',
-    cnpj_ong: '',
-    email: '',
-    whatsapp_ong: '',
-    senha: '',
-    sobre_ong: '',
-    area_atuacao_ong: '',
-    facebook_ong: '',
-    instagram_ong: '',
+    nome_ong: "",
+    cnpj_ong: "",
+    email: "",
+    whatsapp_ong: "",
+    senha: "",
+    sobre_ong: "",
+    area_atuacao_ong: "",
+    facebook_ong: "",
+    instagram_ong: "",
 
-    logradouro_local_ong: '',
-    numero_local_ong: '',
-    complemento_local_ong: '',
-    cep_local_ong: '',
-    estado: '',
-    cidade: ''  
-});
+    logradouro_local_ong: "",
+    numero_local_ong: "",
+    complemento_local_ong: "",
+    cep_local_ong: "",
+    estado: "",
+    cidade: "",
+  });
 
-const handleChange = (event) =>{
-  SetDadosOng({...DadosOng, [event.target.name]: event.target.value});
-};
+  const handleChange = (event) => {
+    SetDadosOng({ ...DadosOng, [event.target.name]: event.target.value });
+  };
 
-const handleSubmit = async (event) =>{
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  await api.put(`/ongs/edita/${id}`, DadosOng)
-  .then((response)=>{
-    if(response.status == 200){
-      alert("Alteração feita com sucesso!")
-      event.target.reset();
+    await api.put(`/ongs/edita/${id}`, DadosOng).then(
+      (response) => {
+        if (response.status == 200) {
+          alert("Alteração feita com sucesso!");
+          event.target.reset();
+        }
+        console.log(response);
+      },
+      [id]
+    );
+  };
+
+  useEffect(() => {
+    api
+      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+      .then((response) => {
+        const estados = response.data.map((uf) => uf.sigla);
+
+        setUfs(estados);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (selectedUf === "0") {
+      return;
     }
-    console.log(response);
-  }, [id]);
 
-}
+    api
+      .get(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
+      )
+      .then((response) => {
+        const cidades = response.data.map((cidade) => cidade.nome);
 
-  useEffect(() =>{
-    api.get(`/ongs/listaOng/${id}`, DadosOng).then((response) =>{
+        setCidades(cidades);
+      });
+  }, [selectedUf]);
+
+  function handleSelectUf(event) {
+    const uf = event.target.value;
+
+    setSelectedUf(uf);
+  }
+
+  function handleSelectCidade(event) {
+    const cidade = event.target.value;
+
+    setSelectedCidade(cidade);
+  }
+
+  useEffect(() => {
+    api.get(`/ongs/listaOng/${id}`, DadosOng).then((response) => {
       SetDadosOng(response.data);
     });
   }, [id]);
-
 
   return (
     <>
@@ -91,7 +135,9 @@ const handleSubmit = async (event) =>{
 
             <div className="box">
               <label>
-              <span>E-mail<span className="required">*</span></span>
+                <span>
+                  E-mail<span className="required">*</span>
+                </span>
                 <input
                   type="email"
                   className="color-input"
@@ -101,7 +147,9 @@ const handleSubmit = async (event) =>{
                 />
               </label>
               <label>
-              <span>Whatsapp<span className="required">*</span></span>
+                <span>
+                  Whatsapp<span className="required">*</span>
+                </span>
                 <input
                   type="text"
                   name="whatsapp_ong"
@@ -113,7 +161,9 @@ const handleSubmit = async (event) =>{
 
             <div className="box">
               <label>
-                <span>Senha<span className="required">*</span></span>
+                <span>
+                  Senha<span className="required">*</span>
+                </span>
                 <input
                   type="password"
                   className="color-input"
@@ -123,7 +173,9 @@ const handleSubmit = async (event) =>{
                 />
               </label>
               <label>
-                <span>Confirmação da Senha<span className="required">*</span></span>
+                <span>
+                  Confirmação da Senha<span className="required">*</span>
+                </span>
                 <input
                   type="password"
                   name="senha"
@@ -135,12 +187,14 @@ const handleSubmit = async (event) =>{
 
             <div className="box">
               <label>
-              <span>Sobre<span className="required">*</span></span>
-                <input 
-                type="text"
-                name="sobre_ong" 
-                value={DadosOng.sobre_ong} 
-                onChange={handleChange} 
+                <span>
+                  Sobre<span className="required">*</span>
+                </span>
+                <input
+                  type="text"
+                  name="sobre_ong"
+                  value={DadosOng.sobre_ong}
+                  onChange={handleChange}
                 />
               </label>
               <label>
@@ -156,7 +210,9 @@ const handleSubmit = async (event) =>{
 
             <div className="box">
               <label>
-                <span>Facebook<span className="required">*</span></span>
+                <span>
+                  Facebook<span className="required">*</span>
+                </span>
                 <input
                   type="text"
                   name="facebook_ong"
@@ -179,7 +235,9 @@ const handleSubmit = async (event) =>{
 
             <div className="box">
               <label>
-              <span>Logradouro<span className="required">*</span></span>
+                <span>
+                  Logradouro<span className="required">*</span>
+                </span>
                 <input
                   type="text"
                   name="logradouro_local_ong"
@@ -188,7 +246,9 @@ const handleSubmit = async (event) =>{
                 />
               </label>
               <label>
-              <span>Número<span className="required">*</span></span>
+                <span>
+                  Número<span className="required">*</span>
+                </span>
                 <input
                   type="text"
                   name="numero_local_ong"
@@ -209,33 +269,55 @@ const handleSubmit = async (event) =>{
                 />
               </label>
               <label>
-              <span>CEP<span className="required">*</span></span>
-                <input 
-                    type="text" 
-                    name="cep_local_ong"
-                    value={DadosOng.cep_local_ong} 
-                    onChange={handleChange} />
+                <span>
+                  CEP<span className="required">*</span>
+                </span>
+                <input
+                  type="text"
+                  name="cep_local_ong"
+                  value={DadosOng.cep_local_ong}
+                  onChange={handleChange}
+                />
               </label>
             </div>
 
             <div className="box">
               <label>
-              <span>Estado<span className="required">*</span></span>
-                <input
-                  type="text"
+                <span>
+                  Estado<span className="required">*</span>
+                </span>
+                <select
                   name="estado"
-                  value={DadosOng.estado}
-                  onChange={handleChange}
-                />
+                  id="estado"
+                  value={selectedUf.estado}
+                  onChange={handleSelectUf}
+                >
+                  <option value="0">Selecione uma UF</option>
+                  {ufs.map((uf) => (
+                    <option key={uf} value={uf}>
+                      {uf}
+                    </option>
+                  ))}
+                </select>
               </label>
+
               <label>
-              <span>Cidade<span className="required">*</span></span>
-                <input
-                  type="text"
+                <span>
+                  Cidade<span className="required">*</span>
+                </span>
+                <select
                   name="cidade"
-                  value={DadosOng.cidade}
-                  onChange={handleChange}
-                />
+                  id="cidade"
+                  value={selectedCidade}
+                  onChange={handleSelectCidade}
+                >
+                  <option value="0">Selecione uma Cidade</option>
+                  {cidades.map((cidade) => (
+                    <option key={cidade} value={cidade}>
+                      {cidade}
+                    </option>
+                  ))}
+                </select>
               </label>
             </div>
 

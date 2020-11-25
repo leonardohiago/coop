@@ -69,7 +69,15 @@ input[type="text"], input[type="email"], input[type="password"]{
     padding: 16px 24px;
 }
 
-input, .color-input{
+select{
+    width: 320px;
+    height:35px;
+    border-radius: 10px;
+    background: var(--cinza-claro);
+    border-style: none;
+}
+
+input, .color-input, select{
     font-size: 14px;
     font-weight: bold;
     line-height: 16px;
@@ -98,5 +106,4 @@ input, .color-input{
     padding: 10px;
     font-size: 17px;         
 }
-
 `;
