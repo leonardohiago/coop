@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   display: flex;
-
 `;
 
 export const FieldGroup = styled.div`
@@ -12,50 +11,71 @@ export const FieldGroup = styled.div`
 `;
 
 export const ItemsGrid = styled.ul`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   list-style: none;
   margin: 0 auto;
   
-
-  .checkbox {
-    background: #5b25b1;
-    border: 2px solid #f5f5f5;
-    height: 140px;
-    width: 140;
-    border-radius: 20px;
-    padding: 32px 24px 32px;
+  span {
+    flex: 1;
+    margin-top: 15px;
 
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    &:hover{
-
-      box-shadow: 0 0 30px #FFA500;
-      transition: 0.3s;
+    color: white;
+    font-size: 12px;
   }
-  
 
-    span {
-      flex: 1;
-      margin-top: 15px;
+  li.selected {
+    background: #e1faec;
+    border: 2px solid #34cb79;
+  }
+`;
 
-      display: flex;
-      align-items: center;
-      color: white;
-      font-size: 12px;
-    }
+export const LabelItem = styled.label`
+  position: relative;
+  background: var(--roxo);
+  height: 140px;
+  width: 140;
+  border:${props => props.destaque ? '5px solid var(--verde)' : '5px solid var(--roxo)'};
+  border-radius: 20px;
+  text-align: center;
 
-    li.selected {
-      background: #e1faec;
-      border: 2px solid #34cb79;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.3s;
+
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);    
+  }
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+export const BotoesDeAcao = styled.div`
+  margin-top: 32px;
+  display: flex;
+
+  button {
+    margin-right: 8px;
   }
 `;

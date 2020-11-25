@@ -26,7 +26,7 @@ const FormularioDoacao = () => {
         }
       })
       .then(response => {
-        if(response.status == 200) {
+        if(response.status === 200) {
           alert("Sua doação foi confirmada. O Coop agradece sua colaboração =)")
           event.target.reset();
         }

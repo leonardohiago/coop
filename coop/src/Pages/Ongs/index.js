@@ -108,7 +108,6 @@ const Home = () => {
     setCarregandoPublicacoes(true);
 
     api.get(`/publicacao?pagina=${paginacaoPublicacoes.paginaAtual + 1}&quantidade=2`).then(response => {
-      console.log(response.data);
       setPublicacoes([...publicacoes, response.data.publicacoes[0], response.data.publicacoes[1]]);
   
       setPaginacaoPublicoes({
