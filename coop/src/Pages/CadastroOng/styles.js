@@ -171,7 +171,7 @@ export const ItemsGrid = styled.ul`
   list-style: none;
 
   li {
-    background: #5B25B1;
+    background: var(--roxo);
     border: 2px solid #f5f5f5;
     height: 218px;
     width: 218px;

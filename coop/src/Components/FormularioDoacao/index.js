@@ -23,8 +23,6 @@ const FormularioDoacao = () => {
     data.itensDoacao = data.itensDoacao.toString();
     data.statusEntrega = "Aguardando";
     data.fkOng = {"id": 1}; // TODO: RECEBER O ID PELO BOTÃO DA TELA ANTERIOR   
-
-    console.log(JSON.stringify(data));
     
     api.post(`/doacao`,
       JSON.stringify(data), {

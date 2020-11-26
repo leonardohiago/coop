@@ -24,7 +24,8 @@ const Home = () => {
   const [carregandoPublicacoes, setCarregandoPublicacoes] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    
     /**
      * Carrega últimas ONGs cadastradas
      */

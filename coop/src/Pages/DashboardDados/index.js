@@ -1,78 +1,125 @@
-import React, { useEffect, useState } from "react";
-import Header from "../../Components/Header";
-import MenuDashboard from "../../Components/MenuDashboard";
-import Footer from "../../Components/Footer";
-import Button from "../../Components/Button";
-import { Container, Section } from "./styles";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import * as Yup from 'yup';
 
+import { useToast } from '../../hooks/toast';
 import { useAuth } from "../../hooks/auth";
 
 import api from "../../services/api";
 
+import Header from "../../Components/Header";
+import MenuDashboard from "../../Components/MenuDashboard";
+import Footer from "../../Components/Footer";
+import Button from "../../Components/Button";
+import Input from '../../Components/Input';
+import InputMask from '../../Components/InputMask';
+import Select from '../../Components/Select';
+import { Container, Section, Form } from "./styles";
+
 const DashboardDados = () => {
+  const formRef = useRef(null);
+  const { addToast } = useToast();
   const { id } = useAuth();
 
-  const [ufs, setUfs] = useState([]);
-  const [cidades, setCidades] = useState([]);
+  const [optionsUfs, setOptionsUfs] = useState([]);
+  const [optionsCidades, setOptionsCidades] = useState([]);
 
-  const [selectedUf, setSelectedUf] = useState("0");
+  const [selectedUf, setSelectedUf] = useState(0);
   const [selectedCidade, setSelectedCidade] = useState("0");
 
-  const [DadosOng, SetDadosOng] = React.useState({
-    nome_ong: "",
-    cnpj_ong: "",
-    email: "",
-    whatsapp_ong: "",
-    senha: "",
-    sobre_ong: "",
-    area_atuacao_ong: "",
-    facebook_ong: "",
-    instagram_ong: "",
+  const [atualizando, setAtualizando] = useState(false);
 
-    logradouro_local_ong: "",
-    numero_local_ong: "",
-    complemento_local_ong: "",
-    cep_local_ong: "",
-    estado: "",
-    cidade: "",
-  });
+  const handleSubmit = async (data) => {
+    try {
+      setAtualizando(true);
+      formRef.current.setErrors({});
 
-  
+      const schema = Yup.object().shape({
+        nome_ong: Yup.string().required('Informe o nome da ONG'),
+        cnpj_ong: Yup.string().required('Informe o CNPJ'),
+        email: Yup.string().email("Insira um e-mail válido.").required(),
+        whatsapp_ong: Yup.string()
+          .required('Informe o número do WhatsApp')
+          .matches(/\(\d{2}\) \d{5}-\d{4}/, 'Informe um número de WhatsApp válido.'),
+        sobre_ong: Yup.string().required('Preencha o campo "Sobre"'),
+        facebook_ong: Yup.string().required('Informe a página do Facebook'),
+        logradouro_local_ong: Yup.string().required('Informe o logradouro'),
+        numero_local_ong: Yup.string().required('Informe o número do endereço'),
+        cep_local_ong: Yup.string()
+          .required('Informe o CEP')
+          .matches(/\d{5}-\d{3}/, 'Informe um número CEP válido.'),
+      });
 
-  const handleChange = (event) => {
-    SetDadosOng({ ...DadosOng, [event.target.name]: event.target.value });
-  };
+      await schema.validate(data, {
+        abortEarly: false,
+      });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+      await api.post(`/ongs/altera-dados-ong/${id}`, {
+        nome_ong: data.nome_ong,
+        cnpj_ong: data.cnpj_ong,
+        email: data.email,
+        sobre_ong: data.sobre_ong,
+        area_atuacao_ong: data.area_atuacao_ong,
+        facebook_ong: data.facebook_ong,
+        instagram_ong: data.instagram_ong,
+        whatsapp_ong: data.whatsapp_ong,
+        logradouro_local_ong: data.logradouro_local_ong,
+        numero_local_ong: data.numero_local_ong,
+        complemento_local_ong: data.complemento_local_ong,
+        cep_local_ong: data.cep_local_ong,
+        cidade: selectedCidade,
+        estado: selectedUf,
+      }).then(
+        (response) => {
+          if (response.status === 200) {
+            setAtualizando(false);
 
-    await api.post(`/ongs/altera-dados-ong/${id}`, DadosOng).then(
-      (response) => {
-        if (response.status == 200) {
-          alert("Alteração feita com sucesso!");
-          event.target.reset();
+            addToast({
+              type: 'success',
+              title: 'Sucesso',
+              description: 'Dados atualizados com sucesso!',
+            });
+          }
         }
-        console.log(response);
-      },
-      [id]
-    );
+      ).catch(() => {
+        addToast({
+          type: 'error',
+          title: 'Erro',
+          description: 'Não foi possível atualizar os dados.',
+        });
+      });
+    } catch (err) {
+      const validationErrors = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+
+          addToast({
+            type: 'error',
+            title: 'Erro',
+            description: error.message,
+          });
+        });
+
+        formRef.current.setErrors(validationErrors);
+      }
+
+    }
   };
 
   useEffect(() => {
     api
-      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
       .then((response) => {
         const estados = response.data.map((uf) => uf.sigla);
 
-        setUfs(estados);
+        setOptionsUfs(estados.map(uf => {
+          return {value: uf, label: uf}
+        }));
       });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    if (selectedUf === "0") {
-      return;
-    }
-
     api
       .get(
         `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
@@ -80,57 +127,76 @@ const DashboardDados = () => {
       .then((response) => {
         const cidades = response.data.map((cidade) => cidade.nome);
 
-        setCidades(cidades);
+        setOptionsCidades(cidades.map(cidade => {
+          return {value: cidade, label: cidade}
+        }));
       });
   }, [selectedUf]);
 
-  function handleSelectUf(event) {
-    const uf = event.target.value;
+  const resetDadosForm = useCallback(() => {
+    api.get(`/ongs/ong/${id}`).then((response) => {
+      const ong = response.data;
+      
+      formRef.current.setData({
+        whatsapp_ong: ong.whatsapp_ong,
+        nome_ong: ong.nome_ong,
+        cnpj_ong: ong.cnpj_ong,
+        email: ong.email,
+        sobre_ong: ong.sobre_ong,
+        area_atuacao_ong: ong.area_atuacao_ong,
+        facebook_ong: ong.facebook_ong,
+        instagram_ong: ong.instagram_ong,
+        logradouro_local_ong: ong.logradouro_local_ong,
+        numero_local_ong: ong.numero_local_ong,
+        complemento_local_ong: ong.complemento_local_ong,
+        cep_local_ong: ong.cep_local_ong,
+      });
 
-    setSelectedUf(uf);
-  }
-
-  function handleSelectCidade(event) {
-    const cidade = event.target.value;
-
-    setSelectedCidade(cidade);
-  }
+      setSelectedUf(ong.estado);
+      setSelectedCidade(ong.cidade);
+    });
+  }, [id])
 
   useEffect(() => {
-    api.get(`/ongs/listaOng/${id}`, DadosOng).then((response) => {
-      SetDadosOng(response.data);
-    });
-  }, [id]);
+    resetDadosForm();
+  }, [id, resetDadosForm]);
+
+  const handleChangeUF = (selected) => {
+    setSelectedUf(selected.value);
+    setSelectedCidade('Selecione');
+  }
+
+  const handleChangeCidade = (selected) => {
+    setSelectedCidade(selected.value);
+  }
 
   return (
     <>
-      <Header logado={true} />
+      <Header />
 
       <Container>
         <MenuDashboard />
+
         <Section>
-          <form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} ref={formRef}>
             <p className="font-paragraph">Dados da ONG</p>
 
             <div className="box">
-              <label className="color-readonly">
-                Nome da ONG
-                <input
-                  type="text"
-                  className="color-readonly"
+              <label>
+                <span>
+                  Nome da ONG<span className="required">*</span>
+                </span>
+                <Input
                   name="nome_ong"
-                  value={DadosOng.nome_ong}
-                  readOnly
                 />
               </label>
-              <label className="color-readonly">
-                CNPJ
-                <input
-                  type="text"
-                  className="color-readonly"
+              <label>
+                <span>
+                  CNPJ<span className="required">*</span>
+                </span>
+                <InputMask
                   name="cnpj_ong"
-                  value={DadosOng.cnpj_ong}
-                  readOnly
+                  mask="99.999.999/9999-99"
                 />
               </label>
             </div>
@@ -140,50 +206,18 @@ const DashboardDados = () => {
                 <span>
                   E-mail<span className="required">*</span>
                 </span>
-                <input
-                  type="email"
-                  className="color-input"
+                <Input
                   name="email"
-                  value={DadosOng.email}
-                  onChange={handleChange}
                 />
               </label>
               <label>
                 <span>
                   Whatsapp<span className="required">*</span>
                 </span>
-                <input
-                  type="text"
-                  name="whatsapp_ong"
-                  value={DadosOng.whatsapp_ong}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-
-            <div className="box">
-              <label>
-                <span>
-                  Senha<span className="required">*</span>
-                </span>
-                <input
-                  type="password"
-                  className="color-input"
-                  name="senha"
-                  value={DadosOng.senha}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                <span>
-                  Confirmação da Senha<span className="required">*</span>
-                </span>
-                <input
-                  type="password"
-                  name="senha"
-                  value={DadosOng.senha}
-                  onChange={handleChange}
-                />
+                  <InputMask
+                    name="whatsapp_ong"
+                    mask="(99) 99999-9999"
+                  />
               </label>
             </div>
 
@@ -192,20 +226,14 @@ const DashboardDados = () => {
                 <span>
                   Sobre<span className="required">*</span>
                 </span>
-                <input
-                  type="text"
+                <Input
                   name="sobre_ong"
-                  value={DadosOng.sobre_ong}
-                  onChange={handleChange}
                 />
               </label>
               <label>
                 Área de atuação
-                <input
-                  type="text"
+                <Input
                   name="area_atuacao_ong"
-                  value={DadosOng.area_atuacao_ong}
-                  onChange={handleChange}
                 />
               </label>
             </div>
@@ -215,20 +243,14 @@ const DashboardDados = () => {
                 <span>
                   Facebook<span className="required">*</span>
                 </span>
-                <input
-                  type="text"
+                <Input
                   name="facebook_ong"
-                  value={DadosOng.facebook_ong}
-                  onChange={handleChange}
                 />
               </label>
               <label>
                 Instagram
-                <input
-                  type="text"
+                <Input
                   name="instagram_ong"
-                  value={DadosOng.instagram_ong}
-                  onChange={handleChange}
                 />
               </label>
             </div>
@@ -240,22 +262,16 @@ const DashboardDados = () => {
                 <span>
                   Logradouro<span className="required">*</span>
                 </span>
-                <input
-                  type="text"
+                <Input
                   name="logradouro_local_ong"
-                  value={DadosOng.logradouro_local_ong}
-                  onChange={handleChange}
                 />
               </label>
               <label>
                 <span>
                   Número<span className="required">*</span>
                 </span>
-                <input
-                  type="text"
+                <Input
                   name="numero_local_ong"
-                  value={DadosOng.numero_local_ong}
-                  onChange={handleChange}
                 />
               </label>
             </div>
@@ -263,22 +279,17 @@ const DashboardDados = () => {
             <div className="box">
               <label>
                 Complemento
-                <input
-                  type="text"
+                <Input
                   name="complemento_local_ong"
-                  value={DadosOng.complemento_local_ong}
-                  onChange={handleChange}
                 />
               </label>
               <label>
                 <span>
                   CEP<span className="required">*</span>
                 </span>
-                <input
-                  type="text"
+                <InputMask
                   name="cep_local_ong"
-                  value={DadosOng.cep_local_ong}
-                  onChange={handleChange}
+                  mask="99999-999"
                 />
               </label>
             </div>
@@ -288,38 +299,26 @@ const DashboardDados = () => {
                 <span>
                   Estado<span className="required">*</span>
                 </span>
-                <select
+                <Select 
                   name="estado"
-                  id="estado"
-                  value={selectedUf.estado}
-                  onChange={handleSelectUf}
-                >
-                  <option value="0">Selecione uma UF</option>
-                  {ufs.map((uf) => (
-                    <option key={uf} value={uf}>
-                      {uf}
-                    </option>
-                  ))}
-                </select>
+                  options={optionsUfs}
+                  placeholder="Selecione a UF"
+                  value={{label : selectedUf}}
+                  onChange={(selected) => handleChangeUF(selected)}
+                />
               </label>
 
               <label>
                 <span>
                   Cidade<span className="required">*</span>
                 </span>
-                <select
+                <Select
                   name="cidade"
-                  id="cidade"
-                  value={selectedCidade}
-                  onChange={handleSelectCidade}
-                >
-                  <option value="0">Selecione uma Cidade</option>
-                  {cidades.map((cidade) => (
-                    <option key={cidade} value={cidade}>
-                      {cidade}
-                    </option>
-                  ))}
-                </select>
+                  options={optionsCidades}
+                  placeholder="Primeiro selecione a UF"
+                  value={{label : selectedCidade}}
+                  onChange={(selected) => handleChangeCidade(selected)}
+                />
               </label>
             </div>
 
@@ -330,17 +329,20 @@ const DashboardDados = () => {
                 backgroundHover="var(--roxo)"
                 type="submit"
               >
-                Atualizar
+                {atualizando ? 'Atualizando...' : 'Atualizar'}
               </Button>
               <Button
                 className="button-size button-color-cancel"
                 background="var(--cinza)"
-                backgroundHover="var(--cinza-claro)"
+                backgroundHover="var(--cinza-escuro)"
+                colorText="var(--vermelho)"
+                colorTextHover="var(--preto)"
+                onClick={() =>  resetDadosForm()}
               >
                 Cancelar
               </Button>
             </div>
-          </form>
+          </Form>
         </Section>
       </Container>
       <Footer />

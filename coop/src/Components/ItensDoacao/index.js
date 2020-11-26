@@ -95,16 +95,18 @@ const ItensDoacao = () => {
   ]);
 
   useEffect(() => {
-    api.get(`/ongs/ong/${id}`)
-      .then(response => {
-        setItensOng(response.data.itens_doacao_requeridos);
-
-        setItensDoacao(itensDoacao.map(item => {
-          return response.data.itens_doacao_requeridos.indexOf(item.nome) !== -1
-            ? {...item, precisa: true}
-            : item;
-        }));
-      });
+    if(id > 0) {
+      api.get(`/ongs/ong/${id}`)
+        .then(response => {
+          setItensOng(response.data.itens_doacao_requeridos);
+  
+          setItensDoacao(itensDoacao.map(item => {
+            return response.data.itens_doacao_requeridos.indexOf(item.nome) !== -1
+              ? {...item, precisa: true}
+              : item;
+          }));
+        });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -128,6 +130,12 @@ const ItensDoacao = () => {
         type: 'success',
         title: 'Sucesso',
         description: 'Itens de doação atualizados com sucesso!',
+      });
+    }).catch(() => {
+      addToast({
+        type: 'error',
+        title: 'Erro',
+        description: 'Não foi possível atualizar os dados.',
       });
     });
   }
