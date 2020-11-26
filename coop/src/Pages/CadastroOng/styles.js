@@ -90,6 +90,73 @@ export const Field = styled.div`
     color: var(--roxo);
     font-weight: 700;
   }
+ 
+
+
+`;
+
+export const Checkbox = styled.div`
+  display: flex;
+  width:100%;
+  flex-wrap: wrap;
+
+  label {
+    display: flex;
+    position: relative;
+    padding-left: 60px;
+    height: 35px;
+    width: 165px; 
+    flex-wrap: wrap;
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+
+  label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+  }
+    
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 45px;
+    width: 45px;
+    background-color: var(--cinza);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+  }
+    
+  span:hover {
+    background-color: var(--cinza-claro);
+  }
+  
+  label input[type="radio"]:checked ~ span {
+    background-color: var(--cinza-claro);
+  }
+    
+  span:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+    
+  label input:checked ~ span:after {
+    display: block;
+  }
+    
+  label span:after {
+    left: 20px;
+    top: 13px;
+    color: var(--roxo);
+    content: "X";
+    position: absolute;
+    text-align: center;
+
+ 
+  }
 `;
 
 export const FieldGroup = styled.div`
