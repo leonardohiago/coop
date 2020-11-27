@@ -87,6 +87,8 @@ const Perfil = () => {
             showArrows={true}
             showThumbs={false}
             dynamicHeight={false}
+            autoPlay={true}
+            infiniteLoop={true}
             style={{ borderRadius: "20px;" }}
           >
             <div>
@@ -101,7 +103,15 @@ const Perfil = () => {
             
           </Carousel>
 
-          <img src={logoOng1} alt="" className="logo-ong" />
+          {
+            ong.nome_ong && (
+              <img 
+                src={`https://ui-avatars.com/api/?name=${ong.nome_ong.replaceAll(' ', '+')}&size=120&background=ffffff`} 
+                alt={ong.nome_ong}
+                className="logo-ong"
+              />
+            )
+          }
         </div>
 
         <section>
