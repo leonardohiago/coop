@@ -1,10 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Container, Header, Foto } from './styles';
 import Button from '../Button';
 
 const BoxOngResumo = ({publicacao, ong}) => {
+  const history = useHistory();
+
+  const handleClickColaborar = () => {
+    history.push(`/doacao/${ong.id}`)
+  }
   
   return (
     <Container>
@@ -14,7 +19,7 @@ const BoxOngResumo = ({publicacao, ong}) => {
           <h3>{ong.nome_ong}</h3>
         </Link>
   
-        <Button background="var(--verde)" backgroundHover="var(--roxo)">
+        <Button background="var(--verde)" backgroundHover="var(--roxo)" onClick={handleClickColaborar}>
           Colaborar
         </Button>
       </Header>

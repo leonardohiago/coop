@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useMemo } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AiOutlineInstagram, AiFillFacebook} from 'react-icons/ai';
 import { FaWhatsapp } from 'react-icons/fa'
 import { MdMail } from 'react-icons/md';
@@ -10,6 +10,8 @@ import Button from '../Button';
 import ItensNecessarios from '../ItensNecessarios';
 
 const BoxOngResumo = (props) => {
+  const history = useHistory();
+
   const ong = useMemo(() => {
     return {...props.ong, whatsapp_ong: props.ong.whatsapp_ong.replace(/-|\(|\)|\s/g, '')};
   }, [props.ong]);
@@ -17,7 +19,7 @@ const BoxOngResumo = (props) => {
   const itensRequeridos = ong.itens_doacao_requeridos.replace(' ', '').split(',');
 
   const handleClickColaborar = () => {
-    console.log(ong.id);
+    history.push(`/doacao/${ong.id}`)
   }
 
   return (
