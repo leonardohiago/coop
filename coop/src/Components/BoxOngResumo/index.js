@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-target-blank */
 import React, { useMemo } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { AiOutlineInstagram, AiFillFacebook} from 'react-icons/ai';
@@ -33,20 +32,20 @@ const BoxOngResumo = (props) => {
         </InfoOng>
 
         <Contato>
-          <Link to={`mailto:${ong.email}`}><MdMail /></Link>
+          <a href={`mailto:${ong.email}`}><MdMail /></a>
           {
             ong.whatsapp_ong && (
-              <a href={`https://api.whatsapp.com/send?phone=55${ong.whatsapp_ong}&text=&source=&data=&app_absent=`} target="_blank"><FaWhatsapp /></a>
+              <a href={`https://api.whatsapp.com/send?phone=55${ong.whatsapp_ong}&text=&source=&data=&app_absent=`} target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
             )
           }
           {
             ong.facebook_ong && (
-              <a href={ong.facebook_ong} target="_blank"><AiFillFacebook /></a>
+              <a href={ong.facebook_ong} target="_blank" rel="noopener noreferrer"><AiFillFacebook /></a>
             )
           }
           {
             ong.instagram_ong && (
-              <a href={ong.instagram_ong} target="_blank"><AiOutlineInstagram /></a>
+              <a href={ong.instagram_ong} target="_blank" rel="noopener noreferrer"><AiOutlineInstagram /></a>
             )
           }
         </Contato>

@@ -70,7 +70,7 @@ export const InfoOng = styled.div`
 
 export const Contato = styled.div`
   svg {
-    margin-left: 4px;
+    margin-right: 4px;
     fill: var(--roxo);
     transition: all 0.3s;
     cursor: pointer;

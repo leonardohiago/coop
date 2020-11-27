@@ -121,10 +121,8 @@ const ItensDoacao = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    data.itens_doacao = data.itens_doacao.toString();
-
     api.post(`/ongs/alterar-itens/${id}`, {
-      itens_doacao_requeridos: JSON.stringify(data)
+      itens_doacao_requeridos: data.itens_doacao.toString()
     }).then(response => {
       addToast({
         type: 'success',

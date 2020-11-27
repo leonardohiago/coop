@@ -42,7 +42,7 @@ export const Container = styled.main`
 
   Button {
     font-size: 12px;
-    height: 20px;
+    height: 28px;
     margin-top: 18px;
     width: 112px;
   }
@@ -59,13 +59,13 @@ export const CardOng = styled.div`
   }
 
   h4 {
+    width: 326px;
     color: var(--cinza-escuro);
     margin-bottom: 5px;
   }
 
   p {
     width: 326px;
-    height: 56px;
     font-size: 12px;
     line-height: 14px;
 

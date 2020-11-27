@@ -6,7 +6,7 @@ import { Container, LabelNecessidade } from "./styles";
 const ItensNecessarios = ({ itens }) => (
   <Container>
     {itens.map(item => (
-      <LabelNecessidade necessidade="baixa" key={item}>
+      <LabelNecessidade key={item}>
         <span>{item}</span>
       </LabelNecessidade>
     ))}
