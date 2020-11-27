@@ -13,7 +13,7 @@ import {
   Option,
   CancelButton,
   FieldButtons,
-  Checkbox,
+  Radio,
 } from "./styles";
 
 import Header from "../../Components/Header";
@@ -406,7 +406,7 @@ const CadastroOng = () => {
               <label htmlFor="trabalhaOng">
                 Trabalha na ONG?<span>*</span>
               </label>
-                <Checkbox>
+                <Radio>
                   <label className="item">
                     Sim
                     <input
@@ -425,7 +425,7 @@ const CadastroOng = () => {
                     />
                      <span></span>
                   </label>
-                </Checkbox>
+                </Radio>
                 </Field>
     
             <Field>

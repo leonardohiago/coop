@@ -95,7 +95,7 @@ export const Field = styled.div`
 
 `;
 
-export const Checkbox = styled.div`
+export const Radio = styled.div`
   display: flex;
   width:100%;
   flex-wrap: wrap;

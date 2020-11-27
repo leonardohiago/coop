@@ -81,16 +81,20 @@ export const Section = styled.section`
 `;
 
 export const Aside = styled.aside`
+    align-items: center;
     background-color: var(--roxo);
-    height: 625px;
-    width: 420px;
     display: flex;
+    height: 100vh;
+    justify-content: center;
+    width: 35vw;
 
     img{
         height: 600px;
         width: 400px;  
     }
 }
+
+
 
 
 `;
@@ -130,12 +134,13 @@ export const Container = styled.main`
       border-radius: 25px;
       height: 20vh;
       margin-top: 8px;
-      margin-left: 35px;
+      margin-left: 120px;
     }
     form{
         margin-top: 150px;
         align-self: center;
         width: 500px;
+        margin-left: 120px;
     }
    
   }
