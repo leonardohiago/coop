@@ -110,7 +110,7 @@ const Home = () => {
     setCarregandoPublicacoes(true);
 
     api.get(`/publicacao?pagina=${paginacaoPublicacoes.paginaAtual + 1}&quantidade=2`).then(response => {
-      setPublicacoes([...publicacoes, response.data.publicacoes[0], response.data.publicacoes[1]]);
+      setPublicacoes([...publicacoes, ...response.data.publicacoes]);
   
       setPaginacaoPublicoes({
         paginaAtual: response.data.paginaAtual,

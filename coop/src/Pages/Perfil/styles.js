@@ -47,6 +47,10 @@ export const Container = styled.main`
     width: 112px;
   }
 
+  #btnVerMaisPub {
+    margin: 16px auto;
+    width: 180px;
+  }
 `;
 
 export const CardOng = styled.div`
