@@ -81,6 +81,8 @@ const DashboardDados = () => {
           }
         }
       ).catch(() => {
+        setAtualizando(false);
+        
         addToast({
           type: 'error',
           title: 'Erro',
@@ -103,7 +105,6 @@ const DashboardDados = () => {
 
         formRef.current.setErrors(validationErrors);
       }
-
     }
   };
 

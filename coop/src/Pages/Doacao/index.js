@@ -5,9 +5,7 @@ import FormularioDoacao from "../../Components/FormularioDoacao";
 
 import obrigado from "../../assets/obrigado-vertical.png";
 
-const Doacao = () => {  
- 
-
+const Doacao = () => {
   return (
     <Container>
       <Section>

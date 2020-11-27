@@ -1,82 +1,128 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useHistory } from 'react-router-dom';
+import React, { useRef, useState } from "react";
+import * as Yup from 'yup';
+import { format } from 'date-fns';
+import { useHistory, Link, useParams } from 'react-router-dom';
 
+import { useToast } from '../../hooks/toast';
+import InputMask from '../../Components/InputMask';
+import Input from '../../Components/Input';
+import Checkbox from '../../Components/Checkbox';
 import Button from "../../Components/Button";
-import { GroupCheckbox } from "./styles";
+import { Form } from "./styles";
 
 import logo from "../../assets/coop-logo.png";
 import api from "../../services/api";
 
-import { CgDanger } from "react-icons/cg";
-
-import { useAuth } from "../../hooks/auth";
-
 const FormularioDoacao = () => {
-
-  const { id } = useAuth();
-
+  const { id } = useParams();
+  const { addToast } = useToast();
   const history = useHistory();
-  const { register, handleSubmit, errors } = useForm();
+  const formRef = useRef(null);
+  const [enviando, setEnviando] = useState(false);
 
-  const onSubmit = (data, event) => {
-    data.itensDoacao = data.itensDoacao.toString();
-    data.statusEntrega = "Aguardando";
-    data.fkOng = {"id": 1}; // TODO: RECEBER O ID PELO BOTÃO DA TELA ANTERIOR   
-    
-    api.post(`/doacao`,
-      JSON.stringify(data), {
-      headers: {
-        'Content-Type': 'application/json',
-        }
-      })
-      .then(response => {
-        if(response.status === 200) {
-          alert("Sua doação foi confirmada. O Coop agradece sua colaboração =)")
-          event.target.reset();
-        }
-        console.log(response)
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
+  const checkboxOptions = [
+    { id: 'Dinheiro', value: 'Dinheiro', label: 'Dinheiro' },
+    { id: 'Alimento', value: 'Alimento', label: 'Alimento' },
+    { id: 'Ração', value: 'Ração', label: 'Ração' },
+    { id: 'Eletrônicos', value: 'Eletrônicos', label: 'Eletrônicos' },
+    { id: 'Roupa', value: 'Roupa', label: 'Roupa' },
+    { id: 'Moveis', value: 'Móveis', label: 'Móveis' },
+    { id: 'MaodeObra', value: 'Mão de Obra', label: 'Mão de Obra' },
+    { id: 'MaterialEscolar', value: 'Material Escolar', label: 'Material Escolar' },
+    { id: 'MaterialdeLimpeza', value: 'Material de Limpeza', label: 'Material de Limpeza' },
+    { id: 'MaterialdeConstrucao', value: 'Material de Construção', label: 'Material de Construção' },
+    { id: 'MaterialdeHigiene', value: 'Material de Higiene', label: 'Material de Higiene' },
+    { id: 'Outros', value: 'Outros', label: 'Outros' },
+  ];
+
+  const handleSubmit = async (data, { reset }) => {  
+    try {
+      data.itensDoacao = data.itensDoacao.toString();
+      data.statusEntrega = "Aguardando";
+      data.fkOng = {"id": id};
+      
+      setEnviando(true);
+      formRef.current.setErrors({});
+
+      const schema = Yup.object().shape({
+        nomeCompleto: Yup.string().required('Informe o seu nome').min(3, 'Nome deve contar mais do que 3 caracteres.'),
+        whatsapp: Yup.string()
+          .required('Informe o número do WhatsApp')
+          .matches(/\(\d{2}\) \d{5}-\d{4}/, 'Informe um número de WhatsApp válido.'),
+        itensDoacao: Yup.string().required('Selecione o que deseja doar'),
+        dataEntrega: Yup.string().required('Selecione a data de entrega da doação'),
       });
-  }
-  
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      await api.post(`/doacao`, data).then(
+        (response) => {
+          if (response.status === 200) {
+            setEnviando(false);
+
+            addToast({
+              type: 'success',
+              title: 'Sucesso',
+              description: 'Sua doação foi confirmada. O Coop agradece sua colaboração =)',
+            });
+
+            reset();
+            history.push('/ongs');
+          }
+        }
+      ).catch(() => {
+        setEnviando(false);
+
+        addToast({
+          type: 'error',
+          title: 'Erro',
+          description: 'Não foi possível confirmar a doação.',
+        });
+      });
+    } catch (err) {
+      setEnviando(false);
+
+      const validationErrors = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+
+          addToast({
+            type: 'error',
+            title: 'Erro',
+            description: error.message,
+          });
+        });
+
+        formRef.current.setErrors(validationErrors);
+      }
+    }
+  };
  
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-       <img src={logo} alt="Coop." onClick={() => history.push('/')}/>
+    <Form onSubmit={handleSubmit} ref={formRef}>
+      <Link to="/">
+       <img src={logo} alt="Coop." />
+      </Link>
       <p className="p-1">Confirme sua Doação</p>
 
       <div>
         <label htmlFor="nomeCompleto">
           Nome Completo
-          <input
-            type="text"
+          <Input
             name="nomeCompleto"
-            ref={register({
-              required: "Por favor, preencha o campo.",
-              maxLength: 100,
-              })}
           />
-          {errors.nomeCompleto && <p className="error"><CgDanger color="red" size={16} /> {errors.nomeCompleto.message}</p>}
         </label>
 
         <label>
           Whatsapp
-          <input
-            type="text"
+          <InputMask
             name="whatsapp"
-            ref={register({
-              required: "Por favor, preencha o campo.",
-              maxLength: 14,
-              pattern: {
-              value: /^\s*(\d{2}|\d{0})[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/i,
-                message: "Informe um número válido.",
-              },
-            })}
-            />
-            {errors.whatsapp && <p className="error"><CgDanger color="red" size={16} /> {errors.whatsapp.message}</p>}
+            mask="(99) 99999-9999"
+          />
   
         </label>
       </div>
@@ -85,148 +131,16 @@ const FormularioDoacao = () => {
         <p className="p-2">O que deseja doar?</p>
       </div>
 
-      <GroupCheckbox>
-        <div>
-          <label className="item">
-            Dinheiro
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Dinheiro"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label className="item">
-            Alimento
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Alimento"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label className="item">
-            Ração
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Ração"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label className="item">
-            Eletrônicos
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Eletrônicos"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-        </div>
-
-        <div>
-          <label className="item">
-            Roupa
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Roupa"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label className="item">
-            Móveis
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Móveis"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label className="item">
-            Mão de obra
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Mão de Obra"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label>
-            Material Escolar
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Material Escolar"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-        </div>
-
-        <div>
-          <label>
-            Material de Limpeza
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Material de Limpeza"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label>
-            Material de Construção
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Material de Construção"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label>
-            Material de Higiene
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Material de Higiene"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-          <label className="item">
-            Outros
-            <input
-              type="checkbox"
-              name="itensDoacao"
-              value="Outros"
-              ref={register()}
-            />
-            <span></span>
-          </label>
-        </div>
-      </GroupCheckbox>
+      <Checkbox name="itensDoacao" options={checkboxOptions} />
 
       <div className="row-1">
         <label>
           Data para Entrega da Doação
-          <input
-            type="text"
+          <Input
+            type="date"
             name="dataEntrega"
-            ref={register({
-            required: "Por favor, preencha o campo."
-          })}
+            min={format(new Date(), 'yyyy-MM-dd')}
           />
-           {errors.dataEntrega && <p className="error"><CgDanger color="red" size={16} /> {errors.dataEntrega.message}</p>}
         </label>
       </div>
 
@@ -237,17 +151,18 @@ const FormularioDoacao = () => {
           backgroundHover="var(--roxo)"
           type="submit"
         >
-          Confirmar
+          {enviando ? 'Enviando...' : 'Confirmar'}
         </Button>
         <Button
           className="button-size color-cancel"
           background="var(--cinza)"
           backgroundHover="var(--cinza-claro)"
+          onClick={() => formRef.current.reset()}
         >
           Cancelar
         </Button>
       </div>
-    </form>
+    </Form>
   );
 };
 

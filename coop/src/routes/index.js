@@ -22,7 +22,7 @@ const Routes = () => (
     <Route path="/login" component={Login} />
     <Route path="/ongs" component={Ongs} />
     <Route path="/perfil/:id" component={Perfil} />
-    <Route path="/doacao" component={Doacao} />
+    <Route path="/doacao/:id" component={Doacao} />
     <Route path="/cadastrar-ong" component={CadastroOng} exact />
     
     {/* Rotas privadas: precisa ter a propriedade isPrivate */}
