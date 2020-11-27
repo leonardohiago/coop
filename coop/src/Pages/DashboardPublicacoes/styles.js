@@ -129,16 +129,31 @@ export const CancelButton = styled.button`
     }
 `;
 
-export const ButtonDoado = styled.button`
-  margin: 0 8px;
-  font-size: 14px;
-  font-weight: bold;
-  color: ${props => `var(--${props.color})`};
+export const BoxConfirmarExclusao = styled.div`
+  padding: 40px;
+  border: solid 4px var(--vermelho);
+  border-radius: 16px;
+  background: var(--cinza-claro);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.65);
+
+  div {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+`;
+
+export const ButtonExcluir = styled.button`
+  font-size: 20px;
   background: none;
   border: none;
-  transition: all 0.3s;
 
-  &:hover {
-    font-weight: 900;
+  svg {
+    transition: all 0.3s;
+  }
+
+  &:hover svg {
+    color: var(--vermelho);
   }
 `;

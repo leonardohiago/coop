@@ -19,8 +19,10 @@ export const AuthProvider = ({ children }) => {
   });
 
   const signIn = useCallback(async (data) => {
-    const response = await api.post('/usuarios/auth',
-      JSON.stringify(data), {
+    const response = await api.post('/usuarios/auth',{
+      email: data.email,
+      senha: data.senha
+    }, {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -35,7 +37,6 @@ export const AuthProvider = ({ children }) => {
     api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, email, id });
-
   }, []);
 
   const signOut = useCallback(() => {
