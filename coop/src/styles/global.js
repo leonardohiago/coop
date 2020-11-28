@@ -33,6 +33,10 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
+  input.input-erro {
+    border: solid 2px var(--vermelho);
+  }
+
   table {
     border-collapse: separate; 
     border-spacing: 0 8px;

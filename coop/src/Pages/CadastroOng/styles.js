@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Form as Unform } from '@unform/web';
 
 export const Content = styled.div`
     width: 100%;
@@ -13,7 +14,7 @@ export const Container = styled.div`
   height: calc(100vh - 174px);
 `;
 
-export const Form = styled.div`
+export const Form = styled(Unform)`
   margin: 20px auto;
   padding: 64px;
   max-width: 1100px;
@@ -23,18 +24,18 @@ export const Form = styled.div`
   display: flex;
   flex-direction: column;
 
-`;
+  input {
+    flex: 1;
+    width: 430px;
+    height: 46px;
 
-export const Input = styled.input`
-  flex: 1;
-  width: 430px;
-  height: 46px;
-
-  background: #F9F9F9;
-  border-radius: 10px;
-  border: 0;
-  padding: 16px 24px;
-  font-size: 16px;
+    background: #F9F9F9;
+    border-radius: 10px;
+    border: 0;
+    padding: 16px 24px;
+    margin-top: 8px;
+    font-size: 16px;
+  }
 `;
 
 export const Select = styled.select`
@@ -90,9 +91,6 @@ export const Field = styled.div`
     color: var(--roxo);
     font-weight: 700;
   }
- 
-
-
 `;
 
 export const Radio = styled.div`
@@ -107,11 +105,12 @@ export const Radio = styled.div`
     height: 35px;
     width: 165px; 
     flex-wrap: wrap;
-    padding-top: 12px;
-    margin-top: 12px;
+    align-items: center;
+    padding-top: 22px;
   }
 
   label input[type="radio"] {
+    width: 0;
     position: absolute;
     opacity: 0;
   }
@@ -122,6 +121,7 @@ export const Radio = styled.div`
     left: 0;
     height: 45px;
     width: 45px;
+    margin-top: 8px;
     background-color: var(--cinza);
     border-radius: 10px;
     cursor: pointer;

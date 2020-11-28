@@ -34,7 +34,7 @@ const DashboardDados = () => {
       formRef.current.setErrors({});
 
       const schema = Yup.object().shape({
-        nome_ong: Yup.string().required('Informe o nome da ONG'),
+        nome_ong: Yup.string().required('Informe o nome da ONG').min(3, 'Nome deve conter pelo menos 3 caracteres.'),
         cnpj_ong: Yup.string().required('Informe o CNPJ'),
         email: Yup.string().email("Insira um e-mail válido.").required(),
         whatsapp_ong: Yup.string()
@@ -118,7 +118,7 @@ const DashboardDados = () => {
           return {value: uf, label: uf}
         }));
       });
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     api

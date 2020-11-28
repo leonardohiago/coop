@@ -45,7 +45,7 @@ const FormularioDoacao = () => {
       formRef.current.setErrors({});
 
       const schema = Yup.object().shape({
-        nomeCompleto: Yup.string().required('Informe o seu nome').min(3, 'Nome deve contar mais do que 3 caracteres.'),
+        nomeCompleto: Yup.string().required('Informe o seu nome').min(3, 'Nome deve conter pelo menos 3 caracteres.'),
         whatsapp: Yup.string()
           .required('Informe o número do WhatsApp')
           .matches(/\(\d{2}\) \d{5}-\d{4}/, 'Informe um número de WhatsApp válido.'),

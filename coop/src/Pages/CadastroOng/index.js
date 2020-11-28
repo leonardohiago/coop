@@ -1,121 +1,214 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 import {
-  Content,
-  Input,
   Form,
   Subtitle,
   Field,
   FieldGroup,
   Title,
   SubmitButton,
-  Select,
-  Option,
   CancelButton,
   FieldButtons,
   Radio,
 } from "./styles";
 
+import { useToast } from '../../hooks/toast';
+
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
-import Upload from "../../Components/Upload";
-import FileList from "../../Components/FileList";
-import ItensDoacao from "../../Components/ItensDoacao";
+// import Upload from "../../Components/Upload";
+// import FileList from "../../Components/FileList";
+import Input from '../../Components/Input';
+import InputMask from '../../Components/InputMask';
+import Select from '../../Components/Select';
 
-import axios from "axios";
 import api from "../../services/api";
 
 const CadastroOng = () => {
-  const [form, setForm] = React.useState({
-    nome_ong: "",
-    cnpj_ong: "",
-    email: "",
-    whatsapp_ong: "",
-    senha: "",
-    confirmSenhaOng: "",
-    sobre_ong: "",
-    area_atuacao_ong: "",
-    facebook_ong: "",
-    instagram_ong: "",
+  const { addToast } = useToast();
+  const history = useHistory();
+  const formRef = useRef(null);
+  const [optionsUfs, setOptionsUfs] = useState([]);
+  const [optionsCidades, setOptionsCidades] = useState([]);
 
-    itens_doacao_requeridos: "",
+  const [selectedUf, setSelectedUf] = useState();
+  const [selectedCidade, setSelectedCidade] = useState();
 
-    logradouro_local_ong: "",
-    numero_local_ong: "",
-    complemento_local_ong: "",
-    cep_local_ong: "",
-    estado: "",
-    cidade_local_ong: "",
+  const [trabalhaOng, setTrabalhaOng] = useState(undefined);
 
-    nome_completo_responsavel: "",
-    data_nascimento_responsavel: "",
-    email_responsavel: "",
-    whatsapp_responsavel: "",
-    trabalha_ong: "",
-    funcao_responsavel: "",
-  });
-
-  const [ufs, setUfs] = useState([]);
-  const [cidades, setCidades] = useState([]);
-
-  const [selectedUf, setSelectedUf] = useState("0");
-  const [selectedCidade, setSelectedCidade] = useState("0");
+  const [enviando, setEnviando] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+    api
+      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
       .then((response) => {
         const estados = response.data.map((uf) => uf.sigla);
 
-        setUfs(estados);
+        setOptionsUfs(estados.map(uf => {
+          return {value: uf, label: uf}
+        }));
       });
   }, []);
 
   useEffect(() => {
-    if (selectedUf === "0") {
-      return;
-    }
-
-    axios
-      .get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
-      )
+    api
+      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
       .then((response) => {
-        const cidades = response.data.map((cidade) => cidade.nome);
+        const estados = response.data.map((uf) => uf.sigla);
 
-        setCidades(cidades);
+        setOptionsUfs(estados.map(uf => {
+          return {value: uf, label: uf}
+        }));
       });
+  }, []);
+
+  useEffect(() => {
+    if(selectedUf) {
+      api
+        .get(
+          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
+        )
+        .then((response) => {
+          const cidades = response.data.map((cidade) => cidade.nome);
+  
+          setOptionsCidades(cidades.map(cidade => {
+            return {value: cidade, label: cidade}
+          }));
+        });
+    }
   }, [selectedUf]);
 
-  function handleSelectUf(event) {
-    const uf = event.target.value;
-
-    setSelectedUf(uf);
+  const handleChangeUF = (selected) => {
+    setSelectedUf(selected.value);
+    setSelectedCidade('Selecione');
   }
 
-  function handleSelectCidade(event) {
-    const cidade = event.target.value;
-
-    setSelectedCidade(cidade);
+  const handleChangeCidade = (selected) => {
+    setSelectedCidade(selected.value);
   }
 
-  const handleChange = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
-  };
+  const handleSetEnderecoViaCEP = async (event) => {
+    const cep = event.target.value;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+    if(event.target.value.indexOf('_') === -1 && event.target.value.length === 9) {
+      const response = await api.get(`https://viacep.com.br/ws/${cep}/json`);
 
-    await api.post("/usuarios", form).then((response) => {
-      console.log(response.data);
-    });
+      const dados = response.data;
+
+      setSelectedUf(dados.uf);
+      setSelectedCidade(dados.localidade);
+      
+      formRef.current.setFieldValue('logradouro_local_ong', dados.logradouro);
+      formRef.current.getFieldRef('numero_local_ong').focus();
+    }
+  }
+
+  const handleSubmit = async (data, { reset }) => {
+    try {
+      data.estado = selectedUf;
+      data.cidade = selectedCidade;
+      data.trabalha_ong = trabalhaOng;
+
+      setEnviando(true);
+
+      formRef.current.setErrors({});
+
+      const schema = Yup.object().shape({
+        nome_ong: Yup.string().required('Informe o nome da ONG').min(3, 'Nome deve conter pelo menos 3 caracteres.'),
+        cnpj_ong: Yup.string().required('Informe o CNPJ'),
+        email: Yup.string().email("Insira um e-mail válido.").required('Informe o e-mail da ONG'),
+        whatsapp_ong: Yup.string()
+          .required('Informe o número do WhatsApp')
+          .matches(/\(\d{2}\) \d{5}-\d{4}/, 'Informe um número de WhatsApp válido.'),
+        senha: Yup.string().required('Informe a senha').min(6, 'Senha deve conter pelo menos 6 caracteres.'),
+        confirmSenhaOng: Yup.string()
+          .when('senha', {
+            is: (val) => !!val.length,
+            then: Yup.string().required('Campo obrigatório'),
+            otherwise: Yup.string(),
+          })
+          .oneOf([Yup.ref('senha'), null], 'Senhas não são inguais.'),
+        sobre_ong: Yup.string().required('Preencha o campo "Sobre"'),
+        area_atuacao_ong: Yup.string().required('Preencha o campo "Área de atuação"'),
+        facebook_ong: Yup.string().required('Informe a página do Facebook'),
+        logradouro_local_ong: Yup.string().required('Informe o logradouro'),
+        numero_local_ong: Yup.string().required('Informe o número do endereço'),
+        estado: Yup.string().required('Informe o estado'),
+        cidade: Yup.string().required('Informe a cidade'),
+        cep_local_ong: Yup.string()
+          .required('Informe o CEP')
+          .matches(/\d{5}-\d{3}/, 'Informe um número CEP válido.'),
+        nome_completo_responsavel: Yup.string().required('Informe o nome do responsável').min(3, 'Nome deve conter pelo menos 3 caracteres.'),
+        email_responsavel: Yup.string().email("Insira um e-mail válido para o responsável.").required('Informe o e-mail do responsável'),
+        whatsapp_responsavel: Yup.string()
+          .required('Informe o número do WhatsApp')
+          .matches(/\(\d{2}\) \d{5}-\d{4}/, 'Informe um número de WhatsApp válido.'),
+        trabalha_ong: Yup.bool().required("Informe se trabalha na ONG"),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      let enderecoApi = data.logradouro_local_ong.replaceAll(' ', '+');
+      enderecoApi += `,${data.numero_local_ong},+${data.cidade},${data.estado}`;
+        
+      const responseGMaps = await api.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${enderecoApi}&key=${process.env.REACT_APP_KEY_GOOGLE_MAPS}`);
+      
+      const geo = responseGMaps.data.results[0].geometry.location;
+
+      data.latitude = geo.lat;
+      data.longitude = geo.lng;
+      data.itens_doacao_requeridos = '';
+
+      await api.post(`/usuarios`, data).then(
+        (response) => {
+            setEnviando(false);
+
+            addToast({
+              type: 'success',
+              title: 'Sucesso',
+              description: 'Dados atualizados com sucesso!',
+            });
+
+            reset();
+            history.push('/login');
+        }
+      ).catch(() => {
+        setEnviando(false);
+        
+        addToast({
+          type: 'error',
+          title: 'Erro',
+          description: 'Não foi possível atualizar os dados.',
+        });
+      });
+    } catch (err) {
+      const validationErrors = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+
+          addToast({
+            type: 'error',
+            title: 'Erro',
+            description: error.message,
+          });
+        });
+
+        formRef.current.setErrors(validationErrors);
+      }
+    }
   };
 
   return (
     <>
       <Header />
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} ref={formRef}>
         <Title>Cadastro da ONG</Title>
 
         <form>
@@ -127,20 +220,15 @@ const CadastroOng = () => {
                 Nome da Ong<span>*</span>
               </label>
               <Input
-                type="text"
                 name="nome_ong"
-                value={form.nome_ong}
-                onChange={handleChange}
               />
             </Field>
 
             <Field>
               <label htmlFor="cnpj">CNPJ</label>
-              <Input
-                type="text"
+              <InputMask
                 name="cnpj_ong"
-                value={form.cnpj_ong}
-                onChange={handleChange}
+                mask="99.999.999/9999-99"
               />
             </Field>
           </FieldGroup>
@@ -153,8 +241,6 @@ const CadastroOng = () => {
               <Input
                 type="email"
                 name="email"
-                value={form.email}
-                onChange={handleChange}
               />
             </Field>
 
@@ -162,11 +248,9 @@ const CadastroOng = () => {
               <label htmlFor="whatsappOng">
                 Whatsapp<span>*</span>
               </label>
-              <Input
-                type="text"
+              <InputMask
                 name="whatsapp_ong"
-                value={form.whatsapp_ong}
-                onChange={handleChange}
+                mask="(99) 99999-9999"
               />
             </Field>
           </FieldGroup>
@@ -179,8 +263,6 @@ const CadastroOng = () => {
               <Input
                 type="password"
                 name="senha"
-                value={form.senha}
-                onChange={handleChange}
               />
             </Field>
 
@@ -191,8 +273,6 @@ const CadastroOng = () => {
               <Input
                 type="password"
                 name="confirmSenhaOng"
-                value={form.confirmSenhaOng}
-                onChange={handleChange}
               />
             </Field>
           </FieldGroup>
@@ -205,8 +285,6 @@ const CadastroOng = () => {
               <Input
                 type="text"
                 name="sobre_ong"
-                value={form.sobre_ong}
-                onChange={handleChange}
               />
             </Field>
 
@@ -217,8 +295,6 @@ const CadastroOng = () => {
               <Input
                 type="text"
                 name="area_atuacao_ong"
-                value={form.area_atuacao_ong}
-                onChange={handleChange}
               />
             </Field>
           </FieldGroup>
@@ -231,8 +307,6 @@ const CadastroOng = () => {
               <Input
                 type="text"
                 name="facebook_ong"
-                value={form.facebook_ong}
-                onChange={handleChange}
               />
             </Field>
             <Field>
@@ -240,8 +314,6 @@ const CadastroOng = () => {
               <Input
                 type="text"
                 name="instagram_ong"
-                value={form.instagram_ong}
-                onChange={handleChange}
               />
             </Field>
           </FieldGroup>
@@ -250,16 +322,27 @@ const CadastroOng = () => {
 
           <FieldGroup>
             <Field>
+              <label htmlFor="cep">
+                CEP<span>*</span>
+              </label>
+              <InputMask
+                name="cep_local_ong"
+                mask="99999-999"
+                onChange={(event) => handleSetEnderecoViaCEP(event)}
+              />
+            </Field>
+            <Field>
               <label htmlFor="logradouro">
                 Logradouro<span>*</span>
               </label>
               <Input
                 type="text"
                 name="logradouro_local_ong"
-                value={form.logradouro_local_ong}
-                onChange={handleChange}
               />
             </Field>
+          </FieldGroup>
+
+          <FieldGroup>
             <Field>
               <label htmlFor="numero">
                 Número<span>*</span>
@@ -267,31 +350,13 @@ const CadastroOng = () => {
               <Input
                 type="text"
                 name="numero_local_ong"
-                value={form.numero_local_ong}
-                onChange={handleChange}
               />
             </Field>
-          </FieldGroup>
-
-          <FieldGroup>
             <Field>
               <label htmlFor="complemento">Complemento</label>
               <Input
                 type="text"
                 name="complemento_local_ong"
-                value={form.complemento_local_ong}
-                onChange={handleChange}
-              />
-            </Field>
-            <Field>
-              <label htmlFor="cep">
-                CEP<span>*</span>
-              </label>
-              <Input
-                type="text"
-                name="cep_local_ong"
-                value={form.cep_local_ong}
-                onChange={handleChange}
               />
             </Field>
           </FieldGroup>
@@ -301,19 +366,13 @@ const CadastroOng = () => {
               <label htmlFor="estado">
                 Estado<span>*</span>
               </label>
-              <Select
+              <Select 
                 name="estado"
-                id="estado"
-                value={selectedUf}
-                onChange={handleSelectUf}
-              >
-                <Option value="0">Selecione uma UF</Option>
-                {ufs.map((uf) => (
-                  <Option key={uf} value={uf}>
-                    {uf}
-                  </Option>
-                ))}
-              </Select>
+                options={optionsUfs}
+                placeholder="Selecione a UF"
+                value={selectedUf ? {label: selectedUf} : null}
+                onChange={(selected) => handleChangeUF(selected)}
+              />
             </Field>
             <Field>
               <label htmlFor="cidade">
@@ -321,25 +380,15 @@ const CadastroOng = () => {
               </label>
               <Select
                 name="cidade"
-                id="cidade"
-                value={selectedCidade}
-                onChange={handleSelectCidade}
-              >
-                <Option value="0">Selecione uma Cidade</Option>
-                {cidades.map((cidade) => (
-                  <Option key={cidade} value={cidade}>
-                    {cidade}
-                  </Option>
-                ))}
-              </Select>
+                options={optionsCidades}
+                placeholder="Primeiro selecione a UF"
+                value={selectedCidade ? {label : selectedCidade} : null}
+                onChange={(selected) => handleChangeCidade(selected)}
+              />
             </Field>
           </FieldGroup>
 
-          <Subtitle>Itens de doação para ONG</Subtitle>
-
-          <ItensDoacao />
-
-          <Subtitle>Upload de imagens da ONG</Subtitle>
+          {/* <Subtitle>Upload de imagens da ONG</Subtitle>
 
           <FieldGroup>
             <Field>
@@ -349,7 +398,7 @@ const CadastroOng = () => {
                 <FileList />
               </Content>
             </Field>
-          </FieldGroup>
+          </FieldGroup> */}
 
           <Subtitle>Dados do Cadastrante</Subtitle>
 
@@ -361,8 +410,6 @@ const CadastroOng = () => {
               <Input
                 type="text"
                 name="nome_completo_responsavel"
-                value={form.nome_completo_responsavel}
-                onChange={handleChange}
               />
             </Field>
             <Field>
@@ -370,10 +417,8 @@ const CadastroOng = () => {
                 Data de Nascimento<span>*</span>
               </label>
               <Input
-                type="text"
+                type="date"
                 name="data_nascimento_responsavel"
-                value={form.data_nascimento_responsavel}
-                onChange={handleChange}
               />
             </Field>
           </FieldGroup>
@@ -386,17 +431,13 @@ const CadastroOng = () => {
               <Input
                 type="email"
                 name="email_responsavel"
-                value={form.email_responsavel}
-                onChange={handleChange}
               />
             </Field>
             <Field>
               <label htmlFor="whatsappCadastrante">Whatsapp</label>
-              <Input
-                type="text"
+              <InputMask
                 name="whatsapp_responsavel"
-                value={form.whatsapp_responsavel}
-                onChange={handleChange}
+                mask="(99) 99999-9999"
               />
             </Field>
           </FieldGroup>
@@ -406,41 +447,44 @@ const CadastroOng = () => {
               <label htmlFor="trabalhaOng">
                 Trabalha na ONG?<span>*</span>
               </label>
-                <Radio>
-                  <label className="item">
-                    Sim
-                    <input
-                      type="radio"
-                      name="trabalha_ong"
-                      value="Sim"
-                    />
-                     <span></span>
-                  </label>
-                  <label className="item">
-                    Não
-                    <input
-                      type="radio"
-                      name="trabalha_ong"
-                      value="Não"
-                    />
-                     <span></span>
-                  </label>
-                </Radio>
-                </Field>
-    
-            <Field>
-              <label htmlFor="funcao">Função</label>
-              <Input
-                type="text"
-                name="funcao_responsavel"
-                value={form.funcao_responsavel}
-                onChange={handleChange}
-              />
+
+              <Radio>
+                <label>
+                  Sim
+                  <input
+                    type="radio"
+                    name="trabalha_ong"
+                    value="Sim"
+                    onClick={() => setTrabalhaOng(true)}
+                  />
+                  <span></span>
+                </label>
+                <label>
+                  Não
+                  <input
+                    type="radio"
+                    name="trabalha_ong"
+                    value="Não"
+                    onClick={() => setTrabalhaOng(false)}
+                  />
+                  <span></span>
+                </label>
+              </Radio>
             </Field>
+    
+            {trabalhaOng && (
+              <Field>
+                <label htmlFor="funcao">Função</label>
+                <Input
+                  type="text"
+                  name="funcao_responsavel"
+                />
+              </Field>
+            )}
           </FieldGroup>
 
           <FieldButtons>
-            <SubmitButton type="submit">Confirmar</SubmitButton>
+            <SubmitButton type="submit">{enviando ? 'Enviando...' : 'Confirmar'}</SubmitButton>
             <CancelButton>Cancelar</CancelButton>
           </FieldButtons>
         </form>
