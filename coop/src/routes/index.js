@@ -13,6 +13,7 @@ import DashboardItem from '../Pages/DashboardItens';
 import CadastroOng from '../Pages/CadastroOng';
 import DashboardDados from '../Pages/DashboardDados';
 import DashboardPublicacoes from '../Pages/DashboardPublicacoes';
+import DashboardAlterarSenha from '../Pages/DashboardAlterarSenha';
 
 
 const Routes = () => (
@@ -30,6 +31,7 @@ const Routes = () => (
     <Route path="/dashboard/publicacoes" component={DashboardPublicacoes} exact isPrivate />
     <Route path="/dashboard/itens-de-doacoes" component={DashboardItem} exact isPrivate />
     <Route path="/dashboard/dados-da-ong" component={DashboardDados} exact isPrivate />
+    <Route path="/dashboard/alterar-senha" component={DashboardAlterarSenha} exact isPrivate />
   </Switch>
 );
 

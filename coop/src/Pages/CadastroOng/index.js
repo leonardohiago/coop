@@ -192,6 +192,8 @@ const CadastroOng = () => {
         err.inner.forEach(error => {
           validationErrors[error.path] = error.message;
 
+          setEnviando(false);
+
           addToast({
             type: 'error',
             title: 'Erro',

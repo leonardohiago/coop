@@ -17,16 +17,19 @@ const MenuDashboard = () => {
       </ButtonToggleMenu>
 
       <NavLink to="/dashboard/" exact activeClassName="nav__link--active">
-        Início
+        Doações
       </NavLink>
       <NavLink to="/dashboard/publicacoes" activeClassName="nav__link--active">
         Publicações
       </NavLink>
       <NavLink to="/dashboard/itens-de-doacoes" activeClassName="nav__link--active">
-        Itens de Doações
+        Itens de doações
       </NavLink>
       <NavLink to="/dashboard/dados-da-ong" activeClassName="nav__link--active">
         Dados da ONG
+      </NavLink>
+      <NavLink to="/dashboard/alterar-senha" activeClassName="nav__link--active">
+        Alterar senha
       </NavLink>
     </Container>
   );
