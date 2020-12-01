@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 
 import api from "../../services/api";
@@ -36,7 +36,7 @@ const BoxOngResumo = ({publicacao, ong}) => {
               />
             )
           }
-          <h3>{ong.nome_ong} ID: {publicacao.id}</h3>
+          <h3>{ong.nome_ong}</h3>
         </Link>
   
         <Button background="var(--verde)" backgroundHover="var(--roxo)" onClick={handleClickColaborar}>

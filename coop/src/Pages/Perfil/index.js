@@ -87,18 +87,56 @@ const Perfil = () => {
             dynamicHeight={false}
             autoPlay={true}
             infiniteLoop={true}
-            style={{ borderRadius: "20px;" }}
           >
-            <div>
-              <img src={bannerOng1} className="banner" alt="Imagem ONG" />
-            </div>
-            <div>
-              <img src={bannerOng2} className="banner" alt="Imagem ONG" />
-            </div>
-            <div>
-              <img src={bannerOng3} className="banner" alt="Imagem ONG" />
-            </div>
-            
+            {ong.imagem_ong_1 ? (
+              <div>
+                <img src={ong.imagem_ong_1} className="banner" alt={`Imagem ONG ${ong.nome_ong} - 1`} />
+              </div>
+            ) : (
+              <div>
+                <img src={bannerOng1} className="banner" alt="Imagem ONG" />
+              </div>
+            )}
+
+            {ong.imagem_ong_2 ? (
+              <div>
+                <img src={ong.imagem_ong_2} className="banner" alt={`Imagem ONG ${ong.nome_ong} - 2`} />
+              </div>
+            ) : (
+              <div>
+                <img src={bannerOng2} className="banner" alt="Imagem ONG" />
+              </div>
+            )}
+
+            {ong.imagem_ong_3 ? (
+              <div>
+                <img src={ong.imagem_ong_3} className="banner" alt={`Imagem ONG ${ong.nome_ong} - 3`} />
+              </div>
+            ) : (
+              <div>
+                <img src={bannerOng3} className="banner" alt="Imagem ONG" />
+              </div>
+            )}
+
+            {ong.imagem_ong_4 ? (
+              <div>
+                <img src={ong.imagem_ong_4} className="banner" alt={`Imagem ONG ${ong.nome_ong} - 4`} />
+              </div>
+            ) : (
+              <div>
+                <img src={bannerOng1} className="banner" alt="Imagem ONG" />
+              </div>
+            )}
+
+            {ong.imagem_ong_5 ? (
+              <div>
+                <img src={ong.imagem_ong_5} className="banner" alt={`Imagem ONG ${ong.nome_ong} - 5`} />
+              </div>
+            ) : (
+              <div>
+                <img src={bannerOng2} className="banner" alt="Imagem ONG" />
+              </div>
+            )}
           </Carousel>
 
           {ong.logo ? (
@@ -112,6 +150,7 @@ const Perfil = () => {
               <img 
                 src={`https://ui-avatars.com/api/?name=${ong.nome_ong.replaceAll(' ', '+')}&size=80&background=ffffff`} 
                 alt={ong.nome_ong}
+                className="logo-ong"
               />
             )
           }
@@ -153,13 +192,15 @@ const Perfil = () => {
           <ListLastActions>
             <h2>Ações Realizadas</h2>
 
-            {publicacoes.map(publicacao => (
+            {publicacoes.length > 0 ? publicacoes.map(publicacao => (
               <BoxOngLastAction
                 key={publicacao.id}
                 publicacao={publicacao}
                 ong={ong}
               />
-            ))}
+            )) : (
+              <h4>Não há publicaçãoes.</h4>
+            )}
 
             {(paginacaoPublicacoes.paginaAtual < paginacaoPublicacoes.totalPaginas - 1) && 
               <Button background="var(--verde)" backgroundHover="var(--roxo)" onClick={handleVerMaisPublicacoes} id="btnVerMaisPub">

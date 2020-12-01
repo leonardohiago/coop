@@ -7,15 +7,17 @@ export const Container = styled.main`
   max-width: 860px;
 
   div.banner-ong {
-    margin-top: 30px;
+    margin-bottom: 80px;
     width: 100%;
+    height: 600px;
+    /* overflow: hidden; */
   }
 
   .banner {
     border-radius: 20px;
-    // height: inherit;
-    height: fit-content;
+    height: 600px;
     width: 100%;
+    object-fit: cover;
   }
 
   img.logo-ong {
