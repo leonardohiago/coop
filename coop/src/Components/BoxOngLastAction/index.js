@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
+
+import api from "../../services/api";
 
 import { Container, Header, Foto } from './styles';
 import Button from '../Button';
@@ -10,6 +12,12 @@ const BoxOngResumo = ({publicacao, ong}) => {
   const handleClickColaborar = () => {
     history.push(`/doacao/${ong.id}`)
   }
+
+  useEffect(() => {
+    // Adiciona uma visualização para publicação cada vez que é visualizada
+    api.put(`/publicacao/visualizacoes/${publicacao.id}`).then(response => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   return (
     <Container>
@@ -28,7 +36,7 @@ const BoxOngResumo = ({publicacao, ong}) => {
               />
             )
           }
-          <h3>{ong.nome_ong}</h3>
+          <h3>{ong.nome_ong} ID: {publicacao.id}</h3>
         </Link>
   
         <Button background="var(--verde)" backgroundHover="var(--roxo)" onClick={handleClickColaborar}>

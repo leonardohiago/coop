@@ -286,6 +286,7 @@ const DashboardInicio = () => {
                 <th>ID</th>
                 <th>Nome da Publicação</th>
                 <th>Data</th>
+                <th>Visualizações</th>
                 <th>Excluir</th>
               </tr>
             </thead>
@@ -296,6 +297,7 @@ const DashboardInicio = () => {
                   <td>{publicacao.id}</td>
                   <td>{publicacao.titulo_publicacao}</td>
                   <td>{publicacao.data_publicacao}</td>
+                  <td>{publicacao.visualizacoes}</td>
                   <td>
                     <ButtonExcluir onClick={() => { setShowModalConfirmacaoExclusao(true); setPublicacaoParaExcluir(publicacao); }}>
                       <MdDelete />

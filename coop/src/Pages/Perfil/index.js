@@ -46,7 +46,6 @@ const Perfil = () => {
     setCarregandoPublicacoes(true);
 
     api.get(`/publicacao/${id}?pagina=0&quantidade=2`).then((response) => {
-      console.log(response.data.publicacoes);
       setPublicacoes(response.data.publicacoes.map(pub => {
         return {...pub, data_publicacao: format(parseISO(pub.data_publicacao), 'dd/MM/yyyy')}
       }));
