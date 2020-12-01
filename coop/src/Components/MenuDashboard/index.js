@@ -47,7 +47,7 @@ const MenuDashboard = () => {
         } else {
           const data = new FormData();
 
-          data.append('logo', e.target.files[0]);
+          data.append('file', e.target.files[0]);
 
           api.put(`/ongs/logo/${id}`, data).then((response) => {
             setOng({...ong, logo: response.data});
