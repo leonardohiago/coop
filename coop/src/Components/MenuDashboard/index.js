@@ -72,6 +72,9 @@ const MenuDashboard = () => {
       <NavLink to="/dashboard/publicacoes" activeClassName="nav__link--active">
         Publicações
       </NavLink>
+      <NavLink to="/dashboard/fotos" activeClassName="nav__link--active">
+        Fotos da ONG
+      </NavLink>
       <NavLink to="/dashboard/dados-da-ong" activeClassName="nav__link--active">
         Dados da ONG
       </NavLink>
