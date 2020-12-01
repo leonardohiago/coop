@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Form as Unform } from '@unform/web';
 
 export const Container = styled.div`
   width: 100%;
@@ -64,69 +65,35 @@ export const Field = styled.div`
   width: 656px;
 `;
 
-export const Input = styled.input`
-  flex: 1;
-  height: 70px;
-
-  background: #F9F9F9;
-  border-radius: 10px;
-  border: 0;
-  padding: 16px 24px;
-  font-size: 16px;
-`;
-
-export const Form = styled.div`
+export const Form = styled(Unform)`
   padding: 10px 0;
+  margin-bottom: 24px;
   width: 625px;
   background: #FFF;
   border-radius: 8px;
   
   display: flex;
   flex-direction: column;
+  
+  input {
+    flex: 1;
+    height: 70px;
 
+    background: #F9F9F9;
+    border-radius: 10px;
+    border: 0;
+    padding: 16px 24px;
+    font-size: 16px;
+  }
 `;
 
 export const FieldButtons = styled.div`
   flex: 1;
-  
+
   display: flex;
   margin-bottom: 24px;
   width: 656px;
-`;
-
-export const SubmitButton = styled.button`
-    width: 240px;
-    height: 48px;
-    background: #18B087;
-    border-radius: 30px;
-    color: #FFF;
-    font-weight: bold;
-    font-size: 16px;
-    border: 0;
-    margin-right: 40px;
-    transition: background-color 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      background: #159270;
-    }
-`;
-
-export const CancelButton = styled.button`
-    width: 240px;
-    height: 48px;
-    background: var(--cinza-claro);
-    border-radius: 30px;
-    color: #FD6060;
-    font-weight: bold;
-    font-size: 16px;
-    border: 0;
-    transition: background-color 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      background: #ddd;
-    }
+  gap: 16px;
 `;
 
 export const BoxConfirmarExclusao = styled.div`
@@ -155,5 +122,31 @@ export const ButtonExcluir = styled.button`
 
   &:hover svg {
     color: var(--vermelho);
+  }
+`;
+
+export const InputFile = styled.div`
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    padding: 20px 10px;
+    width: 100%;
+    height: 51px;
+    background-color: var(--cinza-claro);
+    color: var(--preto);
+    border-radius: 8px;
+
+    border: ${props => props.showErro ? 'solid 2px var(--vermelho)' : 'none'};
+
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input[type="file"] {
+    display: none;
   }
 `;

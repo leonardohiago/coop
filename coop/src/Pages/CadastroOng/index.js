@@ -8,8 +8,6 @@ import {
   Field,
   FieldGroup,
   Title,
-  SubmitButton,
-  CancelButton,
   FieldButtons,
   Radio,
 } from "./styles";
@@ -18,11 +16,10 @@ import { useToast } from '../../hooks/toast';
 
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
-// import Upload from "../../Components/Upload";
-// import FileList from "../../Components/FileList";
 import Input from '../../Components/Input';
 import InputMask from '../../Components/InputMask';
 import Select from '../../Components/Select';
+import Button from "../../Components/Button";
 
 import api from "../../services/api";
 
@@ -170,7 +167,7 @@ const CadastroOng = () => {
             addToast({
               type: 'success',
               title: 'Sucesso',
-              description: 'Dados atualizados com sucesso!',
+              description: 'ONG cadastrada com sucesso!',
             });
 
             reset();
@@ -182,7 +179,7 @@ const CadastroOng = () => {
         addToast({
           type: 'error',
           title: 'Erro',
-          description: 'Não foi possível atualizar os dados.',
+          description: 'Não foi cadastrar a ONG.',
         });
       });
     } catch (err) {
@@ -390,18 +387,6 @@ const CadastroOng = () => {
             </Field>
           </FieldGroup>
 
-          {/* <Subtitle>Upload de imagens da ONG</Subtitle>
-
-          <FieldGroup>
-            <Field>
-              <label>Anexe 5 imagens da ONG</label>
-              <Content>
-                <Upload />
-                <FileList />
-              </Content>
-            </Field>
-          </FieldGroup> */}
-
           <Subtitle>Dados do Cadastrante</Subtitle>
 
           <FieldGroup>
@@ -486,8 +471,24 @@ const CadastroOng = () => {
           </FieldGroup>
 
           <FieldButtons>
-            <SubmitButton type="submit">{enviando ? 'Enviando...' : 'Confirmar'}</SubmitButton>
-            <CancelButton>Cancelar</CancelButton>
+            <Button
+              className="button-size"
+              background="var(--verde)"
+              backgroundHover="var(--roxo)"
+              type="submit"
+            >
+              {enviando ? 'Cadastrando...' : 'Cadastrar'}
+            </Button>
+            <Button
+              className="button-size color-cancel"
+              background="var(--cinza)"
+              backgroundHover="var(--cinza-escuro)"
+              colorText="var(--vermelho)"
+              colorTextHover="var(--preto)"
+              onClick={() => formRef.current.reset()}
+            >
+              Cancelar
+            </Button>
           </FieldButtons>
         </form>
       </Form>

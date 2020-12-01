@@ -204,46 +204,11 @@ export const ItemsGrid = styled.ul`
 `;
 
 export const FieldButtons = styled.div`
+  margin-top: 24px;
   flex: 1;
   
   display: flex;
   margin-bottom: 24px;
   width: 656px;
-`;
-
-export const SubmitButton = styled.button`
-    width: 240px;
-    height: 48px;
-    background: #18B087;
-    border-radius: 30px;
-    color: #FFF;
-    font-weight: bold;
-    font-size: 16px;
-    border: 0;
-    align-self: flex-end;
-    margin: 40px 40px 0 0;
-    transition: background-color 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      background: #159270;
-    }
-`;
-
-export const CancelButton = styled.button`
-    width: 240px;
-    height: 48px;
-    background: var(--cinza-claro);
-    border-radius: 30px;
-    color: #FD6060;
-    font-weight: bold;
-    font-size: 16px;
-    margin-top: 40px;
-    border: 0;
-    transition: background-color 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      background: #ddd;
-    }
+  gap: 16px;
 `;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Content, DropContainer, UploadMessage } from './styles';
+import { DropContainer, UploadMessage } from './styles';
 
 import Dropzone from 'react-dropzone';
 

@@ -99,6 +99,10 @@ export const ListLastActions = styled.div`
     width: 50%;
   }
 
+  div {
+    margin-bottom: 16px;
+  }
+
   @media (max-width: 795px) {
     margin: 20px auto 0;
   }

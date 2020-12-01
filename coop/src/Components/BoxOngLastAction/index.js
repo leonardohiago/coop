@@ -15,7 +15,19 @@ const BoxOngResumo = ({publicacao, ong}) => {
     <Container>
       <Header>
         <Link to={`/perfil/${ong.id}`}>
-          <img src={`http://localhost:8080/api/imagem/logo-${ong.id}.png`} alt={`Logo - ${ong.nome_ong}`}/>
+          {ong.logo ? (
+            <img 
+              src={ong.logo} 
+              alt={ong.nome_ong}
+            />
+          ) : 
+            ong.nome_ong && (
+              <img 
+                src={`https://ui-avatars.com/api/?name=${ong.nome_ong.replaceAll(' ', '+')}&size=80&background=ffffff`} 
+                alt={ong.nome_ong}
+              />
+            )
+          }
           <h3>{ong.nome_ong}</h3>
         </Link>
   
@@ -27,7 +39,7 @@ const BoxOngResumo = ({publicacao, ong}) => {
       
       <Foto>
         <Link to={`/perfil/${ong.id}`}>
-          <img src={`http://localhost:8080/api/imagem/${publicacao.imagem_publicacao}`} alt={`Ação realizada por ${ong.nome_ong}`} />
+          <img src={publicacao.imagem_publicacao} alt={`Ação realizada por ${ong.nome_ong}`} />
         </Link>
       </Foto>
       

@@ -20,7 +20,6 @@ import BoxOngLastAction from "../../Components/BoxOngLastAction";
 import Button from "../../Components/Button";
 import ItensNecessarios from "../../Components/ItensNecessarios";
 
-import logoOng1 from "../../assets/img_ong_acoes/logo-1.png";
 import bannerOng1 from "../../assets/img_ong_banner/banner-ong1.png";
 import bannerOng2 from "../../assets/img_ong_banner/banner-ong2.png";
 import bannerOng3 from "../../assets/img_ong_banner/banner-ong3.png";
@@ -103,12 +102,17 @@ const Perfil = () => {
             
           </Carousel>
 
-          {
+          {ong.logo ? (
+            <img 
+              src={ong.logo} 
+              alt={ong.nome_ong}
+              className="logo-ong"
+            />
+          ) : 
             ong.nome_ong && (
               <img 
-                src={`https://ui-avatars.com/api/?name=${ong.nome_ong.replaceAll(' ', '+')}&size=120&background=ffffff`} 
+                src={`https://ui-avatars.com/api/?name=${ong.nome_ong.replaceAll(' ', '+')}&size=80&background=ffffff`} 
                 alt={ong.nome_ong}
-                className="logo-ong"
               />
             )
           }
@@ -154,7 +158,7 @@ const Perfil = () => {
               <BoxOngLastAction
                 key={publicacao.id}
                 publicacao={publicacao}
-                ong={publicacao.fkOng}
+                ong={ong}
               />
             ))}
 
