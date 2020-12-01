@@ -13,11 +13,12 @@ export const Foto = styled.div`
   align-items: center;
   justify-content: center;
   color: var(--cinza-escuro);
+  overflow: hidden;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 

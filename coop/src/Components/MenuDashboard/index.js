@@ -6,6 +6,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import api from "../../services/api";
+import { validarTamanhoArquivo, validarExtensaoArquivo } from '../../utils';
 
 import { Container, Avatar, InputChangeAvatar, ButtonToggleMenu } from './styles';
 
@@ -23,18 +24,40 @@ const MenuDashboard = () => {
   
   const handleAvatarChange = useCallback((e) => {
       if (e.target.files) {
-        const data = new FormData();
+        const file = e.target.files[0];
 
-        data.append('logo', e.target.files[0]);
-
-        api.put(`/ongs/logo/${id}`, data).then((response) => {
-          setOng({...ong, logo: response.data});
-          
+        if(!validarExtensaoArquivo(file)) {
+    
           addToast({
-            type: 'success',
-            title: 'Logo atualizada!',
+            type: 'error',
+            title: 'Erro',
+            description: 'A logo deve ter extensão JPG ou PNG',
           });
-        });
+
+          e.target.value = '';
+        } else if(!validarTamanhoArquivo(file)) {
+    
+          addToast({
+            type: 'error',
+            title: 'Erro',
+            description: 'A logo não pode ter mais do que 2MB',
+          });
+
+          e.target.value = '';
+        } else {
+          const data = new FormData();
+
+          data.append('logo', e.target.files[0]);
+
+          api.put(`/ongs/logo/${id}`, data).then((response) => {
+            setOng({...ong, logo: response.data});
+            
+            addToast({
+              type: 'success',
+              title: 'Logo atualizada com sucesso!',
+            });
+          });
+        }        
       }
     },
     [addToast, id, ong],
